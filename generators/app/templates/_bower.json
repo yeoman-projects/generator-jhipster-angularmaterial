@@ -1,0 +1,10 @@
+{
+  "version": "0.0.0",
+  "name": "<%= dasherizedBaseName %>",
+  "appPath": "<%= MAIN_SRC_DIR %>",
+  "testPath": "<%= TEST_SRC_DIR %>spec",
+  "dependencies": {
+    "angular-material": "^1.0.7",
+    "angular-material-icons": "^0.7.0"
+  }  
+}

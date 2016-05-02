@@ -1,0 +1,52 @@
+<!doctype html>
+<html ng-app="<%= angularAppName %>">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title><%= baseName %></title>
+    <meta name="description" content="">
+   
+    <meta name="google" value="notranslate">
+   
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css content/css/vendor.css -->
+    <!-- bower:css -->
+    <!-- endinject -->
+    <!-- endbuild -->
+    <!-- build:css content/css/main.css -->
+    <link rel="stylesheet" href="content/css/main.css">
+    <!-- endbuild -->
+</head>
+<body  layout="row" ng-controller="MainController as vm">
+
+    <div layout="vertical">
+        <md-subheader class="md-no-sticky">Entities</md-subheader>
+        <md-list-item ng-repeat="entity in vm.entities">
+            <p> {{ entity.name }} </p>
+        </md-list-item>
+        <md-divider></md-divider>
+        
+    </div>
+        
+        
+    <div layout="column" flex id="wrapper">
+        <div >Toolbar</div>
+        <md-content flex id="content">
+           <div  layout="vertical">Main COntent </div>
+        </md-content>    
+    </div>
+
+
+    <!-- build:js app/vendor.js -->
+    <!-- bower:js -->
+    <!-- endinject -->
+    <!-- endbuild -->
+
+    <!-- build:js app/app.js  -->
+    <!-- inject:js -->
+    <!-- endinject -->
+    <!-- endbuild -->
+
+</body>
+</html>
