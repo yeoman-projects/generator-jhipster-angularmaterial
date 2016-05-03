@@ -90,7 +90,15 @@ module.exports = yeoman.Base.extend({
       jhipsterFunc.updateEntityConfig(this.entityConfig.filename, 'enableEntityAudit', this.enableAudit);
     }
   },
-
+  install: function () {
+        var injectJsFilesToIndex = function () {
+            this.log('\n' + chalk.bold.green('Running gulp Inject to add javascript to index\n'));
+            this.spawnCommand('gulp', ['inject:app']);
+        };
+        if (!this.options['skip-install'] && !this.skipClient) {
+            injectJsFilesToIndex.call(this);
+        }
+  },
   end: function () {
     if (this.abort){
       return;

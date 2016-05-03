@@ -63,6 +63,7 @@ module.exports = AngularMaterialGenerator.extend({
             this.packagejs = { 'version' : '3.1.0' };
             
             this.serverPort = this.config.get('serverPort') || 8080;
+            this.jhiPrefix = this.config.get('jhiPrefix') || 'jhi';
       
             // Application name modified, using each technology's conventions
             this.angularAppName =  jhipsterVar.angularAppName;
@@ -103,6 +104,8 @@ module.exports = AngularMaterialGenerator.extend({
             this.template(ANGULAR_DIR + '_app.module.js', ANGULAR_DIR + 'app.module.js', this, {});
             this.template(ANGULAR_DIR + '_app.state.js', ANGULAR_DIR + 'app.state.js', this, {});
             this.template(ANGULAR_DIR + '_app.constants.js', ANGULAR_DIR + 'app.constants.js', this, {});
+			
+			this.template(ANGULAR_DIR + 'layouts/navbar/navbar.html', ANGULAR_DIR + 'layouts/navbar/navbar.html', this, {});
             
     },
         
