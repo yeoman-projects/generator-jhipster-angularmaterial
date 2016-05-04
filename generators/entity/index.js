@@ -1,6 +1,6 @@
 'use strict';
 var path = require('path'),
-    util = require('util'),
+    util = require('../util'),
     yeoman = require('yeoman-generator'),
     chalk = require('chalk'),
     _ = require('lodash'),
@@ -78,7 +78,8 @@ module.exports = yeoman.Base.extend({
         this.template('src/main/webapp/app/entities/_entity-management.controller.js', 'src/main/webapp/app/entities/' + this.entityConfig.entityFolderName + '/' + this.entityConfig.entityFileName + '.controller' + '.js', this, {});
         this.template('src/main/webapp/app/entities/_entity-management.html', 'src/main/webapp/app/entities/' + this.entityConfig.entityFolderName + '/' + this.entityConfig.entityFileName + '.html', this, {}, true);
 		
-        
+        util.addEntityToMenu(this.entityConfig.entityStateName, false);
+
           
           
       }
