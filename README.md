@@ -26,7 +26,11 @@ npm update -g generator-jhipster-angularmaterial
 ```
 
 # Usage
+```bash
+yo jhipster --skip-client
 
+yo jhipster-angularmaterial
+```
 # License
 
 Apache-2.0 © [Jose Castellanos]
