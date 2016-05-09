@@ -56,19 +56,43 @@ module.exports = JhipsterClientGenerator.extend({
   },
   configuring: {
     loadInMemoryData: function () {
-      
+        var entityNameSpinalCased = _.kebabCase(_.lowerFirst(this.entityConfig.entityClass));
+        var entityNamePluralizedAndSpinalCased = _.kebabCase(_.lowerFirst(pluralize(this.entityConfig.entityClass)));
+        
+        this.baseName = jhipsterVar.baseName;
+        this.packageName = jhipsterVar.packageName;
+        this.angularAppName = jhipsterVar.angularAppName;
+        this.frontendBuilder = jhipsterVar.frontendBuilder;
+        this.changelogDate = jhipsterFunc.dateFormatForLiquibase();
+        this.entityClass =  this.entityConfig.entityClass;
+        this.entityNameCapitalized = _.upperFirst(this.entityClass);
+        
+        this.entityClassHumanized = _.startCase(this.entityNameCapitalized);
+        this.entityClassPlural = pluralize(this.entityClass);
+        this.entityClassPluralHumanized = _.startCase(this.entityClassPlural);
+        this.entityInstance = _.lowerFirst(this.entityClass);
+        this.entityInstancePlural = pluralize(this.entityInstance);
+        this.entityApiUrl = entityNamePluralizedAndSpinalCased;
+        this.entityFolderName = entityNameSpinalCased;
+        this.entityAngularJSSuffix = (this.entityConfig.data.angularJSSuffix) ? this.entityConfig.data.angularJSSuffix : "";
+        this.entityFileName = entityNameSpinalCased + this.entityAngularJSSuffix;
+        this.entityPluralFileName = entityNamePluralizedAndSpinalCased + this.entityAngularJSSuffix;
+        this.entityServiceFileName = entityNameSpinalCased;
+        this.entityAngularJSName = this.entityClass + _.upperFirst(_.camelCase(this.entityAngularJSSuffix));
+        this.entityStateName = entityNameSpinalCased + this.entityAngularJSSuffix;
+        this.entityUrl = entityNameSpinalCased + this.entityAngularJSSuffix;
+        this.entityTranslationKey = this.entityInstance;
+        this.entityTranslationKeyMenu = _.camelCase(this.entityStateName);
+        
+        this.fields = this.entityConfig.data.fields;
+        
     }
   },
   writing : {
     updateFiles: function () {
      
 
-      this.baseName = jhipsterVar.baseName;
-      this.packageName = jhipsterVar.packageName;
-      this.angularAppName = jhipsterVar.angularAppName;
-      this.frontendBuilder = jhipsterVar.frontendBuilder;
-      this.changelogDate = jhipsterFunc.dateFormatForLiquibase();
-      this.entityClass =  this.entityConfig.entityClass;
+      
 
       var webappDir = jhipsterVar.webappDir,
       javaTemplateDir = 'src/main/java/package',
@@ -80,10 +104,11 @@ module.exports = JhipsterClientGenerator.extend({
         this.log('\n' + chalk.bold.green('I\'m updating the entity for audit ') + chalk.bold.yellow(this.entityConfig.entityClass));
         
                 
-        this.template('src/main/webapp/app/entities/_entity-management.controller.js', 'src/main/webapp/app/entities/' + this.entityConfig.entityFolderName + '/' + this.entityConfig.entityFileName + '.controller' + '.js', this, {});
-        this.template('src/main/webapp/app/entities/_entity-management.html', 'src/main/webapp/app/entities/' + this.entityConfig.entityFolderName + '/' + this.entityConfig.entityFileName + '.html', this, {}, true);
+        this.template('src/main/webapp/app/entities/_entity-management.controller.js', 'src/main/webapp/app/entities/' + this.entityFolderName + '/' + this.entityFileName + '.controller' + '.js', this, {});
+        this.template('src/main/webapp/app/entities/_entity-management.html', 'src/main/webapp/app/entities/' + this.entityFolderName + '/' + this.entityPluralFileName + '.html', this, {}, true);
+        this.template('src/main/webapp/app/entities/_entity-management.state.js', 'src/main/webapp/app/entities/' + this.entityFolderName + '/' + this.entityFileName + '.state.js', this, {});
+        
 		
-        console.log('index. entity addEntityMenu');
         this.addEntityToMenu(this.entityConfig.entityStateName, false);
 
           

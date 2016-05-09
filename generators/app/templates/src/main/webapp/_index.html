@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="content/css/main.css">
     <!-- endbuild -->
 </head>
-<body  layout="row" ng-controller="MainController as vm">
+<body  layout="row">
 
      <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
       <md-toolbar class="md-theme-indigo" layout="row">
@@ -34,9 +34,13 @@
         
         
     <div layout="column" flex id="wrapper">
-        <div >Toolbar</div>
+        <md-toolbar class="md-theme-indigo" layout="row">
+           <h2 class="md-toolbar-tools">Main Toolbar</h2>
+        </md-toolbar>
         <md-content flex id="content">
-           <div  layout="vertical">Main COntent </div>
+           <div ui-view="content">
+            <!-- Angular views -->
+           </div>
         </md-content>    
     </div>
 

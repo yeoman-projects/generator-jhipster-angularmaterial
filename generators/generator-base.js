@@ -24,9 +24,9 @@ Generator.prototype.addEntityToMenu = function(routerName, enableTranslation) {
             file: fullPath,
             needle: 'jhipster-needle-add-entity-to-menu',
             splicable: [
-                '<md-list-item>\n' +
+                '<md-list-item ui-sref="' + routerName + '">\n' +
                 '                                 <md-icon class="md-default-theme" class="material-icons">&#xE0C9;</md-icon>\n' +
-                '                                <p>' + routerName + '</p>\n' +
+                '                                <p>' + _.camelCase(routerName) + '</p>\n' +
                 '                        </md-list-item>>'
             ]
         }, this);

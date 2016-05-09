@@ -5,7 +5,8 @@
         .module('<%=angularAppName%>', [
             'ngMaterial',
             'md.data.table',
-            'ngMdIcons',            
+            'ngMdIcons',    
+            'ui.router',        
             // jhipster-needle-angularjs-add-module JHipster will add new module here
             'ngMessages'
         ])

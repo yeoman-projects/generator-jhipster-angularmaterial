@@ -5,6 +5,7 @@
   "testPath": "<%= TEST_SRC_DIR %>spec",
   "dependencies": {
     "angular-material": "^1.0.7",
-    "angular-material-icons": "^0.7.0"
+    "angular-material-icons": "^0.7.0",
+    "angular-ui-router": "0.2.18"
   }  
 }
