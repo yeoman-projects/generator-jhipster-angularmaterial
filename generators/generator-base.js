@@ -1,27 +1,26 @@
 'use strict';
 var path = require('path'),
+    util = require('util'),
     html = require('html-wiring'),
     chalk = require('chalk'),
+    yeoman = require('yeoman-generator'),
     shelljs = require('shelljs'),
     engine = require('ejs').render,
     _ = require('lodash');
 
-module.exports = {
-    rewrite: rewrite,
-    rewriteFile: rewriteFile,
-    replaceContent: replaceContent,
-    classify: classify,
-    rewriteJSONFile: rewriteJSONFile,
-    copyWebResource: copyWebResource,
-    wordwrap: wordwrap,
-    addEntityToMenu: addEntityToMenu
-};
+module.exports = Generator;
+
+function Generator() {
+    yeoman.Base.apply(this, arguments);
+}
+
+util.inherits(Generator, yeoman.Base);
 
   
-function addEntityToMenu(routerName, enableTranslation) {
+Generator.prototype.addEntityToMenu = function(routerName, enableTranslation) {
     try {
         var fullPath = 'src/main/webapp/app/layouts/navbar/navbar.html';
-        rewriteFile({
+        this.rewriteFile({
             file: fullPath,
             needle: 'jhipster-needle-add-entity-to-menu',
             splicable: [
@@ -32,21 +31,21 @@ function addEntityToMenu(routerName, enableTranslation) {
             ]
         }, this);
     } catch (e) {
-        //this.log(chalk.yellow('\nUnable to find ') + fullPath + chalk.yellow(' or missing required jhipster-needle. Reference to ') + routerName + ' ' + chalk.yellow('not added to menu.\n'));
+        console.log('addEntityToMenu ' + e );
     }
 };
 
 
-function rewriteFile(args, _this) {
+Generator.prototype.rewriteFile = function(args, _this) {
     args.path = args.path || process.cwd();
     var fullPath = path.join(args.path, args.file);
 
     args.haystack = _this.fs.read(fullPath);
-    var body = rewrite(args);
+    var body = _this.rewrite(args);
     _this.fs.write(fullPath, body);
 }
 
-function replaceContent(args, _this) {
+Generator.prototype.replaceContent = function(args, _this) {
     args.path = args.path || process.cwd();
     var fullPath = path.join(args.path, args.file);
 
@@ -57,14 +56,9 @@ function replaceContent(args, _this) {
     _this.fs.write(fullPath, body);
 }
 
-function escapeRegExp(str) {
-    return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
-}
-
-function rewrite(args) {
-    // check if splicable is already in the body text
+Generator.prototype.rewrite = function(args) {
     var re = new RegExp(args.splicable.map(function (line) {
-        return '\s*' + escapeRegExp(line);
+        return '\s*' + line.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
     }).join('\n'));
 
     if (re.test(args.haystack)) {
@@ -99,20 +93,20 @@ function rewrite(args) {
 
 // _.classify uses _.titleize which lowercase the string,
 // so if the user chooses a proper ClassName it will not rename properly
-function classify(string) {
+Generator.prototype.classify = function(string) {
     string = string.replace(/[\W_](\w)/g, function (match) {
         return ' ' + match[1].toUpperCase();
     }).replace(/\s/g, '');
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-function rewriteJSONFile(filePath, rewriteFile, _this) {
+Generator.prototype.rewriteJSONFile = function(filePath, rewriteFile, _this) {
     var jsonObj = _this.fs.readJSON(filePath);
     rewriteFile(jsonObj, _this);
     _this.fs.writeJSON(filePath, jsonObj, null, 4);
 }
 
-function copyWebResource(source, dest, regex, type, _this, _opt, template) {
+Generator.prototype.copyWebResource = function(source, dest, regex, type, _this, _opt, template) {
 
     _opt = _opt !== undefined ? _opt : {};
     if (_this.enableTranslation) {
@@ -133,7 +127,7 @@ function copyWebResource(source, dest, regex, type, _this, _opt, template) {
 }
 
 
-function replaceTitle(body, _this, template) {
+Generator.prototype.replaceTitle = function(body, _this, template) {
     var re = /pageTitle[\s]*:[\s]*[\'|\"]([a-zA-Z0-9\.\-\_]+)[\'|\"]/g;
     var match;
 
@@ -149,7 +143,7 @@ function replaceTitle(body, _this, template) {
     return body;
 }
 
-function replacePlaceholders(body, _this) {
+Generator.prototype.replacePlaceholders = function(body, _this) {
     var re = /placeholder=[\'|\"]([\{]{2}[\'|\"]([a-zA-Z0-9\.\-\_]+)[\'|\"][\s][\|][\s](translate)[\}]{2})[\'|\"]/g;
     var match;
 
@@ -166,7 +160,7 @@ function replacePlaceholders(body, _this) {
 }
 
 
-function deepFind(obj, path, placeholder) {
+Generator.prototype.deepFind = function(obj, path, placeholder) {
     var paths = path.split('.'), current = obj, i;
     if (placeholder) {// dirty fix for placeholders, the json files needs to be corrected
         paths[paths.length - 2] = paths[paths.length - 2] + '.' + paths[paths.length - 1];
@@ -182,7 +176,7 @@ function deepFind(obj, path, placeholder) {
     return current;
 }
 
-function wordwrap (text, width, seperator, keepLF) {
+Generator.prototype.wordwrap = function(text, width, seperator, keepLF) {
     var wrappedText = '';
     var rows = text.split('\n');
     for (var i = 0; i < rows.length; i++) {

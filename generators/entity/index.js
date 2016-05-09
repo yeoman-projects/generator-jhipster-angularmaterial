@@ -1,13 +1,18 @@
 'use strict';
 var path = require('path'),
-    util = require('../util'),
-    yeoman = require('yeoman-generator'),
+    generators = require('yeoman-generator'),
+    scriptBase = require('../generator-base'),
+    util = require('util'),
     chalk = require('chalk'),
     _ = require('lodash'),
     pluralize = require('pluralize'),
     packagejs = require(__dirname + '/../../package.json'),
     fs = require('fs'),
     glob = require("glob");
+
+var JhipsterClientGenerator = generators.Base.extend({});
+
+util.inherits(JhipsterClientGenerator, scriptBase);
 
 // Stores JHipster variables
 var jhipsterVar = {moduleName: 'angularmaterial'};
@@ -20,7 +25,7 @@ STRIP_JS = 'stripJs',
 COPY = 'copy',
 TPL = 'template'
 
-module.exports = yeoman.Base.extend({
+module.exports = JhipsterClientGenerator.extend({
 
   initializing: {
 
@@ -78,7 +83,8 @@ module.exports = yeoman.Base.extend({
         this.template('src/main/webapp/app/entities/_entity-management.controller.js', 'src/main/webapp/app/entities/' + this.entityConfig.entityFolderName + '/' + this.entityConfig.entityFileName + '.controller' + '.js', this, {});
         this.template('src/main/webapp/app/entities/_entity-management.html', 'src/main/webapp/app/entities/' + this.entityConfig.entityFolderName + '/' + this.entityConfig.entityFileName + '.html', this, {}, true);
 		
-        util.addEntityToMenu(this.entityConfig.entityStateName, false);
+        console.log('index. entity addEntityMenu');
+        this.addEntityToMenu(this.entityConfig.entityStateName, false);
 
           
           
