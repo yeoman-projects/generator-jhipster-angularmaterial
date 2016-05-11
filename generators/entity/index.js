@@ -93,6 +93,7 @@ module.exports = JhipsterClientGenerator.extend({
         this.relationships = this.entityConfig.data.relationships;
         this.dto = this.entityConfig.data.dto;
         this.service = this.entityConfig.data.service;
+        this.fieldsContainBlob = this.entityConfig.data.fieldsContainBlob;
         
         
     }
