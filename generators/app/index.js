@@ -1,5 +1,7 @@
 'use strict';
 var generators = require('yeoman-generator');
+var scriptBase = require('../generator-base');
+var util = require('util');
 var chalk = require('chalk');
 var packagejs = require(__dirname + '/../../package.json');
 var _ = require('lodash');
@@ -13,6 +15,8 @@ var jhipsterVar = {moduleName: 'angularmaterial'};
 var jhipsterFunc = {};
 
 var AngularMaterialGenerator = generators.Base.extend({});
+
+util.inherits(AngularMaterialGenerator, scriptBase);
 
 const MAIN_SRC_DIR = 'src/main/webapp/',
       TEST_SRC_DIR = 'src/test/javascript/',
@@ -56,25 +60,26 @@ module.exports = AngularMaterialGenerator.extend({
       var webappDir = jhipsterVar.webappDir;
       
       // Make constants available in templates
-            this.MAIN_SRC_DIR = MAIN_SRC_DIR;
-            this.TEST_SRC_DIR = TEST_SRC_DIR;
-            this.DIST_DIR = DIST_DIR;
-            this.BUILD_DIR = BUILD_DIR,
-            this.packagejs = { 'version' : '3.1.0' };
+      this.MAIN_SRC_DIR = MAIN_SRC_DIR;
+      this.TEST_SRC_DIR = TEST_SRC_DIR;
+      this.DIST_DIR = DIST_DIR;
+      this.BUILD_DIR = BUILD_DIR,
+      this.packagejs = { 'version' : '3.1.0' };
             
-            this.serverPort = this.config.get('serverPort') || 8080;
-            this.jhiPrefix = this.config.get('jhiPrefix') || 'jhi';
+      this.serverPort = this.config.get('serverPort') || 8080;
+      this.authenticationType = this.config.get('authenticationType');
+      this.jhiPrefix = this.config.get('jhiPrefix') || 'jhi';
       
-            // Application name modified, using each technology's conventions
-            this.angularAppName =  jhipsterVar.angularAppName;
-            this.packageName = jhipsterVar.packageName;
-            this.baseName = jhipsterVar.baseName;
-            this.camelizedBaseName = _.camelCase(this.baseName);
-            this.capitalizedBaseName = _.upperFirst(this.baseName);
-            this.dasherizedBaseName = _.kebabCase(this.baseName);
-            this.lowercaseBaseName = this.baseName.toLowerCase();
-            this.nativeLanguageShortName = this.enableTranslation && this.nativeLanguage ? this.nativeLanguage.split('-')[0] : 'en';
-        },
+      // Application name modified, using each technology's conventions
+      this.angularAppName =  jhipsterVar.angularAppName;
+      this.packageName = jhipsterVar.packageName;
+      this.baseName = jhipsterVar.baseName;
+      this.camelizedBaseName = _.camelCase(this.baseName);
+      this.capitalizedBaseName = _.upperFirst(this.baseName);
+      this.dasherizedBaseName = _.kebabCase(this.baseName);
+      this.lowercaseBaseName = this.baseName.toLowerCase();
+      this.nativeLanguageShortName = this.enableTranslation && this.nativeLanguage ? this.nativeLanguage.split('-')[0] : 'en';
+    }
   },
   writing: {
     writeCommonFiles: function () {
@@ -97,6 +102,11 @@ module.exports = AngularMaterialGenerator.extend({
             this.copy(MAIN_SRC_DIR + 'robots.txt', MAIN_SRC_DIR + 'robots.txt');
             this.copy(MAIN_SRC_DIR + '404.html', MAIN_SRC_DIR + '404.html');
     },
+    writeSwaggerFiles: function () {
+            // Swagger-ui for Jhipster
+            this.template(MAIN_SRC_DIR + 'swagger-ui/_index.html', MAIN_SRC_DIR + 'swagger-ui/index.html', this, {});
+            this.copy(MAIN_SRC_DIR + 'swagger-ui/images/throbber.gif', MAIN_SRC_DIR + 'swagger-ui/images/throbber.gif');
+    },
     writeAngularAppFiles: function () {
             this.copy(MAIN_SRC_DIR + '_index.html', MAIN_SRC_DIR + 'index.html');
 
@@ -112,14 +122,17 @@ module.exports = AngularMaterialGenerator.extend({
             this.template(ANGULAR_DIR + 'entities/_entity.state.js', ANGULAR_DIR + 'entities/entity.state.js', this, {});
             
     },
-        
+    writeAngularAdminModuleFiles: function () {
+        this.copy(ANGULAR_DIR + 'admin/docs/docs.html', ANGULAR_DIR + 'admin/docs/docs.html');
+        this.copyJs(ANGULAR_DIR + 'admin/docs/_docs.state.js', ANGULAR_DIR + 'admin/docs/docs.state.js', this, {});
+    },        
     writeTemplates : function () {
       // Static images
-      this.copy('src/main/webapp/content/images/clear.svg', 'src/main/webapp/content/images/clear.svg');
-      this.copy('src/main/webapp/content/images/delete.svg', 'src/main/webapp/content/images/delete.svg');
-      this.copy('src/main/webapp/content/images/filter.svg', 'src/main/webapp/content/images/filter.svg');
-      this.copy('src/main/webapp/content/images/playlist_add.svg', 'src/main/webapp/content/images/playlist_add.svg');
-      this.copy('src/main/webapp/content/images/search.svg', 'src/main/webapp/content/images/search.svg');
+      this.copy(MAIN_SRC_DIR + 'content/images/clear.svg', MAIN_SRC_DIR + 'content/images/clear.svg');
+      this.copy(MAIN_SRC_DIR + 'content/images/delete.svg', MAIN_SRC_DIR + 'content/images/delete.svg');
+      this.copy(MAIN_SRC_DIR + 'content/images/filter.svg', MAIN_SRC_DIR + 'content/images/filter.svg');
+      this.copy(MAIN_SRC_DIR + 'content/images/playlist_add.svg', MAIN_SRC_DIR + 'content/images/playlist_add.svg');
+      this.copy(MAIN_SRC_DIR + 'content/images/search.svg', MAIN_SRC_DIR + 'content/images/search.svg');
       
       // Bower and modules
       jhipsterFunc.addBowerDependency("angular-material-data-table","0.10.5");
@@ -138,7 +151,7 @@ module.exports = AngularMaterialGenerator.extend({
   },
 
   install: function () {
-    //this.installDependencies();
+    this.spawnCommand('gulp', ['install']);
   },
 
   end: function () {

@@ -86,6 +86,8 @@ module.exports = JhipsterClientGenerator.extend({
         
         this.fields = this.entityConfig.data.fields;
         
+        
+        
     }
   },
   writing : {
