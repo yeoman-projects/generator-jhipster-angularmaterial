@@ -56,6 +56,10 @@ module.exports = JhipsterClientGenerator.extend({
   },
   configuring: {
     loadInMemoryData: function () {
+        this.authenticationType = this.config.get('authenticationType');
+        this.searchEngine = this.config.get('searchEngine');
+        
+          
         var entityNameSpinalCased = _.kebabCase(_.lowerFirst(this.entityConfig.entityClass));
         var entityNamePluralizedAndSpinalCased = _.kebabCase(_.lowerFirst(pluralize(this.entityConfig.entityClass)));
         
@@ -85,7 +89,10 @@ module.exports = JhipsterClientGenerator.extend({
         this.entityTranslationKeyMenu = _.camelCase(this.entityStateName);
         
         this.fields = this.entityConfig.data.fields;
-        
+        this.pagination = this.entityConfig.data.pagination;
+        this.relationships = this.entityConfig.data.relationships;
+        this.dto = this.entityConfig.data.dto;
+        this.service = this.entityConfig.data.service;
         
         
     }
