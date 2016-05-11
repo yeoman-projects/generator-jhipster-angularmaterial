@@ -24,10 +24,10 @@ Generator.prototype.addEntityToMenu = function(routerName, enableTranslation) {
             file: fullPath,
             needle: 'jhipster-needle-add-entity-to-menu',
             splicable: [
-                '<md-list-item ui-sref="' + routerName + '">\n' +
+                '<md-list-item >\n' +
                 '                                 <md-icon class="md-default-theme" class="material-icons">&#xE0C9;</md-icon>\n' +
-                '                                <p>' + _.camelCase(routerName) + '</p>\n' +
-                '                        </md-list-item>>'
+                '                                <p ui-sref="' + routerName + '">' + _.camelCase(routerName) + '</p>\n' +
+                '                        </md-list-item>'
             ]
         }, this);
     } catch (e) {
