@@ -123,6 +123,9 @@ module.exports = AngularMaterialGenerator.extend({
             
     },
     writeAngularAdminModuleFiles: function () {
+        // admin modules
+        this.template(ANGULAR_DIR + 'admin/_admin.state.js', ANGULAR_DIR + 'admin/admin.state.js', this, {});
+            
         this.copy(ANGULAR_DIR + 'admin/docs/docs.html', ANGULAR_DIR + 'admin/docs/docs.html');
         this.copyJs(ANGULAR_DIR + 'admin/docs/_docs.state.js', ANGULAR_DIR + 'admin/docs/docs.state.js', this, {});
     },        
