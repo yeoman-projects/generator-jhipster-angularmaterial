@@ -4,6 +4,7 @@
     angular
         .module('<%=angularAppName%>', [
             'ngMaterial',
+            'ngResource',
             'md.data.table',
             'ngMdIcons',    
             'ui.router',        

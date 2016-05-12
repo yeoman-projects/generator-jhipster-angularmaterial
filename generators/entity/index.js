@@ -9,6 +9,24 @@ var path = require('path'),
     packagejs = require(__dirname + '/../../package.json'),
     fs = require('fs'),
     glob = require("glob");
+    
+/* constants used througout */
+const constants = require('../generator-constants'),
+    INTERPOLATE_REGEX = constants.INTERPOLATE_REGEX,
+    CLIENT_MAIN_SRC_DIR = constants.CLIENT_MAIN_SRC_DIR,
+    CLIENT_TEST_SRC_DIR = constants.CLIENT_TEST_SRC_DIR,
+    ANGULAR_DIR = constants.ANGULAR_DIR,
+    SERVER_MAIN_SRC_DIR = constants.SERVER_MAIN_SRC_DIR,
+    SERVER_MAIN_RES_DIR = constants.SERVER_MAIN_RES_DIR,
+    TEST_DIR = constants.TEST_DIR,
+    SERVER_TEST_SRC_DIR = constants.SERVER_TEST_SRC_DIR,
+    RESERVED_WORDS_JAVA = constants.RESERVED_WORDS_JAVA,
+    RESERVED_WORDS_MYSQL = constants.RESERVED_WORDS_MYSQL,
+    RESERVED_WORDS_POSGRES = constants.RESERVED_WORDS_POSGRES,
+    RESERVED_WORDS_CASSANDRA = constants.RESERVED_WORDS_CASSANDRA,
+    RESERVED_WORDS_ORACLE = constants.RESERVED_WORDS_ORACLE,
+    RESERVED_WORDS_MONGO = constants.RESERVED_WORDS_MONGO,
+    SUPPORTED_VALIDATION_RULES = constants.SUPPORTED_VALIDATION_RULES;
 
 var JhipsterClientGenerator = generators.Base.extend({});
 
@@ -56,10 +74,12 @@ module.exports = JhipsterClientGenerator.extend({
   },
   configuring: {
     loadInMemoryData: function () {
+        // From yo-rc.json
         this.authenticationType = this.config.get('authenticationType');
         this.searchEngine = this.config.get('searchEngine');
+        this.applicationType = this.config.get('applicationType');
         
-          
+        // From entityConfig
         var entityNameSpinalCased = _.kebabCase(_.lowerFirst(this.entityConfig.entityClass));
         var entityNamePluralizedAndSpinalCased = _.kebabCase(_.lowerFirst(pluralize(this.entityConfig.entityClass)));
         
@@ -95,6 +115,16 @@ module.exports = JhipsterClientGenerator.extend({
         this.service = this.entityConfig.data.service;
         this.fieldsContainBlob = this.entityConfig.data.fieldsContainBlob;
         
+        this.fieldsContainOwnerManyToMany = this.entityConfig.data.fieldsContainOwnerManyToMany;
+        this.fieldsContainNoOwnerOneToOne = this.entityConfig.data.fieldsContainNoOwnerOneToOne;
+        this.fieldsContainOwnerOneToOne = this.entityConfig.data.fieldsContainOwnerOneToOne;
+        this.fieldsContainOneToMany = this.entityConfig.data.fieldsContainOneToMany;
+        this.fieldsContainZonedDateTime = this.entityConfig.data.fieldsContainZonedDateTime;
+        this.fieldsContainLocalDate = this.entityConfig.data.fieldsContainLocalDate;
+        this.fieldsContainDate = this.entityConfig.data.fieldsContainDate;
+        this.fieldsContainBigDecimal = this.entityConfig.data.fieldsContainBigDecimal;
+        this.fieldsContainBlob = this.entityConfig.data.fieldsContainBlob;
+        
         
     }
   },
@@ -113,11 +143,14 @@ module.exports = JhipsterClientGenerator.extend({
       if (this.entityConfig.entityClass) {
         this.log('\n' + chalk.bold.green('I\'m updating the entity for audit ') + chalk.bold.yellow(this.entityConfig.entityClass));
         
+        this.copyHtml(ANGULAR_DIR + 'entities/_entity-management.html', ANGULAR_DIR + 'entities/' + this.entityFolderName + '/' + this.entityPluralFileName + '.html', this, {}, true);
                 
-        this.template('src/main/webapp/app/entities/_entity-management.controller.js', 'src/main/webapp/app/entities/' + this.entityFolderName + '/' + this.entityFileName + '.controller' + '.js', this, {});
-        this.template('src/main/webapp/app/entities/_entity-management.html', 'src/main/webapp/app/entities/' + this.entityFolderName + '/' + this.entityPluralFileName + '.html', this, {}, true);
-        this.template('src/main/webapp/app/entities/_entity-management.state.js', 'src/main/webapp/app/entities/' + this.entityFolderName + '/' + this.entityFileName + '.state.js', this, {});
-        
+        this.template(ANGULAR_DIR + 'entities/_entity-management.controller.js', ANGULAR_DIR + 'entities/' + this.entityFolderName + '/' + this.entityFileName + '.controller' + '.js', this, {});
+        this.template(ANGULAR_DIR + 'entities/_entity-management.state.js', ANGULAR_DIR + 'entities/' + this.entityFolderName + '/' + this.entityFileName + '.state.js', this, {});
+        this.template(ANGULAR_DIR + 'services/_entity.service.js', ANGULAR_DIR + 'entities/' + this.entityFolderName + '/' + this.entityServiceFileName + '.service' + '.js', this, {});
+        if (this.searchEngine === 'elasticsearch') {
+            this.template(ANGULAR_DIR + 'services/_entity-search.service.js', ANGULAR_DIR + 'entities/' + this.entityFolderName + '/' + this.entityServiceFileName + '.search.service' + '.js', this, {});
+        }
 		
         this.addEntityToMenu(this.entityConfig.entityStateName, false);
 

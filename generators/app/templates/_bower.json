@@ -4,8 +4,13 @@
   "appPath": "<%= MAIN_SRC_DIR %>",
   "testPath": "<%= TEST_SRC_DIR %>spec",
   "dependencies": {
+    "angular-resource": "1.5.2",
     "angular-material": "^1.0.7",
     "angular-material-icons": "^0.7.0",
-    "angular-ui-router": "0.2.18"
-  }  
+    "angular-ui-router": "0.2.18",
+    "swagger-ui": "2.1.4"
+  },
+  "resolutions": {
+    "angular": "1.5.2"
+  }
 }
