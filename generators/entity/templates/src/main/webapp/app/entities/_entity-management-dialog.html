@@ -1,0 +1,62 @@
+<% var keyPrefix = angularAppName + '.'+ entityTranslationKey + '.'; %>
+<md-dialog>
+    <form name="editForm" ng-submit="vm.save()">
+        <md-dialog-content>
+            <div layout="column" layout-padding>
+                <div layout-gt-sm="row">
+                    <%_ for (idx in fields) {
+                        var fieldName = fields[idx].fieldName;
+                        var fieldNameCapitalized = fields[idx].fieldNameCapitalized;
+                        var fieldNameHumanized = fields[idx].fieldNameHumanized;
+                        var fieldType = fields[idx].fieldType;
+                        var fieldTypeBlobContent = fields[idx].fieldTypeBlobContent;
+                        var fieldInputType = 'text';
+                        var ngModelOption = '';
+                        var translationKey = keyPrefix + fieldName;
+                        if (fieldType == 'Integer' || fieldType == 'Long' || fieldType == 'Float' || fieldType == 'Double' || fieldType == 'BigDecimal') {
+                            fieldInputType = 'number';
+                        } else if (fieldType == 'LocalDate' || fieldType == 'Date') {
+                            fieldInputType = 'date';
+                        } else if (fieldType == 'ZonedDateTime') {
+                            fieldInputType = 'datetime-local';
+                        } else if (fieldType == 'Boolean') {
+                            fieldInputType = 'checkbox';
+                        } else if ((fieldType == 'byte[]' || fieldType == 'ByteBuffer') && fieldTypeBlobContent != 'text') {
+                            fieldInputType = 'hidden';
+                        } _%>
+                                        
+                        <%_ if (fieldInputType === 'text' || fieldInputType === 'number') { _%>
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label><%= fieldNameHumanized %></label>
+                            <input ng-model="vm.<%= entityInstance %>.<%= fieldName %>" name="<%= fieldName %>" id="field_<%= fieldName %>" required>
+                            <div ng-messages="editForm.<%= fieldName %>.$error">
+                                <div ng-message="required">This is required</div>
+                            </div>
+                        </md-input-container>
+                        <%_ } _%>
+                        
+                        <%_ if (fieldInputType === 'date') { _%>
+                        
+                            <label><%= fieldNameHumanized %></label>
+                            <md-datepicker ng-model="vm.<%= entityInstance %>.<%= fieldName %>" md-placeholder="Enter <%= fieldNameHumanized %>" class="date-row" >
+                            </md-datepicker>
+                            
+                        
+                        <%_ } _%>
+                   
+                    <%_ } _%>
+                </div>
+            </div>
+        </md-dialog-content>
+        
+        <md-dialog-actions layout="row">
+            <md-button ng-click="vm.cancel()">
+                Cancel
+            </md-button>
+            <md-button type="submit" class="md-primary md-raised" ng-disabled="editForm.$invalid">
+                Save
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
+

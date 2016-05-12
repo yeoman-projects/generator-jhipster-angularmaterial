@@ -78,6 +78,7 @@ module.exports = JhipsterClientGenerator.extend({
         this.authenticationType = this.config.get('authenticationType');
         this.searchEngine = this.config.get('searchEngine');
         this.applicationType = this.config.get('applicationType');
+        this.enableTranslation = this.config.get('enableTranslation');
         
         // From entityConfig
         var entityNameSpinalCased = _.kebabCase(_.lowerFirst(this.entityConfig.entityClass));
@@ -144,8 +145,10 @@ module.exports = JhipsterClientGenerator.extend({
         this.log('\n' + chalk.bold.green('I\'m updating the entity for audit ') + chalk.bold.yellow(this.entityConfig.entityClass));
         
         this.copyHtml(ANGULAR_DIR + 'entities/_entity-management.html', ANGULAR_DIR + 'entities/' + this.entityFolderName + '/' + this.entityPluralFileName + '.html', this, {}, true);
+        this.copyHtml(ANGULAR_DIR + 'entities/_entity-management-dialog.html', ANGULAR_DIR + 'entities/' + this.entityFolderName + '/' + this.entityFileName + '-dialog.html', this, {}, true);
                 
         this.template(ANGULAR_DIR + 'entities/_entity-management.controller.js', ANGULAR_DIR + 'entities/' + this.entityFolderName + '/' + this.entityFileName + '.controller' + '.js', this, {});
+        this.template(ANGULAR_DIR + 'entities/_entity-management-dialog.controller.js', ANGULAR_DIR + 'entities/' + this.entityFolderName + '/' + this.entityFileName + '-dialog.controller' + '.js', this, {});
         this.template(ANGULAR_DIR + 'entities/_entity-management.state.js', ANGULAR_DIR + 'entities/' + this.entityFolderName + '/' + this.entityFileName + '.state.js', this, {});
         this.template(ANGULAR_DIR + 'services/_entity.service.js', ANGULAR_DIR + 'entities/' + this.entityFolderName + '/' + this.entityServiceFileName + '.service' + '.js', this, {});
         if (this.searchEngine === 'elasticsearch') {
