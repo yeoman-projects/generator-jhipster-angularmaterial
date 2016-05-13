@@ -5,13 +5,19 @@
         .module('<%=angularAppName%>')
         .controller('<%= entityAngularJSName %>DialogController', <%= entityAngularJSName %>DialogController);
 
-    <%= entityAngularJSName %>DialogController.$inject = ['<%= entityClass %>'];
+    <%= entityAngularJSName %>DialogController.$inject = ['$mdDialog'];
 
-    function <%= entityAngularJSName %>DialogController (<%= entityClass %> ) {
+    function <%= entityAngularJSName %>DialogController ($mdDialog) {
         var vm = this;
         
                
-
+        vm.cancel = function() {
+            this.$mdDialog.cancel();
+        }
+        
+        vm.save = function() {
+            this.$mdDialog.hide();
+        }
         
     }
 })();

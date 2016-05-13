@@ -5,9 +5,9 @@
         .module('<%=angularAppName%>')
         .controller('<%= entityAngularJSName %>Controller', <%= entityAngularJSName %>Controller);
 
-    <%= entityAngularJSName %>Controller.$inject = ['$mdDialog', '$mdMedia', '$state'<% if (fieldsContainBlob) { %>, 'DataUtils'<% } %>, '<%= entityClass %>'<% if (searchEngine == 'elasticsearch') { %>, '<%= entityClass %>Search'<% } %><% if (pagination != 'no') { %>, 'ParseLinks', 'AlertService'<% } %> <%_ if (pagination == 'pager' || pagination == 'pagination'){ %>, 'pagingParams', 'paginationConstants'<% } %>];
+    <%= entityAngularJSName %>Controller.$inject = ['$mdDialog', '$mdMedia', '$mdToast','$state'<% if (fieldsContainBlob) { %>, 'DataUtils'<% } %>, '<%= entityClass %>'<% if (searchEngine == 'elasticsearch') { %>, '<%= entityClass %>Search'<% } %><% if (pagination != 'no') { %>, 'ParseLinks', 'AlertService'<% } %> <%_ if (pagination == 'pager' || pagination == 'pagination'){ %>, 'pagingParams', 'paginationConstants'<% } %>];
 
-    function <%= entityAngularJSName %>Controller ($mdDialog, $mdMedia, $state<% if (fieldsContainBlob) { %>, DataUtils<% } %>, <%= entityClass %><% if (searchEngine == 'elasticsearch') { %>, <%= entityClass %>Search<% } %><% if (pagination != 'no') { %>, ParseLinks, AlertService<% } %> <%_ if (pagination == 'pager' || pagination == 'pagination'){ %>, pagingParams, paginationConstants<% } %>) {
+    function <%= entityAngularJSName %>Controller ($mdDialog, $mdMedia, $mdToast, $state<% if (fieldsContainBlob) { %>, DataUtils<% } %>, <%= entityClass %><% if (searchEngine == 'elasticsearch') { %>, <%= entityClass %>Search<% } %><% if (pagination != 'no') { %>, ParseLinks, AlertService<% } %> <%_ if (pagination == 'pager' || pagination == 'pagination'){ %>, pagingParams, paginationConstants<% } %>) {
         var vm = this;
                 
         vm.options = {
@@ -36,6 +36,7 @@
      
         
         vm.delete<%= entityAngularJSName %>Dialog = function(ev, id) {
+            var self = this;
             // Appending dialog to document.body to cover sidenav in docs app
             var confirm = $mdDialog.confirm()
                 .title('Confirm delete operation')
@@ -49,13 +50,14 @@
                    <%= entityClass %>.delete({id: id} );
                    $state.go('<%= entityStateName %>', null, { reload: true });
                 }, function() {
-                    $scope.status = 'You decided to keep <%= entityClassHumanized %>.';
+                   self.openToast('You decided to keep <%= entityClassHumanized %>.');
             });
             
         };
         
         vm.add<%= entityAngularJSName %>Dialog = function(ev) {
                 var useFullScreen = ($mdMedia('sm') || $mdMedia('xs') );
+                var self = this;
                 
                 $mdDialog.show({
                     templateUrl: 'app/entities/<%= entityFolderName %>/<%= entityFileName %>-dialog.html',
@@ -65,12 +67,23 @@
                     controllerAs: 'vm',
                     clickOutsideToClose: true,
                     fullscreen: useFullScreen
+                }).then( function() {
+                    self.openToast('User added');
+                }, function() {
+                    self.openToast('You Cancelled dialog');
                 });
           
             
         };
         
-        
+        vm.openToast = function( message ) {
+            this.$mdToast.show(
+                this.$mdToast.simple()
+                    .textContent( message )
+                    .position('top right')
+                    .hideDelay(3000)
+                );
+        }
     }
     
     
