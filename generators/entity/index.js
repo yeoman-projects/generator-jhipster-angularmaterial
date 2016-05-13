@@ -142,7 +142,7 @@ module.exports = JhipsterClientGenerator.extend({
       interpolateRegex = /<%=([\s\S]+?)%>/g; // so that thymeleaf tags in templates do not get mistreated as _ templates
 
       if (this.entityConfig.entityClass) {
-        this.log('\n' + chalk.bold.green('I\'m updating the entity for audit ') + chalk.bold.yellow(this.entityConfig.entityClass));
+        this.log('\n' + chalk.bold.green('I\'m updating the entity for AngularMaterial ') + chalk.bold.yellow(this.entityConfig.entityClass));
         
         this.copyHtml(ANGULAR_DIR + 'entities/_entity-management.html', ANGULAR_DIR + 'entities/' + this.entityFolderName + '/' + this.entityPluralFileName + '.html', this, {}, true);
         this.copyHtml(ANGULAR_DIR + 'entities/_entity-management-dialog.html', ANGULAR_DIR + 'entities/' + this.entityFolderName + '/' + this.entityFileName + '-dialog.html', this, {}, true);
@@ -182,7 +182,7 @@ module.exports = JhipsterClientGenerator.extend({
       return;
     }
     if (this.enableAudit){
-      this.log('\n' + chalk.bold.green('Entity audit enabled'));
+      this.log('\n' + chalk.bold.green('Entity AngularMaterial enabled'));
     }
   }
 });
