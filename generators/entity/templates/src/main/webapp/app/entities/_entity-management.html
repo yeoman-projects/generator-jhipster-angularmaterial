@@ -45,7 +45,7 @@
                 <md-button class="md-icon-button" ng-click="vm.filter.show = true" aria-label="filter_list">
                     <md-icon md-svg-src="/content/images/filter.svg"></md-icon>
                  </md-button>
-                 <md-button class="md-icon-button" ui-sref="<%= entityStateName %>.new">
+                 <md-button class="md-icon-button" ng-click="vm.add<%= entityAngularJSName %>Dialog($event)">
                     <md-icon md-svg-src="/content/images/playlist_add.svg"></md-icon>
                  </md-button>
             </div>

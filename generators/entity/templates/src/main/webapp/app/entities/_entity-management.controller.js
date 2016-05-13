@@ -5,9 +5,9 @@
         .module('<%=angularAppName%>')
         .controller('<%= entityAngularJSName %>Controller', <%= entityAngularJSName %>Controller);
 
-    <%= entityAngularJSName %>Controller.$inject = ['$mdDialog', '$scope', '$state'<% if (fieldsContainBlob) { %>, 'DataUtils'<% } %>, '<%= entityClass %>'<% if (searchEngine == 'elasticsearch') { %>, '<%= entityClass %>Search'<% } %><% if (pagination != 'no') { %>, 'ParseLinks', 'AlertService'<% } %> <%_ if (pagination == 'pager' || pagination == 'pagination'){ %>, 'pagingParams', 'paginationConstants'<% } %>];
+    <%= entityAngularJSName %>Controller.$inject = ['$mdDialog', '$mdMedia', '$state'<% if (fieldsContainBlob) { %>, 'DataUtils'<% } %>, '<%= entityClass %>'<% if (searchEngine == 'elasticsearch') { %>, '<%= entityClass %>Search'<% } %><% if (pagination != 'no') { %>, 'ParseLinks', 'AlertService'<% } %> <%_ if (pagination == 'pager' || pagination == 'pagination'){ %>, 'pagingParams', 'paginationConstants'<% } %>];
 
-    function <%= entityAngularJSName %>Controller ($mdDialog, $scope, $state<% if (fieldsContainBlob) { %>, DataUtils<% } %>, <%= entityClass %><% if (searchEngine == 'elasticsearch') { %>, <%= entityClass %>Search<% } %><% if (pagination != 'no') { %>, ParseLinks, AlertService<% } %> <%_ if (pagination == 'pager' || pagination == 'pagination'){ %>, pagingParams, paginationConstants<% } %>) {
+    function <%= entityAngularJSName %>Controller ($mdDialog, $mdMedia, $state<% if (fieldsContainBlob) { %>, DataUtils<% } %>, <%= entityClass %><% if (searchEngine == 'elasticsearch') { %>, <%= entityClass %>Search<% } %><% if (pagination != 'no') { %>, ParseLinks, AlertService<% } %> <%_ if (pagination == 'pager' || pagination == 'pagination'){ %>, pagingParams, paginationConstants<% } %>) {
         var vm = this;
                 
         vm.options = {
@@ -51,6 +51,22 @@
                 }, function() {
                     $scope.status = 'You decided to keep <%= entityClassHumanized %>.';
             });
+            
+        };
+        
+        vm.add<%= entityAngularJSName %>Dialog = function(ev) {
+                var useFullScreen = ($mdMedia('sm') || $mdMedia('xs') );
+                
+                $mdDialog.show({
+                    templateUrl: 'app/entities/<%= entityFolderName %>/<%= entityFileName %>-dialog.html',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    controller: '<%= entityAngularJSName %>DialogController',
+                    controllerAs: 'vm',
+                    clickOutsideToClose: true,
+                    fullscreen: useFullScreen
+                });
+          
             
         };
         
