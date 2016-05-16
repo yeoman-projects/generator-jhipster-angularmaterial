@@ -4,9 +4,9 @@
   angular.module('<%=angularAppName%>')
     .run(['$templateCache', function ($templateCache) {
       $templateCache.put('partials/menu-link.tmpl.html',
-        '<md-button ng-class="{\'{{section.icon}}\' : true}" ui-sref-active="active" \n' +
+        '<md-button ui-sref-active="active" \n' +
         '  ui-sref="{{section.state}}" ng-click="focusSection()">\n' +
-        '  {{section | humanizeDoc}}\n' +
+        '  <ng-md-icon icon="{{section.icon}}"></ng-md-icon>{{section | humanizeDoc}}\n' +
         '  <span  class="md-visually-hidden "\n' +
         '    ng-if="isSelected()">\n' +
         '    current page\n' +

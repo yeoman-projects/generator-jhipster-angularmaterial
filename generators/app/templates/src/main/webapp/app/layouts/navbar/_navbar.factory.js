@@ -25,30 +25,30 @@
             name: 'Settings',
             type: 'link',
             state: 'settings',
-            icon: 'fa fa-wrench'
+            icon: 'settings'
           }, {
             name: 'Password',
             state: 'password',
             type: 'link',
-            icon: 'fa fa-key'
+            icon: 'verified_user'
           },
             {
               name: 'Sign out',
               state: 'munchies.donuts',
               type: 'link',
-              icon: 'fa fa-sign-out'
+              icon: 'logout'
             },
             {
               name: 'Sign in',
               state: 'munchies.donuts',
               type: 'link',
-              icon: 'fa fa-sign-in'
+              icon: 'login'
             },
             {
               name: 'Register',
               state: 'register',
               type: 'link',
-              icon: 'fa fa-map-marker'
+              icon: 'person_add'
             }]
         });
         
@@ -59,42 +59,42 @@
             name: 'User management',
             type: 'link',
             state: 'user-management',
-            icon: 'fa fa-users'
+            icon: 'group_add'
           }, {
             name: 'Metrics',
             state: 'jhi-metrics',
             type: 'link',
-            icon: 'fa fa-map-marker'
+            icon: 'assessment'
           },
             {
               name: 'Health',
               state: 'jhi-health',
               type: 'link',
-              icon: 'fa fa-map-marker'
+              icon: 'healing'
             },
             {
               name: 'Configuration',
               state: 'jhi-configuration',
               type: 'link',
-              icon: 'fa fa-map-marker'
+              icon: 'settings'
             },
             {
               name: 'Audits',
               state: 'audits',
               type: 'link',
-              icon: 'fa fa-map-marker'
+              icon: 'assignment'
             },
             {
               name: 'logs',
               state: 'logss',
               type: 'link',
-              icon: 'fa fa-map-marker'
+              icon: 'receipt'
             },
             {
               name: 'API',
               state: 'docs',
               type: 'link',
-              icon: 'fa fa-map-marker'
+              icon: 'cloud'
             }]
         });
 
