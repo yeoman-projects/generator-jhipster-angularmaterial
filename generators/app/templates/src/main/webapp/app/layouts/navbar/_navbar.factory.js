@@ -5,7 +5,6 @@
   angular.module('<%=angularAppName%>')
     .factory('menu', [
       '$location',
-      '$rootScope',
       function ($location) {
 
         var sections = [{

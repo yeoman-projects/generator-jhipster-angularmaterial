@@ -96,6 +96,17 @@ module.exports = AngularMaterialGenerator.extend({
             this.template('gulp/config.js', 'gulp/config.js', this, {});
             this.template('gulp/build.js', 'gulp/build.js', this, {});
     },
+    writeCssFiles: function () {
+            // normal CSS or SCSS?
+            //if (this.useSass) {
+            //    this.template(MAIN_SRC_DIR + 'scss/main.scss', MAIN_SRC_DIR + 'scss/main.scss');
+            //    this.template(MAIN_SRC_DIR + 'scss/vendor.scss', MAIN_SRC_DIR + 'scss/vendor.scss');
+            //}
+            // this css file will be overwritten by the sass generated css if sass is enabled
+            // but this will avoid errors when running app without running sass task first
+            this.template(MAIN_SRC_DIR + 'content/css/main.css', MAIN_SRC_DIR + 'content/css/main.css');
+            this.copy(MAIN_SRC_DIR + 'content/css/documentation.css', MAIN_SRC_DIR + 'content/css/documentation.css');
+    },
     writeCommonWebFiles: function () {
             // HTML5 BoilerPlate
             this.copy(MAIN_SRC_DIR + 'favicon.ico', MAIN_SRC_DIR + 'favicon.ico');
@@ -141,10 +152,7 @@ module.exports = AngularMaterialGenerator.extend({
       this.copy(MAIN_SRC_DIR + 'content/images/playlist_add.svg', MAIN_SRC_DIR + 'content/images/playlist_add.svg');
       this.copy(MAIN_SRC_DIR + 'content/images/search.svg', MAIN_SRC_DIR + 'content/images/search.svg');
       
-      // Bower and modules
-      jhipsterFunc.addBowerDependency("angular-material-data-table","0.10.5");
-      
-         
+              
       
     },
 
