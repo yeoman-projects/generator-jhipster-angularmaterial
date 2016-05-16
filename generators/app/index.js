@@ -145,12 +145,6 @@ module.exports = AngularMaterialGenerator.extend({
         this.copyJs(ANGULAR_DIR + 'admin/docs/_docs.state.js', ANGULAR_DIR + 'admin/docs/docs.state.js', this, {});
     },        
     writeTemplates : function () {
-      // Static images
-      this.copy(MAIN_SRC_DIR + 'content/images/clear.svg', MAIN_SRC_DIR + 'content/images/clear.svg');
-      this.copy(MAIN_SRC_DIR + 'content/images/delete.svg', MAIN_SRC_DIR + 'content/images/delete.svg');
-      this.copy(MAIN_SRC_DIR + 'content/images/filter.svg', MAIN_SRC_DIR + 'content/images/filter.svg');
-      this.copy(MAIN_SRC_DIR + 'content/images/playlist_add.svg', MAIN_SRC_DIR + 'content/images/playlist_add.svg');
-      this.copy(MAIN_SRC_DIR + 'content/images/search.svg', MAIN_SRC_DIR + 'content/images/search.svg');
       
               
       

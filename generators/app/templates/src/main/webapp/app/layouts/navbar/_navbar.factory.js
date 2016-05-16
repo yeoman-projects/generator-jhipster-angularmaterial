@@ -7,11 +7,7 @@
       '$location',
       function ($location) {
 
-        var sections = [{
-          name: 'Loged User',
-          state: 'home.gettingstarted',
-          type: 'link'
-        }];
+        var sections = [];
 
         sections.push({
           name: 'Entities',
@@ -29,24 +25,24 @@
             name: 'Settings',
             type: 'link',
             state: 'settings',
-            icon: 'fa fa-group'
+            icon: 'fa fa-wrench'
           }, {
             name: 'Password',
             state: 'password',
             type: 'link',
-            icon: 'fa fa-map-marker'
+            icon: 'fa fa-key'
           },
             {
               name: 'Sign out',
               state: 'munchies.donuts',
               type: 'link',
-              icon: 'fa fa-map-marker'
+              icon: 'fa fa-sign-out'
             },
             {
               name: 'Sign in',
               state: 'munchies.donuts',
               type: 'link',
-              icon: 'fa fa-map-marker'
+              icon: 'fa fa-sign-in'
             },
             {
               name: 'Register',
@@ -63,7 +59,7 @@
             name: 'User management',
             type: 'link',
             state: 'user-management',
-            icon: 'fa fa-group'
+            icon: 'fa fa-users'
           }, {
             name: 'Metrics',
             state: 'jhi-metrics',
