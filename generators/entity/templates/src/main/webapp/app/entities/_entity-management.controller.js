@@ -77,8 +77,8 @@
         };
         
         vm.openToast = function( message ) {
-            this.$mdToast.show(
-                this.$mdToast.simple()
+            $mdToast.show(
+                $mdToast.simple()
                     .textContent( message )
                     .position('top right')
                     .hideDelay(3000)

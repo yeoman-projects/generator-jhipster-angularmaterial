@@ -23,9 +23,11 @@
                             fieldInputType = 'checkbox';
                         } else if ((fieldType == 'byte[]' || fieldType == 'ByteBuffer') && fieldTypeBlobContent != 'text') {
                             fieldInputType = 'hidden';
-                        } _%>
+                        }  _%>
+                        
+                        <%= fieldInputType %>
                                         
-                        <%_ if (fieldInputType === 'text' || fieldInputType === 'number') { _%>
+                        <%_ if ( (fieldInputType === 'text'&& !fields[idx].fieldIsEnum) || fieldInputType === 'number'  ) { _%>
                         <md-input-container class="md-block" flex-gt-sm>
                             <label><%= fieldNameHumanized %></label>
                             <input ng-model="vm.<%= entityInstance %>.<%= fieldName %>" name="<%= fieldName %>" id="field_<%= fieldName %>" required>
@@ -39,6 +41,20 @@
                             <md-datepicker ng-model="vm.<%= entityInstance %>.<%= fieldName %>" md-placeholder="Enter <%= fieldNameHumanized %>" class="date-row" >
                             </md-datepicker>
                         <%_ } _%>
+                        
+                         <%_ if (fields[idx].fieldIsEnum) { _%>
+                            
+                            <md-input-container>
+                                <label><%= fieldNameHumanized %></label>
+                                <md-select ng-model="vm.<%= entityInstance %>.<%= fieldName %>" name="<%= fieldName %>">
+    
+                                    <md-option ng-repeat="enu in vm.<%= fieldName %>Values" value="{{enu.value}}">
+                                        {{enu.value}}
+                                    </md-option>             
+                                </md-select>
+                            </md-input-container>   
+                            <%_ } _%>        
+                        
                    
                     <%_ } _%>
                     
