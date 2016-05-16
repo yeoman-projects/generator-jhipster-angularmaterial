@@ -20,19 +20,21 @@ util.inherits(Generator, yeoman.Base);
   
 Generator.prototype.addEntityToMenu = function(routerName, enableTranslation) {
     try {
-        var fullPath = 'src/main/webapp/app/layouts/navbar/navbar.html';
+        var fullPath = 'src/main/webapp/app/layouts/navbar/navbar.factory.js';
         jhipsterUtils.rewriteFile({
             file: fullPath,
             needle: 'jhipster-needle-add-entity-to-menu',
             splicable: [
-                '<md-list-item >\n' +
-                '                                 <md-icon class="md-default-theme" class="material-icons">&#xE0C9;</md-icon>\n' +
-                '                                <p ui-sref="' + routerName + '">' + _.camelCase(routerName) + '</p>\n' +
-                '                        </md-list-item>'
+                '{\n' +
+                '    name: \'' + _.camelCase(routerName) + '\',\n' +
+                '    state: \'' + routerName + '\',\n' +
+                '    type: \'link\',\n' +
+                '    icon: \'fa fa-map-marker\'\n' +
+                '},' 
             ]
         }, this);
     } catch (e) {
-        console.log('addEntityToMenu ' + e );
+        console.log( ' addEntityToMenu  name:' + e.name + '\nmessage:' + e.message);
     }
 };
 

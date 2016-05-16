@@ -116,7 +116,11 @@ module.exports = AngularMaterialGenerator.extend({
             this.template(ANGULAR_DIR + '_app.constants.js', ANGULAR_DIR + 'app.constants.js', this, {});
 			
             //Layouts
-			      this.template(ANGULAR_DIR + 'layouts/navbar/navbar.html', ANGULAR_DIR + 'layouts/navbar/navbar.html', this, {});
+			      this.template(ANGULAR_DIR + 'layouts/navbar/_navbar.html', ANGULAR_DIR + 'layouts/navbar/navbar.html', this, {});
+            this.template(ANGULAR_DIR + 'layouts/navbar/_navbar.controller.js', ANGULAR_DIR + 'layouts/navbar/navbar.controller.js', this, {});
+            this.template(ANGULAR_DIR + 'layouts/navbar/_navbar.factory.js', ANGULAR_DIR + 'layouts/navbar/navbar.factory.js', this, {});
+            this.template(ANGULAR_DIR + 'layouts/navbar/_menu_link.directive.js', ANGULAR_DIR + 'layouts/navbar/menu_link.directive.js', this, {});
+            this.template(ANGULAR_DIR + 'layouts/navbar/_menu_toggle.directive.js', ANGULAR_DIR + 'layouts/navbar/menu_toggle.directive.js', this, {});
             
             //Entities
             this.template(ANGULAR_DIR + 'entities/_entity.state.js', ANGULAR_DIR + 'entities/entity.state.js', this, {});
