@@ -5,9 +5,9 @@
         .module('<%=angularAppName%>')
         .controller('<%= entityAngularJSName %>DialogController', <%= entityAngularJSName %>DialogController);
 
-    <%= entityAngularJSName %>DialogController.$inject = ['$mdDialog'];
+    <%= entityAngularJSName %>DialogController.$inject = ['$mdDialog'<% for (idx in differentTypes) { %>, '<%= differentTypes[idx] %>'<% } %>];
 
-    function <%= entityAngularJSName %>DialogController ($mdDialog) {
+    function <%= entityAngularJSName %>DialogController ($mdDialog<% for (idx in differentTypes) { %>, <%= differentTypes[idx] %><% } %>) {
         var vm = this;
         
         <%_ for (idx in fields) {
@@ -26,6 +26,8 @@
                        
            }     _%>       
                        
+                       
+        
                
         vm.cancel = function() {
             $mdDialog.cancel();

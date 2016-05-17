@@ -126,7 +126,17 @@ module.exports = JhipsterClientGenerator.extend({
         this.fieldsContainBigDecimal = this.entityConfig.data.fieldsContainBigDecimal;
         this.fieldsContainBlob = this.entityConfig.data.fieldsContainBlob;
         
-        
+        this.differentTypes = [this.entityClass];
+            if (!this.relationships) {
+                this.relationships = [];
+            }
+            
+        this.relationships && this.relationships.forEach( function (relationship) {
+             var entityType = relationship.otherEntityNameCapitalized;
+                if (this.differentTypes.indexOf(entityType) === -1) {
+                    this.differentTypes.push(entityType);
+                }
+        },this);
     }
   },
   writing : {
