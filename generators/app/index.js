@@ -8,6 +8,14 @@ var _ = require('lodash');
 var pluralize = require('pluralize');
 var fs = require('fs');
 
+const MAIN_SRC_DIR = 'src/main/webapp/',
+      TEST_SRC_DIR = 'src/test/javascript/',
+      DIST_DIR ='www/',
+      BUILD_DIR = 'target/',
+      ANGULAR_DIR = 'src/main/webapp/app/',
+      CLIENT_MAIN_SRC_DIR = MAIN_SRC_DIR;
+
+
 // Stores JHipster variables
 var jhipsterVar = {moduleName: 'angularmaterial'};
 
@@ -18,11 +26,6 @@ var AngularMaterialGenerator = generators.Base.extend({});
 
 util.inherits(AngularMaterialGenerator, scriptBase);
 
-const MAIN_SRC_DIR = 'src/main/webapp/',
-      TEST_SRC_DIR = 'src/test/javascript/',
-      DIST_DIR ='www/',
-      BUILD_DIR = 'target/',
-      ANGULAR_DIR = 'src/main/webapp/app/';
 
 module.exports = AngularMaterialGenerator.extend({
 
@@ -67,16 +70,17 @@ module.exports = AngularMaterialGenerator.extend({
       this.packagejs = { 'version' : '3.1.0' };
             
       this.serverPort = this.config.get('serverPort') || 8080;
-      this.authenticationType = this.config.get('authenticationType');
-      this.jhiPrefix = this.config.get('jhiPrefix') || 'jhi';
-      this.languagesToApply = this.config.get('languages') || '';
-      this.searchEngine = this.config.get('searchEngine');
-      this.applicationType = this.config.get('applicationType');
-      this.enableTranslation = this.config.get('enableTranslation');
-      this.enableSocialSignIn = this.config.get('social');
-      this.websocket = this.config.get('websocket');
+      this.authenticationType = jhipsterVar.authenticationType;
+      this.jhiPrefix = jhipsterVar.jhiPrefix;
+      this.jhiPrefixCapitalized = _.upperFirst(jhipsterVar.jhiPrefix);
+      this.languagesToApply = jhipsterVar.languages;
+      this.nativeLanguage = jhipsterVar.nativeLanguage;
+      this.searchEngine = jhipsterVar.searchEngine;
+      this.applicationType = jhipsterVar.applicationType || 'monolith';
+      this.enableTranslation = jhipsterVar.enableTranslation;
+      this.enableSocialSignIn = jhipsterVar.enableSocialSignIn;
+      this.websocket = jhipsterVar.websocket;
         
-      
       // Application name modified, using each technology's conventions
       this.angularAppName =  jhipsterVar.angularAppName;
       this.packageName = jhipsterVar.packageName;
@@ -125,6 +129,7 @@ module.exports = AngularMaterialGenerator.extend({
             this.template(MAIN_SRC_DIR + 'swagger-ui/_index.html', MAIN_SRC_DIR + 'swagger-ui/index.html', this, {});
             this.copy(MAIN_SRC_DIR + 'swagger-ui/images/throbber.gif', MAIN_SRC_DIR + 'swagger-ui/images/throbber.gif');
     },
+    /*
     writeLanguages: function () {
         this.languagesToApply && this.languagesToApply.forEach(function (language) {
           
@@ -133,7 +138,7 @@ module.exports = AngularMaterialGenerator.extend({
             }
             
         }, this);
-    },
+    },*/
     writeAngularAuthFiles: function () {
             // account module
             this.template(ANGULAR_DIR + 'account/_account.state.js', ANGULAR_DIR + 'account/account.state.js', this, {});
@@ -197,6 +202,27 @@ module.exports = AngularMaterialGenerator.extend({
             this.template(ANGULAR_DIR + 'services/auth/_register.service.js', ANGULAR_DIR + 'services/auth/register.service.js', this, {});
             this.template(ANGULAR_DIR + 'services/user/_user.service.js', ANGULAR_DIR + 'services/user/user.service.js', this, {});
         },
+    writeAngularComponentFiles: function () {
+            //components
+            if (this.enableTranslation) {
+                this.template(ANGULAR_DIR + 'components/language/_language.filter.js', ANGULAR_DIR + 'components/language/language.filter.js', this, {});
+                this.template(ANGULAR_DIR + 'components/language/_language.constants.js', ANGULAR_DIR + 'components/language/language.constants.js', this, {});
+                this.template(ANGULAR_DIR + 'components/language/_language.controller.js', ANGULAR_DIR + 'components/language/language.controller.js', this, {});
+                this.template(ANGULAR_DIR + 'components/language/_language.service.js', ANGULAR_DIR + 'components/language/language.service.js', this, {});
+            }
+            this.copyHtml(ANGULAR_DIR + 'components/login/login.html', ANGULAR_DIR + 'components/login/login.html');
+            this.copyJs(ANGULAR_DIR + 'components/login/_login.service.js', ANGULAR_DIR + 'components/login/login.service.js', this, {});
+            this.template(ANGULAR_DIR + 'components/login/_login.controller.js', ANGULAR_DIR + 'components/login/login.controller.js', this, {});
+            
+            // interceptor code
+            if (this.authenticationType === 'oauth2' || this.authenticationType === 'jwt' || this.authenticationType === 'uaa') {
+                this.template(ANGULAR_DIR + 'blocks/interceptor/_auth.interceptor.js', ANGULAR_DIR + 'blocks/interceptor/auth.interceptor.js', this, {});
+            }
+            this.template(ANGULAR_DIR + 'blocks/interceptor/_auth-expired.interceptor.js', ANGULAR_DIR + 'blocks/interceptor/auth-expired.interceptor.js', this, {});
+            this.template(ANGULAR_DIR + 'blocks/interceptor/_errorhandler.interceptor.js', ANGULAR_DIR + 'blocks/interceptor/errorhandler.interceptor.js', this, {});
+            this.template(ANGULAR_DIR + 'blocks/interceptor/_notification.interceptor.js', ANGULAR_DIR + 'blocks/interceptor/notification.interceptor.js', this, {});
+  
+        },
     writeAngularAppFiles: function () {
             this.copy(MAIN_SRC_DIR + '_index.html', MAIN_SRC_DIR + 'index.html');
 
@@ -211,6 +237,10 @@ module.exports = AngularMaterialGenerator.extend({
             this.template(ANGULAR_DIR + 'layouts/navbar/_navbar.factory.js', ANGULAR_DIR + 'layouts/navbar/navbar.factory.js', this, {});
             this.template(ANGULAR_DIR + 'layouts/navbar/_menu_link.directive.js', ANGULAR_DIR + 'layouts/navbar/menu_link.directive.js', this, {});
             this.template(ANGULAR_DIR + 'layouts/navbar/_menu_toggle.directive.js', ANGULAR_DIR + 'layouts/navbar/menu_toggle.directive.js', this, {});
+            
+            // Config 
+            this.template(ANGULAR_DIR + 'blocks/config/_http.config.js', ANGULAR_DIR + 'blocks/config/http.config.js', this, {});
+            this.template(ANGULAR_DIR + 'blocks/config/_localstorage.config.js', ANGULAR_DIR + 'blocks/config/localstorage.config.js', this, {});
             
             //Entities
             this.template(ANGULAR_DIR + 'entities/_entity.state.js', ANGULAR_DIR + 'entities/entity.state.js', this, {});

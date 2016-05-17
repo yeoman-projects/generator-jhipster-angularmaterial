@@ -8,7 +8,9 @@
     "angular-material": "^1.0.7",
     "angular-material-icons": "^0.7.0",
     "angular-material-data-table": "0.10.5",
+    "angular-cache-buster": "0.4.3",
     "angular-ui-router": "0.2.18",
+    "ngstorage": "0.3.10",
     "swagger-ui": "2.1.4"
   },
   "resolutions": {

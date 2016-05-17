@@ -5,7 +5,8 @@
 
     .controller('NavBarCtrl', [
       'menu',
-      function (menu) {
+      'LoginService',
+      function (menu, LoginService) {
 
         var vm = this;
        
@@ -27,6 +28,10 @@
 
         function toggleOpen(section) {
           menu.toggleSelectSection(section);
+        }
+        
+        vm.login = function(ev) {
+            LoginService.open(ev);
         }
 
       }])

@@ -1,0 +1,35 @@
+<md-dialog>
+    <form name="loginForm" ng-submit="vm.login($event)">
+        <md-dialog-content>
+            <div layout="column" layout-padding>
+                <div layout-gt-sm="row">
+                    
+                    <md-input-container class="md-block" flex-gt-sm>
+                            <label>Login</label>
+                            <input ng-model="vm.username" id="username" name="username" required>
+                            <div ng-messages="loginForm.username.$error">
+                                <div ng-message="required">This is required</div>
+                            </div>
+                    </md-input-container>
+                    
+                    <md-input-container class="md-block" flex-gt-sm>
+                            <label>Login</label>
+                            <input type="password" ng-model="vm.password" id="password" name="password" required>
+                            <div ng-messages="loginForm.password.$error">
+                                <div ng-message="required">This is required</div>
+                            </div>
+                    </md-input-container>
+                    
+                </div>                
+            </div>
+        </md-dialog-content>
+        
+        <md-dialog-actions layout="row">
+            <md-button type="submit" class="md-primary md-raised" ng-disabled="loginForm.$invalid">
+                Sign in
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
+
+

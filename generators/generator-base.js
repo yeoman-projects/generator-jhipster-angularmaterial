@@ -103,7 +103,18 @@ Generator.prototype.copyJs = function (source, dest, generator, opt, template) {
 Generator.prototype.contains = _.includes;
 
 
-
+/**
+ * Copy i18 files for given language
+ *
+ * @param {object} generator - context that can be used as the generator instance or data to process template
+ * @param {string} webappDir - webapp directory path
+ * @param {string} fileToCopy - file name to copy
+ * @param {string} lang - language for which file needs to be copied
+ */
+Generator.prototype.copyI18nFilesByName = function (generator, webappDir, fileToCopy, lang) {
+    var _this = generator || this;
+    _this.copy(webappDir + 'i18n/' + lang + '/' + fileToCopy, webappDir + 'i18n/' + lang + '/' + fileToCopy);
+};
 
 Generator.prototype.installI18nClientFilesByLanguage = function (_this, webappDir, lang) {
     this.copyI18nFilesByName(_this, webappDir, 'activate.json', lang);

@@ -5,9 +5,9 @@
         .module('<%=angularAppName%>')
         .factory('Auth', Auth);
 
-    Auth.$inject = ['$rootScope', '$state', '$sessionStorage', '$q', <% if (enableTranslation){ %>'$translate', <% } %>'Principal', 'AuthServerProvider', 'Account', 'LoginService', 'Register', 'Activate', 'Password', 'PasswordResetInit', 'PasswordResetFinish'<% if (websocket === 'spring-websocket') { %>, '<%=jhiPrefixCapitalized%>TrackerService'<% } %>];
+    Auth.$inject = ['$rootScope', '$state', '$sessionStorage', '$q', 'Principal', 'AuthServerProvider', 'Account', 'LoginService', 'Register', 'Activate', 'Password', 'PasswordResetInit', 'PasswordResetFinish'<% if (websocket === 'spring-websocket') { %>, '<%=jhiPrefixCapitalized%>TrackerService'<% } %>];
 
-    function Auth ($rootScope, $state, $sessionStorage, $q, <% if (enableTranslation){ %>$translate, <% } %>Principal, AuthServerProvider, Account, LoginService, Register, Activate, Password, PasswordResetInit, PasswordResetFinish<% if (websocket === 'spring-websocket') { %>, <%=jhiPrefixCapitalized%>TrackerService<% } %>) {
+    function Auth ($rootScope, $state, $sessionStorage, $q, Principal, AuthServerProvider, Account, LoginService, Register, Activate, Password, PasswordResetInit, PasswordResetFinish<% if (websocket === 'spring-websocket') { %>, <%=jhiPrefixCapitalized%>TrackerService<% } %>) {
         var service = {
             activateAccount: activateAccount,
             authorize: authorize,
@@ -120,9 +120,7 @@
                     // After the login the language will be changed to
                     // the language selected by the user during his registration
                     if (account!== null) {
-                        $translate.use(account.langKey).then(function () {
-                            $translate.refresh();
-                        });
+
                     }
                     <%_ } _%>
                     <%_ if (websocket === 'spring-websocket') { _%>
