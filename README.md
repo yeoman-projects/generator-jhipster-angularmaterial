@@ -5,6 +5,7 @@
 # Introduction
 
 This is a [JHipster](http://jhipster.github.io/) module, that is meant to be used in a JHipster application.
+It will generate the front end using Angular Material and Angular Material Table
 
 # Prerequisites
 
@@ -30,6 +31,8 @@ npm update -g generator-jhipster-angularmaterial
 yo jhipster --skip-client
 
 yo jhipster-angularmaterial
+
+yo jhipster --with-dependencies --force
 ```
 # License
 

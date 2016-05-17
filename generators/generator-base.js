@@ -99,3 +99,67 @@ Generator.prototype.copyHtml = function (source, dest, generator, opt, template)
 Generator.prototype.copyJs = function (source, dest, generator, opt, template) {
     this.copyTemplate(source, dest, 'stripJs', generator, opt, template);
 };
+
+Generator.prototype.contains = _.includes;
+
+
+
+
+Generator.prototype.installI18nClientFilesByLanguage = function (_this, webappDir, lang) {
+    this.copyI18nFilesByName(_this, webappDir, 'activate.json', lang);
+    this.copyI18nFilesByName(_this, webappDir, 'audits.json', lang);
+    this.copyI18nFilesByName(_this, webappDir, 'configuration.json', lang);
+    this.copyI18nFilesByName(_this, webappDir, 'error.json', lang);
+    this.copyI18nFilesByName(_this, webappDir, 'gateway.json', lang);
+    this.copyI18nFilesByName(_this, webappDir, 'login.json', lang);
+    this.copyI18nFilesByName(_this, webappDir, 'logs.json', lang);
+    this.copyI18nFilesByName(_this, webappDir, 'home.json', lang);
+    this.copyI18nFilesByName(_this, webappDir, 'metrics.json', lang);
+    this.copyI18nFilesByName(_this, webappDir, 'password.json', lang);
+    this.copyI18nFilesByName(_this, webappDir, 'register.json', lang);
+    this.copyI18nFilesByName(_this, webappDir, 'sessions.json', lang);
+    this.copyI18nFilesByName(_this, webappDir, 'settings.json', lang);
+    this.copyI18nFilesByName(_this, webappDir, 'reset.json', lang);
+    this.copyI18nFilesByName(_this, webappDir, 'user-management.json', lang);
+
+    // tracker.json for Websocket
+    if (this.websocket === 'spring-websocket') {
+        this.copyI18nFilesByName(_this, webappDir, 'tracker.json', lang);
+    }
+
+    if (this.enableSocialSignIn) {
+        this.copyI18nFilesByName(_this, webappDir, 'social.json', lang);
+    }
+
+    // Templates
+    _this.template(webappDir + 'i18n/' + lang + '/_global.json', webappDir + 'i18n/' + lang + '/global.json', this, {});
+    _this.template(webappDir + 'i18n/' + lang + '/_health.json', webappDir + 'i18n/' + lang + '/health.json', this, {});
+
+
+};
+
+Generator.prototype.installI18nServerFilesByLanguage = function (_this, resourceDir, lang) {
+    // Template the message server side properties
+    var lang_prop = lang.replace(/-/g, '_');
+    _this.template(resourceDir + 'i18n/_messages_' + lang_prop + '.properties', resourceDir + 'i18n/messages_' + lang_prop + '.properties', this, {});
+
+};
+
+Generator.prototype.copyI18n = function (language) {
+    try {
+        this.template(CLIENT_MAIN_SRC_DIR + 'i18n/_entity_' + language + '.json', CLIENT_MAIN_SRC_DIR + 'i18n/' + language + '/' + this.entityInstance + '.json', this, {});
+        this.addEntityTranslationKey(this.entityTranslationKeyMenu, this.entityClass, language);
+    } catch (e) {
+        // An exception is thrown if the folder doesn't exist
+        // do nothing
+    }
+};
+
+Generator.prototype.copyEnumI18n = function (language, enumInfo) {
+    try {
+        this.template(CLIENT_MAIN_SRC_DIR + 'i18n/_enum_' + language + '.json', CLIENT_MAIN_SRC_DIR + 'i18n/' + language + '/' + enumInfo.enumInstance + '.json', enumInfo, {});
+    } catch (e) {
+        // An exception is thrown if the folder doesn't exist
+        // do nothing
+    }
+};

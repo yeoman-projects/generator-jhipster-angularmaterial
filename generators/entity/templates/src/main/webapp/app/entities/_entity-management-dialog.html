@@ -115,7 +115,7 @@
                    class="demo-header-searchbox md-text">
           </md-select-header>
           <md-optgroup label="<%=otherEntityName %>">
-            <md-option ng-value="<%=otherEntityName %>" ng-repeat="<%=otherEntityName %> in vm.<%=relationshipFieldNamePlural.toLowerCase() %> |
+            <md-option ng-value="<%=otherEntityName %>" ng-repeat="<%=otherEntityName %> in vm.<%= relationships[idx].otherEntityNameCapitalizedPlural.toLowerCase() %> |
               filter:searchTerm">{{<%= entityInstance + "." + relationshipFieldName + "." + otherEntityField %>}}</md-option>
           </md-optgroup>
         </md-select>
