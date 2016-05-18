@@ -68,10 +68,12 @@
                        
                        
         var onSaveSuccess = function (result) {
+            var self = this;
             
         };
 
         var onSaveError = function () {
+            var self = this;
 
         };
                
@@ -88,6 +90,13 @@
             $mdDialog.hide();
         }
         
-        
+        vm.openToast = function( message ) {
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent( message )
+                    .position('top right')
+                    .hideDelay(3000)
+                );
+        }
     }
 })();
