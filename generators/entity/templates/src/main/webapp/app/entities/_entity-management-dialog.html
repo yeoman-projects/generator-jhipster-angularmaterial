@@ -104,20 +104,8 @@
 												<%_ if (dto == 'no') { _%>
                                                 <md-input-container>
         <label><%= relationshipFieldName %></label>
-        <md-select ng-model="selectedVegetables"
-                   md-on-close="clearSearchTerm()"
-                   data-md-container-class="selectdemoSelectHeader"
-                   multiple>
-          <md-select-header class="demo-select-header">
-            <input ng-model="searchTerm"
-                   type="search"
-                   placeholder="Search for a <%=otherEntityName %>."
-                   class="demo-header-searchbox md-text">
-          </md-select-header>
-          <md-optgroup label="<%=otherEntityName %>">
-            <md-option ng-value="<%=otherEntityName %>" ng-repeat="<%=otherEntityName %> in vm.<%= relationships[idx].otherEntityNameCapitalizedPlural.toLowerCase() %> |
-              filter:searchTerm">{{<%= entityInstance + "." + relationshipFieldName + "." + otherEntityField %>}}</md-option>
-          </md-optgroup>
+        <md-select ng-model="vm.<%= entityInstance  + "." + relationshipFieldName%>">        
+            <md-option ng-value="<%=otherEntityName %>" ng-repeat="<%=otherEntityName %> in vm.<%= relationships[idx].otherEntityNameCapitalizedPlural.toLowerCase() %> ">{{<%= otherEntityName + "." + otherEntityField %>}}</md-option>
         </md-select>
       </md-input-container>                        
                                                                         

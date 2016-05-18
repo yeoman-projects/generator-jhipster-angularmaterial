@@ -33,8 +33,16 @@
 
         };
         
+        // Load Entity
+        <%_ if (pagination == 'pagination' || pagination == 'pager') { _%>
+<%- include('pagination-template'); -%>
+        <%_ } else if (pagination == 'infinite-scroll') { _%>
+<%- include('infinite-scroll-template'); -%>
+        <%_ } else { _%>
+<%- include('no-pagination-template'); -%>
+        <% } %>
      
-        
+        //Delete Entity
         vm.delete<%= entityAngularJSName %>Dialog = function(ev, id) {
             var self = this;
             // Appending dialog to document.body to cover sidenav in docs app
@@ -55,6 +63,7 @@
             
         };
         
+        // Add new Entity
         vm.add<%= entityAngularJSName %>Dialog = function(ev) {
                 var useFullScreen = ($mdMedia('sm') || $mdMedia('xs') );
                 var self = this;
@@ -69,6 +78,7 @@
                     fullscreen: useFullScreen
                 }).then( function() {
                     self.openToast('User added');
+                    $state.go('<%= entityStateName %>', null, { reload: true });
                 }, function() {
                     self.openToast('You Cancelled dialog');
                 });

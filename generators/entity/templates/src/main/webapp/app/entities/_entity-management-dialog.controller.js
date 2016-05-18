@@ -9,6 +9,19 @@
 
     function <%= entityAngularJSName %>DialogController ($mdDialog<% for (idx in differentTypes) { %>, <%= differentTypes[idx] %><% } %>) {
         var vm = this;
+        vm.<%= entityInstance %> = {
+                                <%_ for (idx in fields) { _%>
+                                    <%_ if (fields[idx].fieldType == 'Boolean' && fields[idx].fieldValidate == true && fields[idx].fieldValidateRules.indexOf('required') != -1) { _%>
+                                <%= fields[idx].fieldName %>: false,
+                                    <%_ } else { _%>
+                                <%= fields[idx].fieldName %>: null,
+                                        <%_ if ((fields[idx].fieldType == 'byte[]' || fields[idx].fieldType === 'ByteBuffer') && fields[idx].fieldTypeBlobContent != 'text') { _%>
+                                <%= fields[idx].fieldName %>ContentType: null,
+                                        <%_ } _%>
+                                    <%_ } _%>
+                                <%_ } _%>
+                                id: null
+                            };
         <%_
             var queries = [];
             for (idx in relationships) {
@@ -54,13 +67,24 @@
            }     _%>       
                        
                        
-        
+        var onSaveSuccess = function (result) {
+            
+        };
+
+        var onSaveError = function () {
+
+        };
                
         vm.cancel = function() {
             $mdDialog.cancel();
         }
         
         vm.save = function() {
+            if (vm.<%= entityInstance %>.id !== null) {
+                <%= entityClass %>.update(vm.<%= entityInstance %>, onSaveSuccess, onSaveError);
+            } else {
+                <%= entityClass %>.save(vm.<%= entityInstance %>, onSaveSuccess, onSaveError);
+            }
             $mdDialog.hide();
         }
         
