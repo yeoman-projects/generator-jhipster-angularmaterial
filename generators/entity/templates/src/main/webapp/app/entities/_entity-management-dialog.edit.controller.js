@@ -3,7 +3,7 @@
 
     angular
         .module('<%=angularAppName%>')
-        .controller('<%= entityAngularJSName %>DialogController', <%= entityAngularJSName %>DialogController);
+        .controller('<%= entityAngularJSName %>EditDialogController', <%= entityAngularJSName %>DialogController);
 
     <%= entityAngularJSName %>DialogController.$inject = ['$mdDialog'<% for (idx in differentTypes) { %>, '<%= differentTypes[idx] %>'<% } %>];
 

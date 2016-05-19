@@ -59,12 +59,12 @@
             name: 'User management',
             type: 'link',
             state: 'user-management',
-            icon: 'group_add'
+            icon: 'person'
           }, {
             name: 'Metrics',
             state: 'jhi-metrics',
             type: 'link',
-            icon: 'assessment'
+            icon: 'av_timer'
           },
             {
               name: 'Health',
@@ -94,7 +94,7 @@
               name: 'API',
               state: 'docs',
               type: 'link',
-              icon: 'cloud'
+              icon: 'my_library_books'
             }]
         });
 

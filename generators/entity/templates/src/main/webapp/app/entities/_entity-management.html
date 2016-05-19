@@ -2,6 +2,7 @@
 <%_ var keyPrefix = angularAppName + '.'+ entityTranslationKey + '.'; _%>
     <!-- Material Table -->
     <div class="table-responsive">
+        <!-- Main Table Toolbar -->
         <md-toolbar class="md-table-toolbar md-default" ng-show="vm.selected.length === 0 && !vm.filter.show">
             <div class="md-toolbar-tools">
                 <span><%= entityClassPluralHumanized %></span>
@@ -9,22 +10,27 @@
                 <md-button class="md-icon-button" ng-click="vm.filter.show = true" aria-label="filter_list">
                     <ng-md-icon icon="filter_list"></ng-md-icon>
                  </md-button>
-                 <md-button class="md-icon-button" ng-click="vm.add<%= entityAngularJSName %>Dialog($event)">
+                 <md-button class="md-icon-button" ng-click="vm.add<%= entityAngularJSName %>($event)">
                     <ng-md-icon icon="playlist_add"></ng-md-icon>
                  </md-button>
             </div>
         </md-toolbar>
         
+        <!-- Row Selected Toolbar -->
         <md-toolbar class="md-table-toolbar alternate" ng-show="vm.selected.length > 0">
             <div class="md-toolbar-tools">
                 <span>{{vm.selected.length}} {{vm.selected.length > 1 ? 'items' : 'item'}} selected</span>
                 <span flex></span>
-                <md-button class="md-icon-button" ng-click="vm.delete<%= entityAngularJSName %>Dialog($event, vm.selected[0].id )">
+                <md-button class="md-icon-button" ng-click="vm.delete<%= entityAngularJSName %>($event, vm.selected[0].id )">
                     <ng-md-icon icon="delete"></ng-md-icon>
+                </md-button>
+                <md-button class="md-icon-button" ng-click="vm.edit<%= entityAngularJSName %>($event, vm.selected[0] )">
+                    <ng-md-icon icon="mode_edit"></ng-md-icon>
                 </md-button>
             </div>
         </md-toolbar>
         
+        <!-- Advanced Search Toolbar -->
         <md-toolbar class="md-table-toolbar md-default ng-hide" ng-show="vm.filter.show && (vm.selected.length === 0)" aria-hidden="true" style="">
             <div class="md-toolbar-tools">
                 <ng-md-icon icon="search"></ng-md-icon>
@@ -38,6 +44,7 @@
              </div>
         </md-toolbar>
 
+        <!-- Table -->
         <md-table-container>
             <table md-table md-row-select="vm.options.rowSelection" multiple="{{vm.options.multiSelect}}" ng-model="vm.selected">
                 <thead md-head >

@@ -34,6 +34,13 @@ yo jhipster-angularmaterial
 
 yo jhipster --with-dependencies --force
 ```
+
+
+# Thanks To
+
+- [JHipster](https://github.com/jhipster/generator-jhipster)
+- [JHipster Module Generator](https://github.com/jhipster/generator-jhipster-module)
+
 # License
 
 Apache-2.0 © [Jose Castellanos]

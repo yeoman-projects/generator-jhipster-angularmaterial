@@ -43,7 +43,7 @@
         <% } %>
      
         //Delete Entity
-        vm.delete<%= entityAngularJSName %>Dialog = function(ev, id) {
+        vm.delete<%= entityAngularJSName %> = function(ev, id) {
             var self = this;
             // Appending dialog to document.body to cover sidenav in docs app
             var confirm = $mdDialog.confirm()
@@ -55,8 +55,15 @@
                 .cancel('Cancel');
                 
             $mdDialog.show(confirm).then(function() {
-                   <%= entityClass %>.delete({id: id} );
-                   $state.go('<%= entityStateName %>', null, { reload: true });
+                   <%= entityClass %>.delete({id: id}, 
+                   function () {
+                       $state.go('<%= entityStateName %>', null, { reload: true });
+                   }, function(response) {
+                       self.openToast("StatusCode " + response.status + " " + response.data.description);
+					
+					   console.log(response.data.description);
+                   } );                  
+                   
                 }, function() {
                    self.openToast('You decided to keep <%= entityClassHumanized %>.');
             });
@@ -64,7 +71,7 @@
         };
         
         // Add new Entity
-        vm.add<%= entityAngularJSName %>Dialog = function(ev) {
+        vm.add<%= entityAngularJSName %> = function(ev) {
                 var useFullScreen = ($mdMedia('sm') || $mdMedia('xs') );
                 var self = this;
                 
@@ -72,7 +79,7 @@
                     templateUrl: 'app/entities/<%= entityFolderName %>/<%= entityFileName %>-dialog.html',
                     parent: angular.element(document.body),
                     targetEvent: ev,
-                    controller: '<%= entityAngularJSName %>DialogController',
+                    controller: '<%= entityAngularJSName %>AddDialogController',
                     controllerAs: 'vm',
                     clickOutsideToClose: true,
                     fullscreen: useFullScreen
@@ -83,6 +90,28 @@
                     self.openToast('You Cancelled dialog');
                 });
           
+            
+        };
+        
+        // Add new Entity
+        vm.edit<%= entityAngularJSName %> = function(ev, entity) {
+                var useFullScreen = ($mdMedia('sm') || $mdMedia('xs') );
+                var self = this;
+                
+                $mdDialog.show({
+                    templateUrl: 'app/entities/<%= entityFolderName %>/<%= entityFileName %>-dialog.html',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    controller: '<%= entityAngularJSName %>EditDialogController',
+                    controllerAs: 'vm',
+                    clickOutsideToClose: true,
+                    fullscreen: useFullScreen
+                }).then( function() {
+                    self.openToast('User edited');
+                    $state.go('<%= entityStateName %>', null, { reload: true });
+                }, function() {
+                    self.openToast('You Cancelled Edit dialog');
+                });      
             
         };
         
