@@ -11,8 +11,8 @@
         '  flex layout="row"\n' +
         '  aria-expanded="{{isOpen()}}">\n' +
         '  {{section.name}}\n' +
-        '  <span aria-hidden="true" class=" pull-right fa fa-chevron-down md-toggle-icon"\n' +
-        '  ng-class="{\'toggled\' : isOpen()}"></span>\n' +
+        '  <span flex></span> ' +
+		    '  <ng-md-icon icon="keyboard_arrow_down"></ng-md-icon>\n' +
         '</md-button>\n' +
         '<ul ng-show="isOpen()" id="docs-menu-{{section.name | nospace}}" class="menu-toggle-list">\n' +
         '  <li ng-repeat="page in section.pages">\n' +

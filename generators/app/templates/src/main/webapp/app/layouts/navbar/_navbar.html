@@ -1,5 +1,6 @@
 
     <md-content role="navigation">
+      <md-button ng-click="vm.login($event)"><ng-md-icon icon="login"></ng-md-icon>Login</md-button>
       <ul class="side-menu">
         <li ng-repeat="section in vm.menu.sections" class="parent-list-item"
             ng-class="{'parentActive' : vm.isSectionSelected(section)}">

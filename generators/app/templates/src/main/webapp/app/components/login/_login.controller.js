@@ -5,9 +5,9 @@
         .module('<%=angularAppName%>')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$rootScope', '$state', '$timeout', 'Auth'];
+    LoginController.$inject = ['$mdDialog','$rootScope', '$state', '$timeout', 'Auth'];
 
-    function LoginController ($rootScope, $state, $timeout, Auth) {
+    function LoginController ($mdDialog,$rootScope, $state, $timeout, Auth) {
         var vm = this;
 
         vm.authenticationError = false;
@@ -39,7 +39,7 @@
                 rememberMe: vm.rememberMe
             }).then(function () {
                 vm.authenticationError = false;
-
+                $mdDialog.hide();
                 if ($state.current.name === 'register' || $state.current.name === 'activate' ||
                     $state.current.name === 'finishReset' || $state.current.name === 'requestReset') {
                     $state.go('home');
