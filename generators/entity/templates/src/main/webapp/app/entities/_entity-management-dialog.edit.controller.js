@@ -5,23 +5,13 @@
         .module('<%=angularAppName%>')
         .controller('<%= entityAngularJSName %>EditDialogController', <%= entityAngularJSName %>DialogController);
 
-    <%= entityAngularJSName %>DialogController.$inject = ['$mdDialog'<% for (idx in differentTypes) { %>, '<%= differentTypes[idx] %>'<% } %>];
+    <%= entityAngularJSName %>DialogController.$inject = ['<%= entityInstance %>','$mdDialog'<% for (idx in differentTypes) { %>, '<%= differentTypes[idx] %>'<% } %>];
 
-    function <%= entityAngularJSName %>DialogController ($mdDialog<% for (idx in differentTypes) { %>, <%= differentTypes[idx] %><% } %>) {
+    function <%= entityAngularJSName %>DialogController (<%= entityInstance %>, $mdDialog<% for (idx in differentTypes) { %>, <%= differentTypes[idx] %><% } %>) {
         var vm = this;
-        vm.<%= entityInstance %> = {
-                                <%_ for (idx in fields) { _%>
-                                    <%_ if (fields[idx].fieldType == 'Boolean' && fields[idx].fieldValidate == true && fields[idx].fieldValidateRules.indexOf('required') != -1) { _%>
-                                <%= fields[idx].fieldName %>: false,
-                                    <%_ } else { _%>
-                                <%= fields[idx].fieldName %>: null,
-                                        <%_ if ((fields[idx].fieldType == 'byte[]' || fields[idx].fieldType === 'ByteBuffer') && fields[idx].fieldTypeBlobContent != 'text') { _%>
-                                <%= fields[idx].fieldName %>ContentType: null,
-                                        <%_ } _%>
-                                    <%_ } _%>
-                                <%_ } _%>
-                                id: null
-                            };
+        
+        vm.<%= entityInstance %> = <%= entityInstance %>;
+        
         <%_
             var queries = [];
             for (idx in relationships) {

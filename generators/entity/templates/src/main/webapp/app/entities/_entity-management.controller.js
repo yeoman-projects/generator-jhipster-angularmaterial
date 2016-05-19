@@ -98,6 +98,8 @@
                 var useFullScreen = ($mdMedia('sm') || $mdMedia('xs') );
                 var self = this;
                 
+                self.<%= entityInstance %> = entity;
+                
                 $mdDialog.show({
                     templateUrl: 'app/entities/<%= entityFolderName %>/<%= entityFileName %>-dialog.html',
                     parent: angular.element(document.body),
@@ -105,7 +107,10 @@
                     controller: '<%= entityAngularJSName %>EditDialogController',
                     controllerAs: 'vm',
                     clickOutsideToClose: true,
-                    fullscreen: useFullScreen
+                    fullscreen: useFullScreen,
+                    locals: {
+                        <%= entityInstance %>: self.<%= entityInstance %>
+                    }
                 }).then( function() {
                     self.openToast('User edited');
                     $state.go('<%= entityStateName %>', null, { reload: true });
