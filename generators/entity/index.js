@@ -114,17 +114,15 @@ module.exports = JhipsterClientGenerator.extend({
         this.relationships = this.entityConfig.data.relationships;
         this.dto = this.entityConfig.data.dto;
         this.service = this.entityConfig.data.service;
-        this.fieldsContainBlob = this.entityConfig.data.fieldsContainBlob;
-        
-        this.fieldsContainOwnerManyToMany = this.entityConfig.data.fieldsContainOwnerManyToMany;
-        this.fieldsContainNoOwnerOneToOne = this.entityConfig.data.fieldsContainNoOwnerOneToOne;
-        this.fieldsContainOwnerOneToOne = this.entityConfig.data.fieldsContainOwnerOneToOne;
-        this.fieldsContainOneToMany = this.entityConfig.data.fieldsContainOneToMany;
-        this.fieldsContainZonedDateTime = this.entityConfig.data.fieldsContainZonedDateTime;
-        this.fieldsContainLocalDate = this.entityConfig.data.fieldsContainLocalDate;
-        this.fieldsContainDate = this.entityConfig.data.fieldsContainDate;
-        this.fieldsContainBigDecimal = this.entityConfig.data.fieldsContainBigDecimal;
-        this.fieldsContainBlob = this.entityConfig.data.fieldsContainBlob;
+                
+        this.fieldsContainOwnerManyToMany = this.entityConfig.fieldsContainOwnerManyToMany;
+        this.fieldsContainNoOwnerOneToOne = this.entityConfig.fieldsContainNoOwnerOneToOne;
+        this.fieldsContainOwnerOneToOne = this.entityConfig.fieldsContainOwnerOneToOne;
+        this.fieldsContainOneToMany = this.entityConfig.fieldsContainOneToMany;
+        this.fieldsContainZonedDateTime = this.entityConfig.fieldsContainZonedDateTime;
+        this.fieldsContainLocalDate = this.entityConfig.fieldsContainLocalDate;
+        this.fieldsContainBigDecimal = this.entityConfig.fieldsContainBigDecimal;
+        this.fieldsContainBlob = this.entityConfig.fieldsContainBlob;
         
         this.differentTypes = [this.entityClass];
             if (!this.relationships) {
@@ -154,8 +152,8 @@ module.exports = JhipsterClientGenerator.extend({
       if (this.entityConfig.entityClass) {
         this.log('\n' + chalk.bold.green('I\'m updating the entity for AngularMaterial ') + chalk.bold.yellow(this.entityConfig.entityClass));
         
-        this.copyHtml(ANGULAR_DIR + 'entities/_entity-management.html', ANGULAR_DIR + 'entities/' + this.entityFolderName + '/' + this.entityPluralFileName + '.html', this, {});
-        this.copyHtml(ANGULAR_DIR + 'entities/_entity-management-dialog.html', ANGULAR_DIR + 'entities/' + this.entityFolderName + '/' + this.entityFileName + '-dialog.html', this, {});
+        this.template(ANGULAR_DIR + 'entities/_entity-management.html', ANGULAR_DIR + 'entities/' + this.entityFolderName + '/' + this.entityPluralFileName + '.html', this, {});
+        this.template(ANGULAR_DIR + 'entities/_entity-management-dialog.html', ANGULAR_DIR + 'entities/' + this.entityFolderName + '/' + this.entityFileName + '-dialog.html', this, {});
                 
         this.template(ANGULAR_DIR + 'entities/_entity-management.controller.js', ANGULAR_DIR + 'entities/' + this.entityFolderName + '/' + this.entityFileName + '.controller' + '.js', this, {});
         this.template(ANGULAR_DIR + 'entities/_entity-management-dialog.add.controller.js', ANGULAR_DIR + 'entities/' + this.entityFolderName + '/' + this.entityFileName + '-dialog.add.controller' + '.js', this, {});

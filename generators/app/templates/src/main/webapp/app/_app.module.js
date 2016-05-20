@@ -9,7 +9,8 @@
             'ngMdIcons',    
             'ui.router',     
             'ngStorage',  
-            'ngCacheBuster',             
+            'ngCacheBuster',
+            'mdPickers',             
             // jhipster-needle-angularjs-add-module JHipster will add new module here
             'ngMessages'
         ])

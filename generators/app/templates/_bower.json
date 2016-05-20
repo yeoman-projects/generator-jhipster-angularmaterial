@@ -11,7 +11,8 @@
     "angular-cache-buster": "0.4.3",
     "angular-ui-router": "0.2.18",
     "ngstorage": "0.3.10",
-    "swagger-ui": "2.1.4"
+    "swagger-ui": "2.1.4",
+    "mdPickers": "0.7.5"
   },
   "resolutions": {
     "angular": "1.5.2"

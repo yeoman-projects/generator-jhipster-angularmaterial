@@ -15,7 +15,23 @@ _%>
         var resourceUrl = <% if (applicationType == 'gateway' && locals.microserviceName) {%> '<%= microserviceName.toLowerCase() %>/' +<% } %> 'api/<%= entityApiUrl %>/:id';
 
         return $resource(resourceUrl, {}, {
-            'query': { method: 'GET', isArray: true},
+            'query': { 
+                method: 'GET', 
+                isArray: true<% if (hasDate) { %>, 
+                transformResponse: function (data) {
+                    if (data) {
+					    data = angular.fromJson(data);								
+						for ( var entryIndex in data ) {
+                             <% for (idx in fields) { if (fields[idx].fieldType == 'LocalDate') { %>
+                             data[entryIndex].<%=fields[idx].fieldName%> = DateUtils.convertLocalDateFromServer(data[entryIndex].<%=fields[idx].fieldName%>);<% }if (fields[idx].fieldType == 'ZonedDateTime' || fields[idx].fieldType == 'Date') { %>
+                             data[entryIndex].<%=fields[idx].fieldName%> = DateUtils.convertDateTimeFromServer(data[entryIndex].<%=fields[idx].fieldName%>);<% } }%>
+						}
+					}
+					return data;
+				}
+                <% } %>
+                
+            },
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {
