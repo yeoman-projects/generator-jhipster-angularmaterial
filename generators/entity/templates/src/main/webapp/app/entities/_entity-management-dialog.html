@@ -39,7 +39,12 @@
                         <%_ } _%>
                         
                         <%_ if (fieldInputType === 'date' || fieldInputType === 'datetime-local') { _%>
-                        <mdp-date-picker ng-model="vm.<%= entityInstance %>.<%= fieldName %>" name="<%= fieldName %>" mdp-placeholder="Enter <%= fieldNameHumanized %>">
+                        <mdp-date-picker ng-model="vm.<%= entityInstance %>.<%= fieldName %>" name="<%= fieldName %>" mdp-placeholder="Enter <%= fieldNameHumanized %>" <% if (fields[idx].fieldValidate == true && fields[idx].fieldValidateRules.indexOf('required') != -1) { %>required<% } %>>
+                        <%_ if (fields[idx].fieldValidate == true && fields[idx].fieldValidateRules.indexOf('required') != -1) { _%>
+                            <div ng-messages="editForm.<%= fieldName %>.$error">
+                                <div ng-message="required">This is required</div>
+                            </div>
+                        <%_ } _%>
                         </mdp-date-picker>
                         <%_ } _%>
 
