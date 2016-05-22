@@ -79,6 +79,7 @@ module.exports = JhipsterClientGenerator.extend({
         this.searchEngine = this.config.get('searchEngine');
         this.applicationType = this.config.get('applicationType');
         this.enableTranslation = this.config.get('enableTranslation');
+        this.languages = this.config.get('languages');
         
         // From entityConfig
         var entityNameSpinalCased = _.kebabCase(_.lowerFirst(this.entityConfig.entityClass));
@@ -164,6 +165,14 @@ module.exports = JhipsterClientGenerator.extend({
             this.template(ANGULAR_DIR + 'services/_entity-search.service.js', ANGULAR_DIR + 'entities/' + this.entityFolderName + '/' + this.entityServiceFileName + '.search.service' + '.js', this, {});
         }
 		
+        // Copy for each
+        if ( this.enableTranslation) {
+            var languages = this.languages || this.getAllInstalledLanguages();
+            languages.forEach(function (language) {
+                this.copyEnumI18n(language, enumInfo);
+            }, this);
+        }
+                    
         this.addEntityToMenu(this.entityConfig.entityStateName, false);
 
           

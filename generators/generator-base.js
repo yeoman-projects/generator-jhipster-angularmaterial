@@ -40,6 +40,175 @@ Generator.prototype.addEntityToMenu = function(routerName, enableTranslation) {
 
 
 /**
+ * A a new element in the "global.json" translations.
+ *
+ * @param {string} key - Key for the menu entry
+ * @param {string} value - Default translated value
+ * @param {string} language - The language to which this translation should be added
+ */
+Generator.prototype.addElementTranslationKey = function (key, value, language) {
+    var fullPath = CLIENT_MAIN_SRC_DIR + 'i18n/' + language + '/global.json';
+    try {
+        jhipsterUtils.rewriteFile({
+            file: fullPath,
+            needle: 'jhipster-needle-menu-add-element',
+            splicable: [
+                '"' + key + '": "' + _.startCase(value) + '",'
+            ]
+        }, this);
+    } catch (e) {
+        this.log(chalk.yellow('\nUnable to find ') + fullPath + chalk.yellow(' or missing required jhipster-needle. Reference to ') + language + chalk.yellow(' not added as a new entity in the menu.\n'));
+    }
+};
+
+/**
+ * A a new element in the admin section of "global.json" translations.
+ *
+ * @param {string} key - Key for the menu entry
+ * @param {string} value - Default translated value
+ * @param {string} language - The language to which this translation should be added
+ */
+Generator.prototype.addAdminElementTranslationKey = function (key, value, language) {
+    var fullPath = CLIENT_MAIN_SRC_DIR + 'i18n/' + language + '/global.json';
+    try {
+        jhipsterUtils.rewriteFile({
+            file: fullPath,
+            needle: 'jhipster-needle-menu-add-admin-element',
+            splicable: [
+                '"' + key + '": "' + _.startCase(value) + '",'
+            ]
+        }, this);
+    } catch (e) {
+        this.log(chalk.yellow('\nUnable to find ') + fullPath + chalk.yellow(' or missing required jhipster-needle. Reference to ') + language + chalk.yellow(' not added as a new entry in the admin menu.\n'));
+    }
+};
+
+/**
+ * A a new entity in the "global.json" translations.
+ *
+ * @param {string} key - Key for the entity name
+ * @param {string} value - Default translated value
+ * @param {string} language - The language to which this translation should be added
+ */
+Generator.prototype.addEntityTranslationKey = function (key, value, language) {
+    var fullPath = CLIENT_MAIN_SRC_DIR + 'i18n/' + language + '/global.json';
+    try {
+        jhipsterUtils.rewriteFile({
+            file: fullPath,
+            needle: 'jhipster-needle-menu-add-entry',
+            splicable: [
+                '"' + key + '": "' + _.startCase(value) + '",'
+            ]
+        }, this);
+    } catch (e) {
+        this.log(chalk.yellow('\nUnable to find ') + fullPath + chalk.yellow(' or missing required jhipster-needle. Reference to ') + language + chalk.yellow(' not added as a new entity in the menu.\n'));
+    }
+};
+
+/**
+ * A a new entry as a root param in "global.json" translations.
+ *
+ * @param {string} key - Key for the entry
+ * @param {string} value - Default translated value or object with multiple key and translated value
+ * @param {string} language - The language to which this translation should be added
+ */
+Generator.prototype.addGlobalTranslationKey = function (key, value, language) {
+    var fullPath = CLIENT_MAIN_SRC_DIR + 'i18n/' + language + '/global.json';
+    try {
+        jhipsterUtils.rewriteJSONFile(fullPath, function (jsonObj) {
+            jsonObj[key] = value;
+        }, this);
+    } catch (e) {
+        this.log(chalk.yellow('\nUnable to find ') + fullPath + chalk.yellow('. Reference to ') + '(key: ' + key + ', value:' + value + ')' + chalk.yellow(' not added to global translations.\n'));
+    }
+};
+
+/**
+ * Add a translation key to all installed languages
+ *
+ * @param {string} key - Key for the entity name
+ * @param {string} value - Default translated value
+ * @param {string} method - The method to be run with provided key and value from above
+ * @param {string} enableTranslation - specify if i18n is enabled
+ */
+Generator.prototype.addTranslationKeyToAllLanguages = function (key, value, method, enableTranslation) {
+    if (enableTranslation) {
+        this.getAllInstalledLanguages().forEach(function (language) {
+            this[method](key, value, language);
+        }, this);
+    }
+};
+
+/**
+ * get all the languages installed currently
+ */
+Generator.prototype.getAllInstalledLanguages = function () {
+    var languages = [];
+    this.getAllSupportedLanguages().forEach(function (language) {
+        try {
+            var stats = fs.lstatSync(CLIENT_MAIN_SRC_DIR + 'i18n/' + language);
+            if (stats.isDirectory()) {
+                languages.push(language);
+            }
+        } catch (e) {
+            // An exception is thrown if the folder doesn't exist
+            // do nothing as the language might not be installed
+        }
+    });
+    return languages;
+};
+
+/**
+ * get all the languages supported by JHipster
+ */
+Generator.prototype.getAllSupportedLanguages = function () {
+    return _.map(this.getAllSupportedLanguageOptions(), 'value');
+};
+
+/**
+ * check if a language is supported by JHipster
+ * @param {string} language - Key for the language
+ */
+Generator.prototype.isSupportedLanguage = function (language) {
+    return _.includes(this.getAllSupportedLanguages(), language);
+};
+
+/**
+ * get all the languages options supported by JHipster
+ */
+Generator.prototype.getAllSupportedLanguageOptions = function () {
+    return [
+        {name: 'Catalan', value: 'ca'},
+        {name: 'Chinese (Simplified)', value: 'zh-cn'},
+        {name: 'Chinese (Traditional)', value: 'zh-tw'},
+        {name: 'Czech', value: 'cs'},
+        {name: 'Danish', value: 'da'},
+        {name: 'Dutch', value: 'nl'},
+        {name: 'English', value: 'en'},
+        {name: 'French', value: 'fr'},
+        {name: 'Galician', value: 'gl'},
+        {name: 'German', value: 'de'},
+        {name: 'Greek', value: 'el'},
+        {name: 'Hindi', value: 'hi'},
+        {name: 'Hungarian', value: 'hu'},
+        {name: 'Italian', value: 'it'},
+        {name: 'Japanese', value: 'ja'},
+        {name: 'Korean', value: 'ko'},
+        {name: 'Marathi', value: 'mr'},
+        {name: 'Polish', value: 'pl'},
+        {name: 'Portuguese (Brazilian)', value: 'pt-br'},
+        {name: 'Portuguese', value: 'pt-pt'},
+        {name: 'Romanian', value: 'ro'},
+        {name: 'Russian', value: 'ru'},
+        {name: 'Slovak', value: 'sk'},
+        {name: 'Spanish', value: 'es'},
+        {name: 'Swedish', value: 'sv'},
+        {name: 'Turkish', value: 'tr'},
+        {name: 'Tamil', value: 'ta'}
+    ];
+};
+
+/**
  * Copy templates with all the custom logic applied according to the type.
  *
  * @param {string} source - path of the source file to copy from

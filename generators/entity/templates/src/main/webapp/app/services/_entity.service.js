@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 <%_ var hasDate = false;
-    if (fieldsContainZonedDateTime || fieldsContainLocalDate || fieldsContainDate) {
+    if (fieldsContainZonedDateTime || fieldsContainLocalDate ) {
         hasDate = true;
     }
 _%>

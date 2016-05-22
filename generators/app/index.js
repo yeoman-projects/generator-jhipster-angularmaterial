@@ -226,10 +226,17 @@ module.exports = AngularMaterialGenerator.extend({
     writeAngularAppFiles: function () {
             this.copy(MAIN_SRC_DIR + '_index.html', MAIN_SRC_DIR + 'index.html');
 
-            // Angular JS module
+           // Angular JS module
             this.template(ANGULAR_DIR + '_app.module.js', ANGULAR_DIR + 'app.module.js', this, {});
             this.template(ANGULAR_DIR + '_app.state.js', ANGULAR_DIR + 'app.state.js', this, {});
             this.template(ANGULAR_DIR + '_app.constants.js', ANGULAR_DIR + 'app.constants.js', this, {});
+            
+            this.template(ANGULAR_DIR + 'blocks/handlers/_state.handler.js', ANGULAR_DIR + 'blocks/handlers/state.handler.js', this, {});
+            if (this.enableTranslation) {
+                this.template(ANGULAR_DIR + 'blocks/handlers/_translation.handler.js', ANGULAR_DIR + 'blocks/handlers/translation.handler.js', this, {});
+                this.template(ANGULAR_DIR + 'blocks/config/_translation.config.js', ANGULAR_DIR + 'blocks/config/translation.config.js', this, {});
+                this.template(ANGULAR_DIR + 'blocks/config/_translation-storage.provider.js', ANGULAR_DIR + 'blocks/config/translation-storage.provider.js', this, {});
+            }
             
             // home module
             this.copyHtml(ANGULAR_DIR + 'home/_home.html', ANGULAR_DIR + 'home/home.html');

@@ -9,11 +9,40 @@
     "angular-material-icons": "^0.7.0",
     "angular-material-data-table": "0.10.5",
     "angular-cache-buster": "0.4.3",
+    "angular-cookies": "1.5.2",
     "angular-ui-router": "0.2.18",
+	<%_ if (enableTranslation) { _%>
+    "angular-dynamic-locale": "0.1.30",
+    "angular-i18n": "1.5.2",
+	  "angular-translate": "2.11.0",
+    "angular-translate-interpolation-messageformat": "2.11.0",
+    "angular-translate-loader-partial": "2.11.0",
+    "angular-translate-storage-cookie": "2.11.0",
+    <%_ } _%>
     "ngstorage": "0.3.10",
+	"ngInfiniteScroll": "1.2.2",
     "swagger-ui": "2.1.4",
     "mdPickers": "0.7.5"
   },
+  "overrides": {
+    "angular" : {
+      "dependencies": {
+        "jquery": "2.2.2"
+      }
+    },
+    "angular-cache-buster" : {
+      "dependencies": {
+        "angular": "1.5.2"
+      }
+    },
+    <%_ if (enableTranslation) { _%>
+    "angular-dynamic-locale" : {
+      "dependencies": {
+        "angular": "1.5.2"
+      }
+    }
+    <%_ } _%>
+   },
   "resolutions": {
     "angular": "1.5.2"
   }
