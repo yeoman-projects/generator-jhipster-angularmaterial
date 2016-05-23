@@ -78,8 +78,7 @@ module.exports = JhipsterClientGenerator.extend({
         this.authenticationType = this.config.get('authenticationType');
         this.searchEngine = this.config.get('searchEngine');
         this.applicationType = this.config.get('applicationType');
-        this.enableTranslation = this.config.get('enableTranslation');
-        this.languages = this.config.get('languages');
+   
         
         // From entityConfig
         var entityNameSpinalCased = _.kebabCase(_.lowerFirst(this.entityConfig.entityClass));
@@ -92,6 +91,8 @@ module.exports = JhipsterClientGenerator.extend({
         this.changelogDate = jhipsterFunc.dateFormatForLiquibase();
         this.entityClass =  this.entityConfig.entityClass;
         this.entityNameCapitalized = _.upperFirst(this.entityClass);
+        this.enableTranslation = jhipsterVar.enableTranslation;
+        this.languages = jhipsterVar.languages;
         
         this.entityClassHumanized = _.startCase(this.entityNameCapitalized);
         this.entityClassPlural = pluralize(this.entityClass);
@@ -138,12 +139,26 @@ module.exports = JhipsterClientGenerator.extend({
         },this);
     }
   },
+  default: {
+    composeLanguages: function () {
+      var configOptions = {};
+      
+      configOptions.applicationType = this.config.get('authenticationType');
+      configOptions.baseName = jhipsterVar.baseName;
+      configOptions.websocket = jhipsterVar.websocket;
+      configOptions.databaseType =  jhipsterVar.databaseType;
+      configOptions.searchEngine =  jhipsterVar.searchEngine;
+      configOptions.enableTranslation = jhipsterVar.enableTranslation;
+      configOptions.nativeLanguage = jhipsterVar.nativeLanguage;
+      configOptions.enableSocialSignIn = jhipsterVar.enableSocialSignIn;
+                   
+      
+      this.composeLanguagesSub(this, configOptions, 'client');
+    }
+  }, 
   writing : {
     updateFiles: function () {
      
-
-      
-
       var webappDir = jhipsterVar.webappDir,
       javaTemplateDir = 'src/main/java/package',
       javaDir = jhipsterVar.javaDir,
@@ -166,10 +181,11 @@ module.exports = JhipsterClientGenerator.extend({
         }
 		
         // Copy for each
-        if ( this.enableTranslation) {
+        if (this.enableTranslation) {
             var languages = this.languages || this.getAllInstalledLanguages();
             languages.forEach(function (language) {
-                this.copyEnumI18n(language, enumInfo);
+              console.log("language " + language );
+                this.copyI18n(language);
             }, this);
         }
                     

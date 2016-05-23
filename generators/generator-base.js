@@ -4,11 +4,17 @@ var path = require('path'),
     jhipsterUtils = require('./util'),
     html = require('html-wiring'),
     chalk = require('chalk'),
+    Insight = require('insight'),
     yeoman = require('yeoman-generator'),
     shelljs = require('shelljs'),
     engine = require('ejs').render,
+    packagejs = require('../package.json'),
     _ = require('lodash');
 
+const constants = require('./generator-constants'),
+    CLIENT_MAIN_SRC_DIR = constants.CLIENT_MAIN_SRC_DIR,
+    SERVER_MAIN_RES_DIR = constants.SERVER_MAIN_RES_DIR;
+    
 module.exports = Generator;
 
 function Generator() {
@@ -38,6 +44,68 @@ Generator.prototype.addEntityToMenu = function(routerName, enableTranslation) {
     }
 };
 
+Generator.prototype.insight = function () {
+    var insight = new Insight({
+        trackingCode: 'UA-46075199-2',
+        packageName: packagejs.name,
+        packageVersion: packagejs.version
+    });
+
+    insight.trackWithEvent = function (category, action) {
+        insight.track(category, action);
+        insight.trackEvent({
+            category: category,
+            action: action,
+            label: category + ' ' + action,
+            value: 1
+        });
+    };
+
+    return insight;
+};
+
+Generator.prototype.composeLanguagesSub = function (generator, configOptions, type) {
+    if (generator.enableTranslation) {
+        // skip server if app type is client
+        var skipServer = type && type === 'client';
+        // skip client if app type is server
+        var skipClient = type && type === 'server';
+        generator.composeWith('jhipster:languages', {
+            options: {
+                'skip-install': true,
+                'skip-server': skipServer,
+                'skip-client': skipClient,
+                configOptions: configOptions
+            },
+            args: generator.languages
+        }, {
+            local: require.resolve('./languages')
+        });
+    }
+};
+
+
+Generator.prototype.updateLanguagesInLanguageConstant = function (languages) {
+    var fullPath = CLIENT_MAIN_SRC_DIR + 'app/components/language/language.constants.js';
+    try {
+        var content = '.constant(\'LANGUAGES\', [\n';
+        for (var i = 0, len = languages.length; i < len; i++) {
+            var language = languages[i];
+            content += '            \'' + language + '\'' + (i !== languages.length - 1 ? ',' : '') + '\n';
+        }
+        content +=
+            '            // jhipster-needle-i18n-language-constant - JHipster will add/remove languages in this array\n' +
+            '        ]';
+
+        jhipsterUtils.replaceContent({
+            file: fullPath,
+            pattern: /\.constant.*LANGUAGES.*\[([^\]]*jhipster-needle-i18n-language-constant[^\]]*)\]/g,
+            content: content
+        }, this);
+    } catch (e) {
+        this.log(chalk.yellow('\nUnable to find ') + fullPath + chalk.yellow(' or missing required jhipster-needle. LANGUAGE constant not updated with languages: ') + languages + chalk.yellow(' since block was not found. Check if you have enabled translation support.\n'));
+    }
+};
 
 /**
  * A a new element in the "global.json" translations.
@@ -332,6 +400,7 @@ Generator.prototype.copyI18n = function (language) {
     } catch (e) {
         // An exception is thrown if the folder doesn't exist
         // do nothing
+        console.log(e);
     }
 };
 
