@@ -80,6 +80,11 @@ module.exports = AngularMaterialGenerator.extend({
       this.enableTranslation = jhipsterVar.enableTranslation;
       this.enableSocialSignIn = jhipsterVar.enableSocialSignIn;
       this.websocket = jhipsterVar.websocket;
+      
+      // Constants
+      this.useSass = false;
+      this.testFrameworks = [];
+      this.buildTool = 'maven';
         
       // Application name modified, using each technology's conventions
       this.angularAppName =  jhipsterVar.angularAppName;

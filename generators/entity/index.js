@@ -184,7 +184,6 @@ module.exports = JhipsterClientGenerator.extend({
         if (this.enableTranslation) {
             var languages = this.languages || this.getAllInstalledLanguages();
             languages.forEach(function (language) {
-              console.log("language " + language );
                 this.copyI18n(language);
             }, this);
         }
