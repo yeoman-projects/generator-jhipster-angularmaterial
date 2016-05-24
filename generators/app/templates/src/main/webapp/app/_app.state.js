@@ -26,8 +26,17 @@
 
     function stateConfig($stateProvider) {
         $stateProvider.state('app', {
-            abstract: true
-            
+            abstract: true,
+            resolve: {
+                authorize: ['Auth',
+                    function (Auth) {
+                        return Auth.authorize();
+                    }
+                ]<% if (enableTranslation) { %>,
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('global');
+                }]<% } %>
+            }
         });
     }
 })();
