@@ -3,7 +3,7 @@
 
   angular.module('<%=angularAppName%>')
 
-    .controller('NavBarCtrl', [
+    .controller('NavbarController', [
       'menu',
       'LoginService',
       function (menu, LoginService) {

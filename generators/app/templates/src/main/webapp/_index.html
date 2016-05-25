@@ -25,9 +25,9 @@
         <h2 class="md-toolbar-tools">Menu</h2>
       </md-toolbar>
       <md-content layout-padding>
-        <div layout="column" ng-include="'app/layouts/navbar/navbar.html'" ng-controller="NavBarCtrl as vm">
-                
-        </div>
+        <div ui-view="navbar">
+            <!-- Angular views -->
+        </div>    
       </md-content>
     </md-sidenav>
     
