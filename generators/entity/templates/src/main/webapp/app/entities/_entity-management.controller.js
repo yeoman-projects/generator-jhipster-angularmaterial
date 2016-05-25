@@ -108,8 +108,13 @@
                     controllerAs: 'vm',
                     clickOutsideToClose: true,
                     fullscreen: useFullScreen,
-                    locals: {
-                        <%= entityInstance %>: self.<%= entityInstance %>
+                    //locals: {
+                    //    <%= entityInstance %>: self.<%= entityInstance %>
+                    //},
+                    resolve: {
+                        <%= entityInstance %>: ['<%= entityClass %>', function(<%= entityClass %>) {
+                            return <%= entityClass %>.get({id : self.<%= entityInstance %>.id}).$promise;
+                        }]
                     }
                 }).then( function() {
                     self.openToast('User edited');
