@@ -1,6 +1,13 @@
 <% var keyPrefix = angularAppName + '.'+ entityTranslationKey + '.'; %>
 <md-dialog>
     <form name="editForm" ng-submit="vm.save()">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2 translate="<%= keyPrefix %>home.createOrEditLabel">Create or edit a <%= entityClassHumanized %></h2>
+                <span flex></span>
+                <ng-md-icon icon="close"></ng-md-icon>
+            </div>
+        </md-toolbar>
         <md-dialog-content>
             <div layout="column" layout-padding>
                 <div layout-gt-sm="row">
@@ -28,7 +35,7 @@
                                        
                         <%_ if ( (fieldInputType === 'text'&& !fields[idx].fieldIsEnum) || fieldInputType === 'number'  ) { _%>
                         <md-input-container class="md-block" flex-gt-sm>
-                            <label><%= fieldNameHumanized %></label>
+                            <label translate="<%= translationKey %>"><%= fieldNameHumanized %></label>
                             <input ng-model="vm.<%= entityInstance %>.<%= fieldName %>" name="<%= fieldName %>" id="field_<%= fieldName %>" <% if (fields[idx].fieldValidate == true && fields[idx].fieldValidateRules.indexOf('required') != -1) { %>required<% } %>>
                             <%_ if (fields[idx].fieldValidate == true && fields[idx].fieldValidateRules.indexOf('required') != -1) { _%>
                             <div ng-messages="editForm.<%= fieldName %>.$error">
@@ -53,7 +60,7 @@
                          <%_ if (fields[idx].fieldIsEnum) { _%>
                             
                             <md-input-container>
-                                <label><%= fieldNameHumanized %></label>
+                                <label translate="<%= translationKey %>"><%= fieldNameHumanized %></label>
                                 <md-select ng-model="vm.<%= entityInstance %>.<%= fieldName %>" name="<%= fieldName %>" <% if (fields[idx].fieldValidate == true && fields[idx].fieldValidateRules.indexOf('required') != -1) { %>required<% } %>>
                                     <md-option ng-repeat="enu in vm.<%= fieldName %>Values" value="{{enu.value}}">
                                         {{enu.value}}
@@ -79,12 +86,15 @@
                     <%_ for (idx in relationships) {
                             var relationshipType = relationships[idx].relationshipType;
                             var ownerSide = relationships[idx].ownerSide;
+                            var relationshipName = relationships[idx].relationshipName;
                             var relationshipFieldName = relationships[idx].relationshipFieldName;
                             var relationshipFieldNamePlural = relationships[idx].relationshipFieldNamePlural;
+                            var relationshipNameHumanized = relationships[idx].relationshipNameHumanized;
                             var otherEntityName = relationships[idx].otherEntityName;
                             var otherEntityStateName = relationships[idx].otherEntityStateName;
                             var otherEntityField = relationships[idx].otherEntityField;
-                            var otherEntityFieldCapitalized = relationships[idx].otherEntityFieldCapitalized; _%>
+                            var otherEntityFieldCapitalized = relationships[idx].otherEntityFieldCapitalized;
+                            var relationshipRequired = relationships[idx].relationshipRequired; _%>
                         <%_ if (relationshipType == 'many-to-one'
                                 || (relationshipType == 'one-to-one' && ownerSide == true)
                                 || (relationshipType == 'many-to-many' && ownerSide == true && pagination == 'no')) { _%>
@@ -116,7 +126,7 @@
                                 <%_ } else { _%>
 												<%_ if (dto == 'no') { _%>
                                                 <md-input-container>
-        <label><%= relationshipFieldName %></label>
+        <label translate="<%= keyPrefix %><%= relationshipName %>"><%= relationshipNameHumanized %></label>
         <md-select name="<%= relationshipFieldName %>" ng-model="vm.<%= entityInstance  + "." + relationshipFieldName%>" <% if (fields[idx].fieldValidate == true && fields[idx].fieldValidateRules.indexOf('required') != -1) { %>required<% } %>>        
             <md-option ng-value="<%=otherEntityName %>" ng-repeat="<%=otherEntityName %> in vm.<%= relationships[idx].otherEntityNameCapitalizedPlural.toLowerCase() %> ">{{<%= otherEntityName + "." + otherEntityField %>}}</md-option>
         </md-select>

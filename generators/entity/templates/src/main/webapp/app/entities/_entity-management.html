@@ -1,11 +1,11 @@
 <div>
 <%_ var keyPrefix = angularAppName + '.'+ entityTranslationKey + '.'; _%>
-    <!-- Material Table -->
+    <!-- Material Table --
     <div class="table-responsive">
         <!-- Main Table Toolbar -->
         <md-toolbar class="md-table-toolbar md-default" ng-show="vm.selected.length === 0 && !vm.filter.show">
             <div class="md-toolbar-tools">
-                <span><%= entityClassPluralHumanized %></span>
+                <span translate="<%= keyPrefix %>home.title"><%= entityClassPluralHumanized %></span>
                 <span flex></span>
                 <md-button class="md-icon-button" ng-click="vm.filter.show = true" aria-label="filter_list">
                     <ng-md-icon icon="filter_list"></ng-md-icon>
@@ -49,16 +49,16 @@
             <table md-table md-row-select="vm.options.rowSelection" multiple="{{vm.options.multiSelect}}" ng-model="vm.selected">
                 <thead md-head >
                 <tr md-row>
-                    <th<% if (pagination != 'no') { %> jh-sort-by="id"<% } %>><span translate="global.field.id">ID</span><% if (pagination != 'no') { %> <span class="glyphicon glyphicon-sort"></span><% } %></th>
+                    <th<% if (pagination != 'no') { %> jh-sort-by="id"<% } %>><span translate="global.field.id">ID</span><% if (pagination != 'no') { %> <ng-md-icon icon="import_export"></ng-md-icon><% } %></th>
                     <%_ for (idx in fields) { _%>
-                    <th md-column <% if (pagination != 'no') { %> jh-sort-by="<%= fields[idx].fieldName%>"<% } %>><span translate="<%=keyPrefix + fields[idx].fieldName %>"><%= fields[idx].fieldNameHumanized %></span><% if (pagination != 'no') { %> <span class="glyphicon glyphicon-sort"></span><% } %></th>
+                    <th md-column <% if (pagination != 'no') { %> jh-sort-by="<%= fields[idx].fieldName%>"<% } %>><span translate="<%=keyPrefix + fields[idx].fieldName %>"><%= fields[idx].fieldNameHumanized %></span><% if (pagination != 'no') { %> <ng-md-icon icon="import_export"></ng-md-icon><% } %></th>
                     <%_ } _%>
                     <%_ for (idx in relationships) { _%>
                         <%_ if (relationships[idx].relationshipType == 'many-to-one'
                                 || (relationships[idx].relationshipType == 'one-to-one' && relationships[idx].ownerSide == true)
                                 || (relationships[idx].relationshipType == 'many-to-many' && relationships[idx].ownerSide == true && pagination == 'no')) {
                             var fieldName = dto == 'no' ? "." + relationships[idx].otherEntityField : relationships[idx].otherEntityFieldCapitalized;_%>
-                    <th md-column<% if (pagination != 'no') { %> jh-sort-by="<%=relationships[idx].relationshipName + (fieldName)%>"<% } %>><span translate="<%= keyPrefix + relationships[idx].relationshipName%>"><%= relationships[idx].relationshipNameHumanized %></span><% if (pagination != 'no') { %> <span class="glyphicon glyphicon-sort"></span><% } %></th>
+                    <th md-column<% if (pagination != 'no') { %> jh-sort-by="<%=relationships[idx].relationshipName + (fieldName)%>"<% } %>><span translate="<%= keyPrefix + relationships[idx].relationshipName%>"><%= relationships[idx].relationshipNameHumanized %></span><% if (pagination != 'no') { %> <ng-md-icon icon="import_export"></ng-md-icon><% } %></th>
                         <%_ } _%>
                     <%_ } _%>
                 </tr>
