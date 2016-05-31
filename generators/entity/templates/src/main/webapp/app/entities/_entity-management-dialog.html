@@ -116,10 +116,15 @@
 								
 								<%_ if (relationshipType == 'many-to-many') { _%>
                                 
-                                
-        <%= relationshipFieldName %>
+                               
         
-      
+        <md-input-container>
+        <label translate="<%= keyPrefix %><%= relationshipName %>"><%= relationshipNameHumanized %></label>
+        <md-select name="<%= relationshipFieldName %>" ng-model="vm.<%= entityInstance  + "." + relationshipFieldName%>" multiple >        
+            <md-option ng-value="<%=otherEntityName %>" ng-repeat="<%=otherEntityName %> in vm.<%= relationships[idx].otherEntityNameCapitalizedPlural.toLowerCase() %> ">{{<%= otherEntityName + "." + otherEntityField %>}}</md-option>
+        </md-select>
+       
+      </md-input-container>        
       
                                 
 												

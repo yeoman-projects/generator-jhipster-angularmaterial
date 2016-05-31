@@ -180,12 +180,36 @@ module.exports = JhipsterClientGenerator.extend({
             this.template(ANGULAR_DIR + 'services/_entity-search.service.js', ANGULAR_DIR + 'entities/' + this.entityFolderName + '/' + this.entityServiceFileName + '.search.service' + '.js', this, {});
         }
 		
-        // Copy for each
+        // Copy for each entity languages
         if (this.enableTranslation) {
             var languages = this.languages || this.getAllInstalledLanguages();
             languages.forEach(function (language) {
                 this.copyI18n(language);
             }, this);
+        }
+        
+        // Copy for each enum languages
+        for (var idx in this.fields) {
+                var field = this.fields[idx];
+                if (field.fieldIsEnum === true) {
+                  var fieldType = field.fieldType;
+                    var enumInfo = new Object();
+                    enumInfo.packageName = this.packageName;
+                    enumInfo.enumName = fieldType;
+                    enumInfo.enumValues = field.fieldValues;
+                    field.enumInstance = _.lowerFirst(enumInfo.enumName);
+                    enumInfo.enumInstance = field.enumInstance;
+                    enumInfo.angularAppName = this.angularAppName;
+                    enumInfo.enums = enumInfo.enumValues.replace(/\s/g, '').split(',');
+                  // Copy for each
+             
+                        var languages = this.languages || this.getAllInstalledLanguages();
+                        languages.forEach(function (language) {
+                            this.copyEnumI18n(language, enumInfo);
+                        }, this);
+                    
+                  
+                }
         }
                     
         this.addEntityToMenu(this.entityConfig.entityStateName, false);
