@@ -49,16 +49,16 @@
             <table md-table md-row-select="vm.options.rowSelection" multiple="{{vm.options.multiSelect}}" ng-model="vm.selected">
                 <thead md-head >
                 <tr md-row>
-                    <th<% if (pagination != 'no') { %> jh-sort-by="id"<% } %>><span translate="global.field.id">ID</span><% if (pagination != 'no') { %> <ng-md-icon icon="import_export"></ng-md-icon><% } %></th>
+                    <th md-column md-order-by="id"><span translate="global.field.id">ID</span><% if (pagination != 'no') { %> <ng-md-icon icon="import_export"></ng-md-icon><% } %></th>
                     <%_ for (idx in fields) { _%>
-                    <th md-column <% if (pagination != 'no') { %> jh-sort-by="<%= fields[idx].fieldName%>"<% } %>><span translate="<%=keyPrefix + fields[idx].fieldName %>"><%= fields[idx].fieldNameHumanized %></span><% if (pagination != 'no') { %> <ng-md-icon icon="import_export"></ng-md-icon><% } %></th>
+                    <th md-column md-order-by="<%= fields[idx].fieldName%>"><span translate="<%=keyPrefix + fields[idx].fieldName %>"><%= fields[idx].fieldNameHumanized %></span><% if (pagination != 'no') { %> <ng-md-icon icon="import_export"></ng-md-icon><% } %></th>
                     <%_ } _%>
                     <%_ for (idx in relationships) { _%>
                         <%_ if (relationships[idx].relationshipType == 'many-to-one'
                                 || (relationships[idx].relationshipType == 'one-to-one' && relationships[idx].ownerSide == true)
                                 || (relationships[idx].relationshipType == 'many-to-many' && relationships[idx].ownerSide == true && pagination == 'no')) {
                             var fieldName = dto == 'no' ? "." + relationships[idx].otherEntityField : relationships[idx].otherEntityFieldCapitalized;_%>
-                    <th md-column<% if (pagination != 'no') { %> jh-sort-by="<%=relationships[idx].relationshipName + (fieldName)%>"<% } %>><span translate="<%= keyPrefix + relationships[idx].relationshipName%>"><%= relationships[idx].relationshipNameHumanized %></span><% if (pagination != 'no') { %> <ng-md-icon icon="import_export"></ng-md-icon><% } %></th>
+                    <th md-column md-order-by="<%=relationships[idx].relationshipName + (fieldName)%>"><span translate="<%= keyPrefix + relationships[idx].relationshipName%>"><%= relationships[idx].relationshipNameHumanized %></span><% if (pagination != 'no') { %> <ng-md-icon icon="import_export"></ng-md-icon><% } %></th>
                         <%_ } _%>
                     <%_ } _%>
                 </tr>
@@ -133,6 +133,8 @@
                 </tbody>
             </table>
         </md-table-container>
+        <md-table-pagination md-limit="vm.query.limit" md-limit-options="vm.limitOptions" md-page="vm.query.page" md-total="{{vm.<%=entityInstancePlural %>.length}}" md-page-select="vm.options.pageSelect" md-boundary-links="vm.options.boundaryLinks" md-on-paginate="console.log('paginate')"></md-table-pagination>
+        
     </div>
     <br/>
     <!-- End Material Table -->
