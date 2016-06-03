@@ -11,12 +11,7 @@
         var vm = this;
                 
         vm.options = {
-            rowSelection: true,
-            multiSelect: false,
-            autoSelect: false,
-            decapitate: false,
-            largeEditDialog: false,
-            boundaryLinks: false,
+            boundaryLinks: true,
             limitSelect: true,
             pageSelect: true
         };
@@ -26,12 +21,13 @@
           show: false            
         };
         vm.query = {
-            filter: '',
-            limit: '5',
-            order: 'nameToLower',
-            page: 1,
+            filter: '',       //pagingParams.search
+            limit: '5',       //vm.itemsPerPage
+            order: 'id',      //vm.predicate  | vm.reverse
+            page: 1,          //vm.page
 
         };
+        vm.limitOptions = [5, 10, 15];
         
         // Load Entity
         <%_ if (pagination == 'pagination' || pagination == 'pager') { _%>
@@ -125,6 +121,15 @@
             
         };
         
+        vm.paginate<%= entityAngularJSName %> = function (page, limit) {
+            console.log('page: ', page);
+            console.log('limit: ', limit);
+        };
+        
+        vm.logOrder = function (order) {
+            console.log('order: ', order);
+        };
+        
         vm.openToast = function( message ) {
             $mdToast.show(
                 $mdToast.simple()
@@ -132,7 +137,7 @@
                     .position('top right')
                     .hideDelay(3000)
                 );
-        }
+        };
     }
     
     
