@@ -7,9 +7,11 @@
             <div class="md-toolbar-tools">
                 <span translate="<%= keyPrefix %>home.title"><%= entityClassPluralHumanized %></span>
                 <span flex></span>
+                <%_ if (searchEngine == 'elasticsearch') { _%>
                 <md-button class="md-icon-button" ng-click="vm.filter.show = true" aria-label="filter_list">
                     <ng-md-icon icon="filter_list"></ng-md-icon>
                  </md-button>
+                 <%_ } _%>
                  <md-button class="md-icon-button" ng-click="vm.add<%= entityAngularJSName %>($event)">
                     <ng-md-icon icon="playlist_add"></ng-md-icon>
                  </md-button>
@@ -31,34 +33,36 @@
         </md-toolbar>
         
         <!-- Advanced Search Toolbar -->
+        <%_ if (searchEngine == 'elasticsearch') { _%>
         <md-toolbar class="md-table-toolbar md-default ng-hide" ng-show="vm.filter.show && (vm.selected.length === 0)" aria-hidden="true" style="">
             <div class="md-toolbar-tools">
-                <ng-md-icon icon="search"></ng-md-icon>
+                <ng-md-icon icon="search" ng-click="vm.search(vm.searchQuery)"></ng-md-icon>
                 <form flex="" name="filter.form" class="ng-pristine ng-valid flex">
-                    <input type="text" ng-model="vm.query.filter" placeholder="search" class="ng-pristine ng-untouched ng-valid" aria-invalid="false">
+                    <input type="text" ng-model="vm.searchQuery" id="searchQuery" placeholder="<% if (enableTranslation) { %>{{ '<%= keyPrefix %>home.search' | translate }}<% } else { %>Query<% } %>" class="ng-pristine ng-untouched ng-valid" aria-invalid="false">
                 </form>
-                <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="vm.filter.show = false" aria-label="close">
+                <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="vm.clear()" aria-label="close">
                     <ng-md-icon icon="clear"></ng-md-icon>
                     <div class="md-ripple-container"></div>
                 </button>
              </div>
         </md-toolbar>
+        <%_ } _%>
 
         <!-- Table -->
         <md-table-container>
             <table md-table md-row-select="true" multiple="false" ng-model="vm.selected" md-on-reorder="logOrder">
                 <thead md-head >
                 <tr md-row>
-                    <th md-column md-order-by="id"><span translate="global.field.id">ID</span><% if (pagination != 'no') { %> <ng-md-icon icon="import_export"></ng-md-icon><% } %></th>
+                    <th <% if (pagination != 'no') { %> md-column md-order-by="id"<% } %>><span translate="global.field.id">ID</span></th>
                     <%_ for (idx in fields) { _%>
-                    <th md-column md-order-by="<%= fields[idx].fieldName%>"><span translate="<%=keyPrefix + fields[idx].fieldName %>"><%= fields[idx].fieldNameHumanized %></span><% if (pagination != 'no') { %> <ng-md-icon icon="import_export"></ng-md-icon><% } %></th>
+                    <th <% if (pagination != 'no') { %> md-column md-order-by="<%= fields[idx].fieldName%>"<% } %>><span translate="<%=keyPrefix + fields[idx].fieldName %>"><%= fields[idx].fieldNameHumanized %></span> </th>
                     <%_ } _%>
                     <%_ for (idx in relationships) { _%>
                         <%_ if (relationships[idx].relationshipType == 'many-to-one'
                                 || (relationships[idx].relationshipType == 'one-to-one' && relationships[idx].ownerSide == true)
                                 || (relationships[idx].relationshipType == 'many-to-many' && relationships[idx].ownerSide == true && pagination == 'no')) {
                             var fieldName = dto == 'no' ? "." + relationships[idx].otherEntityField : relationships[idx].otherEntityFieldCapitalized;_%>
-                    <th md-column md-order-by="<%=relationships[idx].relationshipName + (fieldName)%>"><span translate="<%= keyPrefix + relationships[idx].relationshipName%>"><%= relationships[idx].relationshipNameHumanized %></span><% if (pagination != 'no') { %> <ng-md-icon icon="import_export"></ng-md-icon><% } %></th>
+                    <th <% if (pagination != 'no') { %> md-column md-order-by="<%=relationships[idx].relationshipName + (fieldName)%>"<% } %>><span translate="<%= keyPrefix + relationships[idx].relationshipName%>"><%= relationships[idx].relationshipNameHumanized %></span></th>
                         <%_ } _%>
                     <%_ } _%>
                 </tr>

@@ -74,12 +74,9 @@ module.exports = JhipsterClientGenerator.extend({
   },
   configuring: {
     loadInMemoryData: function () {
-        // From yo-rc.json
-        this.authenticationType = this.config.get('authenticationType');
-        this.searchEngine = this.config.get('searchEngine');
+        // From yo-rc.json DOESN?T WORK                
         this.applicationType = this.config.get('applicationType');
    
-        
         // From entityConfig
         var entityNameSpinalCased = _.kebabCase(_.lowerFirst(this.entityConfig.entityClass));
         var entityNamePluralizedAndSpinalCased = _.kebabCase(_.lowerFirst(pluralize(this.entityConfig.entityClass)));
@@ -93,6 +90,8 @@ module.exports = JhipsterClientGenerator.extend({
         this.entityNameCapitalized = _.upperFirst(this.entityClass);
         this.enableTranslation = jhipsterVar.enableTranslation;
         this.languages = jhipsterVar.languages;
+        this.authenticationType = jhipsterVar.authenticationType;
+        this.searchEngine = jhipsterVar.searchEngine;
         
         this.entityClassHumanized = _.startCase(this.entityNameCapitalized);
         this.entityClassPlural = pluralize(this.entityClass);
