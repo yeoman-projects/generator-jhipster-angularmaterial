@@ -20,13 +20,6 @@
         vm.filter = {
           show: false            
         };
-        vm.query = {
-            filter: '',       //pagingParams.search
-            limit: '5',       //vm.itemsPerPage
-            order: 'id',      //vm.predicate  | vm.reverse
-            page: 1,          //vm.page
-
-        };
         vm.limitOptions = [5, 10, 15];
         
         // Load Entity
