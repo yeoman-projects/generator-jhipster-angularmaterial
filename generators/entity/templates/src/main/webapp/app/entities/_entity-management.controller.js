@@ -115,8 +115,8 @@
         };
         
         vm.paginate<%= entityAngularJSName %> = function (page, limit) {
-            console.log('page: ', page);
-            console.log('limit: ', limit);
+            console.log('page: ' +  page + ' limit: ' + limit);
+			vm.loadPage(page);
         };
         
         vm.logOrder = function (order) {
