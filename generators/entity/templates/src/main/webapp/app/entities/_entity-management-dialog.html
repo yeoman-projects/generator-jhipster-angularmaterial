@@ -72,6 +72,9 @@
                                 </div>
                                 <%_ } _%>
                             </md-input-container>   
+                            <%_ } else if ((fieldType === 'byte[]' || fieldType === 'ByteBuffer') && fieldTypeBlobContent == 'image') { _%>
+                            
+                                <lf-ng-md-file-input lf-files="files" accept="image/*" lf-placeholder="Add image" preview></lf-ng-md-file-input>
                             <%_ } _%>       
                             
                             

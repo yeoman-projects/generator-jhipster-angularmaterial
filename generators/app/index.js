@@ -185,6 +185,11 @@ module.exports = AngularMaterialGenerator.extend({
                 }
             }
         },
+    writeAngularProfileServiceFiles: function () {
+            // services
+            this.template(ANGULAR_DIR + 'services/profiles/_profile.service.js', ANGULAR_DIR + 'services/profiles/profile.service.js', this, {});
+            this.template(ANGULAR_DIR + 'services/profiles/_page-ribbon.directive.js', ANGULAR_DIR + 'services/profiles/page-ribbon.directive.js', this, {});
+        },
     writeAngularAuthServiceFiles: function () {
             // services
             this.template(ANGULAR_DIR + 'services/auth/_auth.service.js', ANGULAR_DIR + 'services/auth/auth.service.js', this, {});

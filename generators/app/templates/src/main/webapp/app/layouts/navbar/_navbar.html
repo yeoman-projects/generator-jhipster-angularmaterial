@@ -1,79 +1,69 @@
+<md-content role="navigation">
+  <md-list ng-cloak>
 
-    <md-content role="navigation">
-      <md-list ng-cloak>
+    <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
+    <md-subheader class="md-no-sticky" ng-show="vm.isAuthenticated()">Entities</md-subheader>
+    <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
+    <md-divider></md-divider>
 
-  
-  <md-subheader class="md-no-sticky">Login</md-subheader>
-  <md-list-item ng-click="vm.login($event)">
-    <ng-md-icon icon="login"></ng-md-icon>
-    <p>Login</p>
-  </md-list-item>
-  <md-divider></md-divider>
-  
-  <md-subheader class="md-no-sticky">Entities</md-subheader>
-  <md-list-item>
-    <ng-md-icon icon="no"></ng-md-icon>
-    <p>Trucks</p>
-  </md-list-item> 
-  <md-divider></md-divider>
-  
-  <md-subheader class="md-no-sticky">Account</md-subheader>
-  <md-list-item>
-    <ng-md-icon icon="settings"></ng-md-icon>
-    <p>Settings</p>
-  </md-list-item> 
-  <md-list-item>
-    <ng-md-icon icon="verified_user"></ng-md-icon>
-    <p>Password</p>
-  </md-list-item> 
-  <md-list-item>
-    <ng-md-icon icon="logout"></ng-md-icon>
-    <p>Sign out</p>
-  </md-list-item> 
-  <md-list-item>
-    <ng-md-icon icon="login"></ng-md-icon>
-    <p>Sign in</p>
-  </md-list-item> 
-  <md-list-item>
-    <ng-md-icon icon="person_add"></ng-md-icon>
-    <p>Register</p>
-  </md-list-item> 
-  <md-divider></md-divider>
-  
-  <md-subheader class="md-no-sticky">Administration</md-subheader>
-  <md-list-item >
-    <ng-md-icon icon="person"></ng-md-icon>
-    <p>User management</p>
-  </md-list-item> 
-  <md-list-item >
-    <ng-md-icon icon="av_timer"></ng-md-icon>
-    <p>Metrics</p>
-  </md-list-item> 
-  <md-list-item >
-    <ng-md-icon icon="healing"></ng-md-icon>
-    <p>Health</p>
-  </md-list-item> 
-  <md-list-item >
-    <ng-md-icon icon="settings"></ng-md-icon>
-    <p>Configuration</p>
-  </md-list-item> 
-  <md-list-item >
-    <ng-md-icon icon="assignment"></ng-md-icon>
-    <p>Audits</p>
-  </md-list-item> 
-  <md-list-item >
-    <ng-md-icon icon="receipt"></ng-md-icon>
-    <p>Logs</p>
-  </md-list-item> 
-  <md-list-item >
-    <ng-md-icon icon="my_library_books"></ng-md-icon>
-    <p>API</p>
-  </md-list-item> 
-  <md-list-item >
-    <ng-md-icon icon="my_library_books"></ng-md-icon>
-    <p>Database</p>
-  </md-list-item> 
-  <md-divider></md-divider>
-  
-</md-list>
-    </md-content>
+    <md-subheader class="md-no-sticky">Account</md-subheader>
+    <md-list-item ng-show="vm.isAuthenticated()">
+      <ng-md-icon icon="settings"></ng-md-icon>
+      <p>Settings</p>
+    </md-list-item>
+    <md-list-item ng-show="vm.isAuthenticated()">
+      <ng-md-icon icon="verified_user"></ng-md-icon>
+      <p>Password</p>
+    </md-list-item>
+    <md-list-item ng-click="vm.logout()" ng-show="vm.isAuthenticated()">
+      <ng-md-icon icon="logout"></ng-md-icon>
+      <p>Sign out</p>
+    </md-list-item>
+    <md-list-item ng-click="vm.login($event)" ng-show="!vm.isAuthenticated()">
+      <ng-md-icon icon="login"></ng-md-icon>
+      <p>Sign in</p>
+    </md-list-item>
+    <md-list-item ng-show="vm.isAuthenticated()">
+      <ng-md-icon icon="person_add"></ng-md-icon>
+      <p>Register</p>
+    </md-list-item>
+    <md-divider></md-divider>
+
+    <md-subheader class="md-no-sticky" ng-show="vm.hasAuthority('ROLE_ADMIN')">Administration</md-subheader>
+    <md-list-item ng-show="vm.hasAuthority('ROLE_ADMIN')">
+      <ng-md-icon icon="person"></ng-md-icon>
+      <p>User management</p>
+    </md-list-item>
+    <md-list-item ng-show="vm.hasAuthority('ROLE_ADMIN')">
+      <ng-md-icon icon="av_timer"></ng-md-icon>
+      <p>Metrics</p>
+    </md-list-item>
+    <md-list-item ng-show="vm.hasAuthority('ROLE_ADMIN')">
+      <ng-md-icon icon="healing"></ng-md-icon>
+      <p>Health</p>
+    </md-list-item>
+    <md-list-item ng-show="vm.hasAuthority('ROLE_ADMIN')">
+      <ng-md-icon icon="settings"></ng-md-icon>
+      <p>Configuration</p>
+    </md-list-item>
+    <md-list-item ng-show="vm.hasAuthority('ROLE_ADMIN')">
+      <ng-md-icon icon="assignment"></ng-md-icon>
+      <p>Audits</p>
+    </md-list-item>
+    <md-list-item ng-show="vm.hasAuthority('ROLE_ADMIN')">
+      <ng-md-icon icon="receipt"></ng-md-icon>
+      <p>Logs</p>
+    </md-list-item>
+    <md-list-item ng-show="vm.hasAuthority('ROLE_ADMIN')">
+      <ng-md-icon icon="my_library_books"></ng-md-icon>
+      <p>API</p>
+    </md-list-item>
+    <md-list-item ng-show="vm.hasAuthority('ROLE_ADMIN')">
+      <ng-md-icon icon="my_library_books"></ng-md-icon>
+      <p>Database</p>
+    </md-list-item>
+    <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
+    <md-divider></md-divider>
+
+  </md-list>
+</md-content>

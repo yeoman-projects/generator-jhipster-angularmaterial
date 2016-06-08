@@ -1,38 +1,30 @@
-(function(){
-  'use strict';
+(function() {
+    'use strict';
 
-  angular.module('<%=angularAppName%>')
+    angular
+        .module('<%=angularAppName%>')
+        .controller('NavbarController', NavbarController);
 
-    .controller('NavbarController', [
-      'menu',
-      'LoginService',
-      function (menu, LoginService) {
+    NavbarController.$inject = ['$state', 'Auth', 'Principal', 'ProfileService', 'LoginService'];
 
+    function NavbarController ($state, Auth, Principal, ProfileService, LoginService) {
         var vm = this;
-       
-        //functions for menu-link and menu-toggle
-        vm.isOpen = isOpen;
-        vm.toggleOpen = toggleOpen;
-        vm.autoFocusContent = false;
-        vm.menu = menu;
 
-        vm.status = {
-          isFirstOpen: true,
-          isFirstDisabled: false
-        };
+        vm.isAuthenticated = Principal.isAuthenticated;
+        vm.isHasAuthority = Principal.hasAuthority;
 
+        vm.login = login;
+        vm.logout = logout;
+        vm.$state = $state;
 
-        function isOpen(section) {
-          return menu.isSectionSelected(section);
-        }
-
-        function toggleOpen(section) {
-          menu.toggleSelectSection(section);
-        }
-        
-        vm.login = function(ev) {
+        function login(ev) {
             LoginService.open(ev);
         }
 
-      }])
+        function logout() {
+            Auth.logout();
+            $state.go('home');
+        }
+
+    }
 })();

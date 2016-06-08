@@ -16,7 +16,8 @@
             'ngCacheBuster',
             'mdPickers',             
             // jhipster-needle-angularjs-add-module JHipster will add new module here
-            'ngMessages'
+            'ngMessages',
+            'lfNgMdFileInput'
         ])
         .config( function ($mdIconProvider, $mdThemingProvider) {
             $mdThemingProvider.theme('default')

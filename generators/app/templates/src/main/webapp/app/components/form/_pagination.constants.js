@@ -4,6 +4,6 @@
     angular
         .module('<%=angularAppName%>')
         .constant('paginationConstants', {
-            'itemsPerPage': 20
+            'itemsPerPage': 10
         });
 })();

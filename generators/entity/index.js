@@ -211,7 +211,7 @@ module.exports = JhipsterClientGenerator.extend({
                 }
         }
                     
-        this.addEntityToMenu(this.entityConfig.entityStateName, false);
+        this.addEntityToMenu(this.entityClassPluralHumanized, this.entityConfig.entityStateName, false);
 
           
           
