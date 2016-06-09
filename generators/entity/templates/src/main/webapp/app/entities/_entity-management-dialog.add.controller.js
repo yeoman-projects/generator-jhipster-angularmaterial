@@ -5,9 +5,9 @@
         .module('<%=angularAppName%>')
         .controller('<%= entityAngularJSName %>AddDialogController', <%= entityAngularJSName %>DialogController);
 
-    <%= entityAngularJSName %>DialogController.$inject = ['$mdDialog'<% for (idx in differentTypes) { %>, '<%= differentTypes[idx] %>'<% } %>];
+    <%= entityAngularJSName %>DialogController.$inject = ['$scope','$mdDialog'<% if (fieldsContainBlob) { %>, 'DataUtils'<% } %><% for (idx in differentTypes) { %>, '<%= differentTypes[idx] %>'<% } %>];
 
-    function <%= entityAngularJSName %>DialogController ($mdDialog<% for (idx in differentTypes) { %>, <%= differentTypes[idx] %><% } %>) {
+    function <%= entityAngularJSName %>DialogController ($scope,$mdDialog<% if (fieldsContainBlob) { %>, DataUtils<% } %><% for (idx in differentTypes) { %>, <%= differentTypes[idx] %><% } %>) {
         var vm = this;
         vm.<%= entityInstance %> = {
                                 <%_ for (idx in fields) { _%>
@@ -22,6 +22,26 @@
                                 <%_ } _%>
                                 id: null
                             };
+         <%_ for (idx in fields) { _%>
+             <%_ if ((fields[idx].fieldType == 'byte[]' || fields[idx].fieldType === 'ByteBuffer') && fields[idx].fieldTypeBlobContent != 'text') { _%>
+
+            $scope.$watch('<%= fields[idx].fieldName %>File.length',function(newVal,oldVal){
+            if ($scope.<%= fields[idx].fieldName %>File && $scope.<%= fields[idx].fieldName %>File.length > 0 ) {
+			
+			DataUtils.toBase64($scope.<%= fields[idx].fieldName %>File[0].lfFile, function(base64Data) {
+                    $scope.$apply(function() {
+                        vm.trashBin.barCode = base64Data;
+                        vm.trashBin.barCodeContentType = $scope.<%= fields[idx].fieldName %>File[0].lfFile.type;
+                    });
+                });
+			}
+        }); 
+
+
+
+            <%_ } _%>
+         <%_ } _%>
+
         <%_
             var queries = [];
             for (idx in relationships) {
@@ -82,6 +102,8 @@
         }
         
         vm.save = function() {
+            
+
             if (vm.<%= entityInstance %>.id !== null) {
                 <%= entityClass %>.update(vm.<%= entityInstance %>, onSaveSuccess, onSaveError);
             } else {
@@ -89,6 +111,8 @@
             }
             $mdDialog.hide();
         }
+
+        
         
         vm.openToast = function( message ) {
             $mdToast.show(
