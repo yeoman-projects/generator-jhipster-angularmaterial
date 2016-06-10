@@ -17,7 +17,7 @@
             'mdPickers',             
             // jhipster-needle-angularjs-add-module JHipster will add new module here
             'ngMessages',
-            'lfNgMdFileInput'
+            'ngFileUpload'
         ])
         .config( function ($mdIconProvider, $mdThemingProvider) {
             $mdThemingProvider.theme('default')

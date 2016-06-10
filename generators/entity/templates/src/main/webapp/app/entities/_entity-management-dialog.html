@@ -74,7 +74,28 @@
                             </md-input-container>   
                             <%_ } else if ((fieldType === 'byte[]' || fieldType === 'ByteBuffer') && fieldTypeBlobContent == 'image') { _%>
                             
-                                <lf-ng-md-file-input lf-files="<%= fields[idx].fieldName %>File" accept="image/*" preview></lf-ng-md-file-input>
+                                              
+                        <div ng-if="vm.<%= entityInstance %>.<%= fieldName %>">
+							<a ng-click="vm.openFile(vm.<%= entityInstance %>.<%= fieldName %>ContentType, vm.<%= entityInstance %>.<%= fieldName %>)">
+							<img data-ng-src="{{'data:' + vm.<%=entityInstance %>.<%= fieldName %>ContentType + ';base64,' + vm.<%= entityInstance %>.<%= fieldName %>}}" style="max-width: 100%;"/>
+							</a>
+							{{vm.<%= entityInstance %>.<%= fieldName %>ContentType}}, {{vm.byteSize(vm.<%= entityInstance %>.<%= fieldName %>)}}
+						</div>
+
+                        <div>
+						<md-button ng-click="vm.<%= entityInstance %>.<%= fieldName %>=null;vm.<%= entityInstance %>.<%= fieldName %>ContentType=null;"
+                            class="md-raised md-primary">
+							Delete
+						</md-button>
+						</div>
+						
+						<md-button class="md-raised md-primary">
+							<label for="file-input">Select</label>  
+							<input id="file-input" type="file" style= "display: none;" ngf-select ngf-change="vm.setBarCode($file, vm.trashBin)">
+						</md-button>
+						
+						
+						
                             <%_ } _%>       
                             
                             

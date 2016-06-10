@@ -5,12 +5,17 @@
         .module('<%=angularAppName%>')
         .controller('<%= entityAngularJSName %>EditDialogController', <%= entityAngularJSName %>DialogController);
 
-    <%= entityAngularJSName %>DialogController.$inject = ['<%= entityInstance %>','$mdDialog'<% for (idx in differentTypes) { %>, '<%= differentTypes[idx] %>'<% } %>];
+    <%= entityAngularJSName %>DialogController.$inject = ['$scope','<%= entityInstance %>','$mdDialog'<% for (idx in differentTypes) { %>, '<%= differentTypes[idx] %>'<% } %><% if (fieldsContainBlob) { %>, 'DataUtils'<% } %>];
 
-    function <%= entityAngularJSName %>DialogController (<%= entityInstance %>, $mdDialog<% for (idx in differentTypes) { %>, <%= differentTypes[idx] %><% } %>) {
+    function <%= entityAngularJSName %>DialogController ($scope,<%= entityInstance %>, $mdDialog<% for (idx in differentTypes) { %>, <%= differentTypes[idx] %><% } %><% if (fieldsContainBlob) { %>, DataUtils<% } %>) {
         var vm = this;
         
         vm.<%= entityInstance %> = <%= entityInstance %>;
+		
+		 <%_ if (fieldsContainBlob) { _%>
+        vm.byteSize = DataUtils.byteSize;
+        vm.openFile = DataUtils.openFile;
+        <%_ } _%>
         
         <%_
             var queries = [];
@@ -79,6 +84,26 @@
             }
             $mdDialog.hide();
         }
+		
+		<%_ for (idx in fields) {
+            if ((fields[idx].fieldType === 'byte[]' || fields[idx].fieldType === 'ByteBuffer') && fields[idx].fieldTypeBlobContent !== 'text') { _%>
+
+        vm.set<%= fields[idx].fieldNameCapitalized %> = function ($file, <%= entityInstance %>) {
+            <%_ if (fields[idx].fieldTypeBlobContent === 'image') { _%>
+            if ($file && $file.$error === 'pattern') {
+                return;
+            }
+            <%_ } _%>
+            if ($file) {
+                DataUtils.toBase64($file, function(base64Data) {
+                    $scope.$apply(function() {
+                        vm.<%= entityInstance %>.<%= fields[idx].fieldName %> = base64Data;
+                        vm.<%= entityInstance %>.<%= fields[idx].fieldName %>ContentType = $file.type;
+                    });
+                });
+            }
+        };
+        <%_ } } _%>
         
         vm.openToast = function( message ) {
             $mdToast.show(
