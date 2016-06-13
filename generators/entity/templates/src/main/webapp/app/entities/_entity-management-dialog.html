@@ -74,26 +74,34 @@
                             </md-input-container>   
                             <%_ } else if ((fieldType === 'byte[]' || fieldType === 'ByteBuffer') && fieldTypeBlobContent == 'image') { _%>
                             
-                                              
-                        <div ng-if="vm.<%= entityInstance %>.<%= fieldName %>">
-							<a ng-click="vm.openFile(vm.<%= entityInstance %>.<%= fieldName %>ContentType, vm.<%= entityInstance %>.<%= fieldName %>)">
-							<img data-ng-src="{{'data:' + vm.<%=entityInstance %>.<%= fieldName %>ContentType + ';base64,' + vm.<%= entityInstance %>.<%= fieldName %>}}" style="max-width: 100%;"/>
-							</a>
-							{{vm.<%= entityInstance %>.<%= fieldName %>ContentType}}, {{vm.byteSize(vm.<%= entityInstance %>.<%= fieldName %>)}}
-						</div>
 
-                        <div>
-						<md-button ng-click="vm.<%= entityInstance %>.<%= fieldName %>=null;vm.<%= entityInstance %>.<%= fieldName %>ContentType=null;"
-                            class="md-raised md-primary">
-							Delete
-						</md-button>
-						</div>
+                       
 						
-						<md-button class="md-raised md-primary">
-							<label for="file-input">Select</label>  
-							<input id="file-input" type="file" style= "display: none;" ngf-select ngf-change="vm.setBarCode($file, vm.trashBin)">
-						</md-button>
-						
+
+						<md-card md-theme="'dark-blue'" md-theme-watch>
+								<md-card-title>
+								  <md-card-title-text>
+									<span class="md-headline"><%= fieldNameHumanized %></span>
+									<span class="md-subhead">{{vm.<%= entityInstance %>.<%= fieldName %>ContentType}}, {{vm.byteSize(vm.<%= entityInstance %>.<%= fieldName %>)}}</span>
+								  </md-card-title-text>
+								  <md-card-title-media>
+                                      <div class="md-media-sm card-media">
+									<a ng-click="vm.openFile(vm.<%= entityInstance %>.<%= fieldName %>ContentType, vm.<%= entityInstance %>.<%= fieldName %>)">
+										<img data-ng-src="{{'data:' + vm.<%=entityInstance %>.<%= fieldName %>ContentType + ';base64,' + vm.<%= entityInstance %>.<%= fieldName %>}}" style="max-height: 120px;"/>
+									</a>
+                                    </div>
+								  </md-card-title-media>
+								</md-card-title>
+								<md-card-actions layout="row" layout-align="end center">
+								  <md-button class="md-raised md-primary" ng-click="vm.<%= entityInstance %>.<%= fieldName %>=null;vm.<%= entityInstance %>.<%= fieldName %>ContentType=null;">
+										<label>Clear</label>  
+									</md-button> 
+								  <md-button class="md-raised md-primary">
+										<label for="file-input"><% if (fieldTypeBlobContent == 'image') { %>Add image<% } else { %>Add blob<% } %></label>  
+										<input id="file-input" type="file" style= "display: none;" ngf-select ngf-change="vm.set<%=fieldNameCapitalized %>($file, vm.<%= entityInstance %>)"<% if (fieldTypeBlobContent == 'image') { %> accept="image/*" translate="entity.action.addimage"<% } else { %> translate="entity.action.addblob"<% } %>>
+									</md-button> 
+								</md-card-actions>
+							</md-card>
 						
 						
                             <%_ } _%>       
@@ -189,6 +197,7 @@
             <md-button type="submit" class="md-primary md-raised" ng-disabled="editForm.$invalid">
                 Save
             </md-button>
+            
         </md-dialog-actions>
     </form>
 </md-dialog>
