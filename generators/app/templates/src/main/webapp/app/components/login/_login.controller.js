@@ -60,10 +60,12 @@
         }
 
         function register () {
+            $mdDialog.hide();
             $state.go('register');
         }
 
         function requestResetPassword () {
+            $mdDialog.hide();
             $state.go('requestReset');
         }
     }

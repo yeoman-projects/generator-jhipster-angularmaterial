@@ -1,9 +1,13 @@
 <md-dialog>
     <form name="loginForm" ng-submit="vm.login($event)">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Login</h2>
+                <span flex></span>
+            </div>
+        </md-toolbar>
         <md-dialog-content>
             <div layout="column" layout-padding>
-                <div layout-gt-sm="row">
-                    
                     <md-input-container class="md-block" flex-gt-sm>
                             <label>Login</label>
                             <input ng-model="vm.username" id="username" name="username" required>
@@ -19,8 +23,16 @@
                                 <div ng-message="required">This is required</div>
                             </div>
                     </md-input-container>
+
+                     <%_ if (authenticationType == 'session' || authenticationType == 'jwt') { _%>
+                    <div>
+                        <label for="rememberMe">
+                            <input type="checkbox" id="rememberMe" ng-model="vm.rememberMe" checked>
+                            <span translate="login.form.rememberme">Remember me</span>
+                        </label>
+                    </div>
+                    <%_ } _%>
                     
-                </div>                
             </div>
         </md-dialog-content>
         
@@ -29,6 +41,13 @@
                 Sign in
             </md-button>
         </md-dialog-actions>
+
+        <div class="md-actions" layout="row">
+        
+            <span flex></span> 
+            <a class="alert-link" href="" ng-click="vm.requestResetPassword()">Did you forget your password?</a>
+            <a class="alert-link" href="" ng-click="vm.register()">Register a new account</a>
+        </div>
     </form>
 </md-dialog>
 
