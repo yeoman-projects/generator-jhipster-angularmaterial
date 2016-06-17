@@ -10,7 +10,7 @@
         </md-toolbar>
         <md-dialog-content>
             <div layout="column" layout-padding>
-                <div layout-gt-sm="row">
+                <div layout="column">
                     <%_ for (idx in fields) {
                         var fieldName = fields[idx].fieldName;
                         var fieldNameCapitalized = fields[idx].fieldNameCapitalized;
@@ -114,7 +114,7 @@
                     
                     
                 </div>
-                <div layout-gt-sm="row">
+                <div layout="column">
                     <%_ for (idx in relationships) {
                             var relationshipType = relationships[idx].relationshipType;
                             var ownerSide = relationships[idx].ownerSide;
@@ -152,7 +152,7 @@
         
         <md-input-container>
         <label translate="<%= keyPrefix %><%= relationshipName %>"><%= relationshipNameHumanized %></label>
-        <md-select name="<%= relationshipFieldName %>" ng-model="vm.<%= entityInstance  + "." + relationshipFieldName%>" multiple >        
+        <md-select name="<%= relationshipFieldName %>" ng-model-options="{trackBy: '$value.id'}" ng-model="vm.<%= entityInstance  + "." + relationshipFieldName%>" multiple >        
             <md-option ng-value="<%=otherEntityName %>" ng-repeat="<%=otherEntityName %> in vm.<%= relationships[idx].otherEntityNameCapitalizedPlural.toLowerCase() %> ">{{<%= otherEntityName + "." + otherEntityField %>}}</md-option>
         </md-select>
        
@@ -164,7 +164,7 @@
 												<%_ if (dto == 'no') { _%>
                                                 <md-input-container>
         <label translate="<%= keyPrefix %><%= relationshipName %>"><%= relationshipNameHumanized %></label>
-        <md-select name="<%= relationshipFieldName %>" ng-model="vm.<%= entityInstance  + "." + relationshipFieldName%>" <% if (fields[idx].fieldValidate == true && fields[idx].fieldValidateRules.indexOf('required') != -1) { %>required<% } %>>        
+        <md-select name="<%= relationshipFieldName %>" ng-model-options="{trackBy: '$value.id'}" ng-model="vm.<%= entityInstance  + "." + relationshipFieldName%>" <% if (fields[idx].fieldValidate == true && fields[idx].fieldValidateRules.indexOf('required') != -1) { %>required<% } %>>        
             <md-option ng-value="<%=otherEntityName %>" ng-repeat="<%=otherEntityName %> in vm.<%= relationships[idx].otherEntityNameCapitalizedPlural.toLowerCase() %> ">{{<%= otherEntityName + "." + otherEntityField %>}}</md-option>
         </md-select>
         <%_ if (fields[idx].fieldValidate == true && fields[idx].fieldValidateRules.indexOf('required') != -1) { _%>
