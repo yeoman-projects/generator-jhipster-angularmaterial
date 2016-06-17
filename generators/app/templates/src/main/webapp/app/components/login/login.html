@@ -1,4 +1,4 @@
-<md-dialog>
+<md-dialog style="min-width:400px">
     <form name="loginForm" ng-submit="vm.login($event)">
         <md-toolbar>
             <div class="md-toolbar-tools">
@@ -37,16 +37,16 @@
         </md-dialog-content>
         
         <md-dialog-actions layout="row">
+            <a class="alert-link" href="" ng-click="vm.register()">Signup here</a>
+			<span flex></span> 
             <md-button type="submit" class="md-primary md-raised" ng-disabled="loginForm.$invalid">
                 Sign in
             </md-button>
         </md-dialog-actions>
 
-        <div class="md-actions" layout="row">
-        
+        <div class="md-actions" layout="row">        
             <span flex></span> 
-            <a class="alert-link" href="" ng-click="vm.requestResetPassword()">Did you forget your password?</a>
-            <a class="alert-link" href="" ng-click="vm.register()">Register a new account</a>
+            <a class="alert-link" href="" ng-click="vm.requestResetPassword()">Forgot your password?</a>
         </div>
     </form>
 </md-dialog>
