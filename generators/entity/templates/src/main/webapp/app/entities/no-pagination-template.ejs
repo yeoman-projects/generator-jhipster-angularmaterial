@@ -6,6 +6,9 @@
         <%_ if (searchEngine == 'elasticsearch') { _%>
         vm.search = search;
         vm.loadAll = loadAll;
+        vm.filter = {
+          show: false            
+        };
         <%_ } _%>
 
         loadAll();
@@ -24,4 +27,8 @@
             <%= entityClass %>Search.query({query: vm.searchQuery}, function(result) {
                 vm.<%= entityInstancePlural %> = result;
             });
+        }
+        function clear () {
+            vm.filter.show = false;
+			vm.searchQuery = null;
         }<%_ } _%>

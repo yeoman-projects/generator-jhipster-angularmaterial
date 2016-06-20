@@ -17,9 +17,7 @@
         };
         
         vm.selected = [];
-        vm.filter = {
-          show: false            
-        };
+        
         vm.limitOptions = [5, 10, 15];
         
         // Load Entity

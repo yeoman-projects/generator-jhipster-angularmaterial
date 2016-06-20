@@ -12,13 +12,6 @@
             open: open
         };
 
-        var vm = this;
-
-        var modalInstance = null;
-        var resetModal = function () {
-            modalInstance = null;
-        };
-
         return service;
         
         function open(ev) {
@@ -34,21 +27,14 @@
                     clickOutsideToClose: true,
                     fullscreen: useFullScreen
                 }).then( function() {
-                    self.openToast('Logged you In');
+
                 }, function() {
-                    self.openToast('You Cancelled dialog');
+
                 });
                       
         }
 
-        vm.openToast = function( message ) {
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent( message )
-                    .position('top right')
-                    .hideDelay(3000)
-                );
-        };
+
         
     }
 })();

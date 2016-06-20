@@ -9,6 +9,9 @@
         vm.loadAll = loadAll;
         vm.searchQuery = pagingParams.search;
         vm.currentSearch = pagingParams.search;
+        vm.filter = {
+          show: false            
+        };
         <%_ } _%>
         <%_ if (fieldsContainBlob) { _%>
         vm.openFile = DataUtils.openFile;
@@ -92,5 +95,7 @@
             vm.reverse = true;
             vm.currentSearch = null;
             vm.transition();
+            vm.filter.show = false;
+			vm.searchQuery = null;
         }
         <%_ } _%>

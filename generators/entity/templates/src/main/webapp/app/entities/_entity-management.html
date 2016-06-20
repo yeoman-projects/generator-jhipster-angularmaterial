@@ -8,11 +8,11 @@
                 <span translate="<%= keyPrefix %>home.title"><%= entityClassPluralHumanized %></span>
                 <span flex></span>
                 <%_ if (searchEngine == 'elasticsearch') { _%>
-                <md-button class="md-icon-button" ng-click="vm.filter.show = true" aria-label="filter_list">
+                <md-button aria-label="Filter <%= entityClassPluralHumanized %>" class="md-icon-button" ng-click="vm.filter.show = true" aria-label="filter_list">
                     <ng-md-icon icon="filter_list"></ng-md-icon>
                  </md-button>
                  <%_ } _%>
-                 <md-button class="md-icon-button" ng-click="vm.add<%= entityAngularJSName %>($event)">
+                 <md-button aria-label="Add <%= entityClassPluralHumanized %>" class="md-icon-button" ng-click="vm.add<%= entityAngularJSName %>($event)">
                     <ng-md-icon icon="playlist_add"></ng-md-icon>
                  </md-button>
             </div>
@@ -23,10 +23,10 @@
             <div class="md-toolbar-tools">
                 <span>{{vm.selected.length}} {{vm.selected.length > 1 ? 'items' : 'item'}} selected</span>
                 <span flex></span>
-                <md-button class="md-icon-button" ng-click="vm.delete<%= entityAngularJSName %>($event, vm.selected[0].id )">
+                <md-button aria-label="Delete <%= entityClassPluralHumanized %>" class="md-icon-button" ng-click="vm.delete<%= entityAngularJSName %>($event, vm.selected[0].id )">
                     <ng-md-icon icon="delete"></ng-md-icon>
                 </md-button>
-                <md-button class="md-icon-button" ng-click="vm.edit<%= entityAngularJSName %>($event, vm.selected[0] )">
+                <md-button aria-label="Edit <%= entityClassPluralHumanized %>" class="md-icon-button" ng-click="vm.edit<%= entityAngularJSName %>($event, vm.selected[0] )">
                     <ng-md-icon icon="mode_edit"></ng-md-icon>
                 </md-button>
             </div>
@@ -35,15 +35,15 @@
         <!-- Advanced Search Toolbar -->
         <%_ if (searchEngine == 'elasticsearch') { _%>
         <md-toolbar class="md-table-toolbar md-default ng-hide" ng-show="vm.filter.show && (vm.selected.length === 0)" aria-hidden="true" style="">
-            <div class="md-toolbar-tools">
-                <ng-md-icon icon="search" ng-click="vm.search(vm.searchQuery)"></ng-md-icon>
+            <div class="md-toolbar-tools">                
                 <form flex="" name="filter.form" class="ng-pristine ng-valid flex">
-                    <input type="text" ng-model="vm.searchQuery" id="searchQuery" placeholder="<% if (enableTranslation) { %>{{ '<%= keyPrefix %>home.search' | translate }}<% } else { %>Query<% } %>" class="ng-pristine ng-untouched ng-valid" aria-invalid="false">
+                    <input type="text" ng-model="vm.searchQuery" id="searchQuery" placeholder="<% if (enableTranslation) { %>{{ '<%= keyPrefix %>home.search' | translate }}<% } else { %>Query<% } %>" class="ng-pristine ng-untouched ng-valid flex" aria-invalid="false">
                 </form>
-                <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="vm.clear()" aria-label="close">
+                <ng-md-icon icon="search" ng-click="vm.search(vm.searchQuery)"></ng-md-icon>
+                <span flex></span>
+                <md-button aria-label="Close" class="md-icon-button md-button md-ink-ripple" ng-click="vm.clear()">
                     <ng-md-icon icon="clear"></ng-md-icon>
-                    <div class="md-ripple-container"></div>
-                </button>
+                </md-button>
              </div>
         </md-toolbar>
         <%_ } _%>

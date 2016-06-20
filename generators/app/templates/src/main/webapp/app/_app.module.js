@@ -14,7 +14,7 @@
             'ngStorage',  
             'ngCookies',
             'ngCacheBuster',
-            'mdPickers',             
+            'mdPickers',
             // jhipster-needle-angularjs-add-module JHipster will add new module here
             'ngMessages',
             'ngFileUpload'
