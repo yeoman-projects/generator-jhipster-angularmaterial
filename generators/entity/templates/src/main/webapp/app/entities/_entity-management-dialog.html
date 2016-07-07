@@ -147,7 +147,7 @@
         
         <md-input-container>
         <label translate="<%= keyPrefix %><%= relationshipName %>"><%= relationshipNameHumanized %></label>
-        <md-select name="<%= relationshipFieldName %>" ng-model-options="{trackBy: '$value.id'}" ng-model="vm.<%= entityInstance  + "." + relationshipFieldName%>" multiple >        
+        <md-select name="<%= relationshipFieldName %>" ng-model-options="{trackBy: '$value.id'}" ng-model="vm.<%= entityInstance  + "." + relationshipFieldNamePlural%>" multiple >        
             <md-option ng-value="<%=otherEntityName %>" ng-repeat="<%=otherEntityName %> in vm.<%= relationships[idx].otherEntityNameCapitalizedPlural.toLowerCase() %> ">{{<%= otherEntityName + "." + otherEntityField %>}}</md-option>
         </md-select>
        

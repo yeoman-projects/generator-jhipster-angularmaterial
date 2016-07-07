@@ -11,7 +11,7 @@
         var vm = this;
 
         vm.isAuthenticated = Principal.isAuthenticated;
-        vm.isHasAuthority = Principal.hasAuthority;
+        vm.hasAuthority = Principal.hasAuthority;
 
         vm.login = login;
         vm.logout = logout;

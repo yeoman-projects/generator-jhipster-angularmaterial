@@ -80,7 +80,7 @@
             
         };
         
-        // Add new Entity
+        // Edit existing Entity
         vm.edit<%= entityAngularJSName %> = function(ev, entity) {
                 var useFullScreen = ($mdMedia('sm') || $mdMedia('xs') );
                 var self = this;
