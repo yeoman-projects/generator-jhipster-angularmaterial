@@ -155,16 +155,16 @@ module.exports = LanguagesGenerator.extend({
     writing: function () {
         var insight = this.insight();
         this.languagesToApply && this.languagesToApply.forEach(function (language) {
-            if (!this.skipClient) {
-                this.installI18nClientFilesByLanguage(this, CLIENT_MAIN_SRC_DIR, language);
-            }
+            
+            this.installI18nClientFilesByLanguage(this, CLIENT_MAIN_SRC_DIR, language);
+            
             if (!this.skipServer) {
                 this.installI18nServerFilesByLanguage(this, SERVER_MAIN_RES_DIR, language);
             }
             insight.track('languages/language', language);
         }, this);
-        if (!this.skipClient) {
-            this.updateLanguagesInLanguageConstant(this.config.get('languages'));
-        }
+        
+        this.updateLanguagesInLanguageConstant(this.config.get('languages'));
+        
     }
 });

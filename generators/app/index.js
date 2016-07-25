@@ -134,13 +134,11 @@ module.exports = AngularMaterialGenerator.extend({
             this.template(MAIN_SRC_DIR + 'swagger-ui/_index.html', MAIN_SRC_DIR + 'swagger-ui/index.html', this, {});
             this.copy(MAIN_SRC_DIR + 'swagger-ui/images/throbber.gif', MAIN_SRC_DIR + 'swagger-ui/images/throbber.gif');
     },
-    /*
+  /*  
     writeLanguages: function () {
-        this.languagesToApply && this.languagesToApply.forEach(function (language) {
-          
-            if (!this.skipClient) {
-                this.installI18nClientFilesByLanguage(this, CLIENT_MAIN_SRC_DIR, language);
-            }
+        this.languagesToApply && this.languagesToApply.forEach(function (language) {          
+            
+            this.installI18nClientFilesByLanguage(this, CLIENT_MAIN_SRC_DIR, language);            
             
         }, this);
     },*/
@@ -261,9 +259,6 @@ module.exports = AngularMaterialGenerator.extend({
             //Layouts
 			this.template(ANGULAR_DIR + 'layouts/navbar/_navbar.html', ANGULAR_DIR + 'layouts/navbar/navbar.html', this, {});
             this.template(ANGULAR_DIR + 'layouts/navbar/_navbar.controller.js', ANGULAR_DIR + 'layouts/navbar/navbar.controller.js', this, {});
-            //this.template(ANGULAR_DIR + 'layouts/navbar/_navbar.factory.js', ANGULAR_DIR + 'layouts/navbar/navbar.factory.js', this, {});
-            //this.template(ANGULAR_DIR + 'layouts/navbar/_menu_link.directive.js', ANGULAR_DIR + 'layouts/navbar/menu_link.directive.js', this, {});
-            //this.template(ANGULAR_DIR + 'layouts/navbar/_menu_toggle.directive.js', ANGULAR_DIR + 'layouts/navbar/menu_toggle.directive.js', this, {});
 			this.copyHtml(ANGULAR_DIR + 'layouts/error/error.html', ANGULAR_DIR + 'layouts/error/error.html');
             this.copyHtml(ANGULAR_DIR + 'layouts/error/accessdenied.html', ANGULAR_DIR + 'layouts/error/accessdenied.html');
             this.copyJs(ANGULAR_DIR + 'layouts/error/_error.state.js', ANGULAR_DIR + 'layouts/error/error.state.js', this, {});

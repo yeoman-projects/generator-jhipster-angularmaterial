@@ -32,7 +32,7 @@ yo jhipster --skip-client
 
 yo jhipster-angularmaterial
 
-yo jhipster --with-dependencies --force
+yo jhipster --with-entities --force
 ```
 
 

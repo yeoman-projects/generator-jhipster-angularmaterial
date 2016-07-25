@@ -179,7 +179,7 @@ module.exports = JhipsterClientGenerator.extend({
             this.template(ANGULAR_DIR + 'services/_entity-search.service.js', ANGULAR_DIR + 'entities/' + this.entityFolderName + '/' + this.entityServiceFileName + '.search.service' + '.js', this, {});
         }
 		
-        // Copy for each entity languages
+        // This should go in app !!!  Copy for each entity languages
         if (this.enableTranslation) {
             var languages = this.languages || this.getAllInstalledLanguages();
             languages.forEach(function (language) {
