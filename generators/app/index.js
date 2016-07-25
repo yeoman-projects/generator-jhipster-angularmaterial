@@ -67,7 +67,7 @@ module.exports = AngularMaterialGenerator.extend({
       this.TEST_SRC_DIR = TEST_SRC_DIR;
       this.DIST_DIR = DIST_DIR;
       this.BUILD_DIR = BUILD_DIR,
-      this.packagejs = { 'version' : '3.1.0' };
+      this.packagejs = { 'version' : '3.5.1' };
             
       this.serverPort = this.config.get('serverPort') || 8080;
       this.authenticationType = jhipsterVar.authenticationType;
