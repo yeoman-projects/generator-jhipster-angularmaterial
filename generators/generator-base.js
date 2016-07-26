@@ -71,8 +71,8 @@ Generator.prototype.composeLanguagesSub = function (generator, configOptions, ty
         generator.composeWith('jhipster:languages', {
             options: {
                 'skip-install': true,
-                'skip-server': skipServer,
-                'skip-client': skipClient,
+                'skip-server': true,
+                'skip-client': false,
                 configOptions: configOptions
             },
             args: generator.languages

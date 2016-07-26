@@ -97,6 +97,28 @@ module.exports = AngularMaterialGenerator.extend({
       this.nativeLanguageShortName = this.enableTranslation && this.nativeLanguage ? this.nativeLanguage.split('-')[0] : 'en';
     }
   },
+  default: {
+      composeLanguages: function () {
+          var configOptions = {};
+      
+            configOptions.applicationType = this.config.get('authenticationType');
+            configOptions.baseName = jhipsterVar.baseName;
+            configOptions.websocket = jhipsterVar.websocket;
+            configOptions.databaseType =  jhipsterVar.databaseType;
+            configOptions.searchEngine =  jhipsterVar.searchEngine;
+            configOptions.enableTranslation = jhipsterVar.enableTranslation;
+            configOptions.nativeLanguage = jhipsterVar.nativeLanguage;
+            
+            configOptions.enableSocialSignIn = jhipsterVar.enableSocialSignIn;
+
+            // As argument
+            this.languages = jhipsterVar.languages;
+            this.enableTranslation = jhipsterVar.enableTranslation;
+
+            if (this.skipI18n) return;
+            this.composeLanguagesSub(this, configOptions, 'client');
+        },
+  },
   writing: {
     writeCommonFiles: function () {
 

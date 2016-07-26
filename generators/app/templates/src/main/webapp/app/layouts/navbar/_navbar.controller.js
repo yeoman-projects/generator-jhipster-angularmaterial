@@ -16,9 +16,17 @@
         vm.login = login;
         vm.logout = logout;
         vm.$state = $state;
+        vm.register = register;
 
         function login(ev) {
             LoginService.open(ev);
+        }
+
+        function register(ev) {
+            var state = {
+                event: $event
+            };
+            $state.go('register', state);
         }
 
         function logout() {
