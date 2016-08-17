@@ -24,6 +24,10 @@
             resolve: {
                 mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
                     $translatePartialLoader.addPart('home');
+                    $translatePartialLoader.addPart('login');
+                    $translatePartialLoader.addPart('register');
+                    $translatePartialLoader.addPart('password');
+                    $translatePartialLoader.addPart('activate');
                     return $translate.refresh();
                 }]
             }

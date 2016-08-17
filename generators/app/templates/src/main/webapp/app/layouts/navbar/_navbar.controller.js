@@ -17,16 +17,18 @@
         vm.logout = logout;
         vm.$state = $state;
         vm.register = register;
+        vm.passwordReset = passwordReset;
 
         function login(ev) {
             LoginService.open(ev);
         }
 
         function register(ev) {
-            var state = {
-                event: $event
-            };
-            $state.go('register', state);
+            LoginService.register(ev);
+        }
+
+        function passwordReset(ev) {
+            LoginService.openResetPassword(ev);
         }
 
         function logout() {

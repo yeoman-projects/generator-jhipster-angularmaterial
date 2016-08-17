@@ -9,7 +9,10 @@
 
     function LoginService ($mdDialog, $mdMedia) {
         var service = {
-            open: open
+            open: open,
+            openResetPassword: openResetPassword,
+            register: register,
+            openActivate: openActivate
         };
 
         return service;

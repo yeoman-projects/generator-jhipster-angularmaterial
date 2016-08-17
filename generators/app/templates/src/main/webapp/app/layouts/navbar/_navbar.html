@@ -11,7 +11,7 @@
       <ng-md-icon icon="settings"></ng-md-icon>
       <p>Settings</p>
     </md-list-item>
-    <md-list-item ng-show="vm.isAuthenticated()" ui-sref="password">
+    <md-list-item ng-click="vm.passwordReset($event)" ng-show="vm.isAuthenticated()" ui-sref="password">
       <ng-md-icon icon="verified_user"></ng-md-icon>
       <p>Password</p>
     </md-list-item>

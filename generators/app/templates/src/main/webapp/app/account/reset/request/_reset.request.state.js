@@ -5,34 +5,15 @@
         .module('<%=angularAppName%>')
         .config(stateConfig);
 
-    stateConfig.$inject = ['$stateProvider','$mdDialog','$mdMedia'];
+    stateConfig.$inject = ['$stateProvider'];
 
-    function stateConfig($stateProvider,$mdDialog,$mdMedia) {
+    function stateConfig($stateProvider) {
         $stateProvider.state('requestReset', {
             parent: 'account',
             url: '/reset/request',
             data: {
                 authorities: []
             },
-            onEnter: function($mdDialog, $state) {
-                var useFullScreen = ($mdMedia('sm') || $mdMedia('xs') );
-
-                $mdDialog.show({
-                    templateUrl: 'app/account/reset/request/reset.request.html',
-                    parent: angular.element(document.body),
-                    targetEvent: event,
-                    controller: 'RequestResetController',
-                    controllerAs: 'vm',
-                    clickOutsideToClose: true,
-                    fullscreen: useFullScreen
-                }).then( function() {
-
-                }, function() {
-
-                });
-               
-            },
-
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('reset');
