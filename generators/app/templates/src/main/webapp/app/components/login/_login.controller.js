@@ -5,9 +5,9 @@
         .module('<%=angularAppName%>')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$mdDialog','$rootScope', '$state', '$timeout', 'Auth'];
+    LoginController.$inject = ['$mdDialog','$rootScope', '$state', '$timeout', 'Auth','$mdToast','LoginService'];
 
-    function LoginController ($mdDialog,$rootScope, $state, $timeout, Auth) {
+    function LoginController ($mdDialog,$rootScope, $state, $timeout, Auth, $mdToast,LoginService) {
         var vm = this;
 
         vm.authenticationError = false;
@@ -52,19 +52,30 @@
                     Auth.resetPreviousState();
                     $state.go(previousState.name, previousState.params);
                 }
-            }).catch(function () {
+            }).catch(function (err) {
                 vm.authenticationError = true;
+                $mdDialog.hide();
+                vm.openToast( err.data.error_description );
             });
         }
 
-        function register () {
+        function register (ev) {
             $mdDialog.hide();
-            $state.go('register');
+            LoginService.register(ev);
         }
 
-        function requestResetPassword () {
+        function requestResetPassword (ev) {
             $mdDialog.hide();
-            $state.go('requestReset');
+            LoginService.requestResetPassword(ev);
+        }
+
+        vm.openToast = function( message ) {
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent( message )
+                    .position('top right')
+                    .hideDelay(3000)
+                );
         }
     }
 })();

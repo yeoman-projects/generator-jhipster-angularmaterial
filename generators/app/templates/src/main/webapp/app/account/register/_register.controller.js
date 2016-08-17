@@ -6,9 +6,9 @@
         .controller('RegisterController', RegisterController);
 
 
-    RegisterController.$inject = [<% if (enableTranslation){ %>'$translate',<% } %> '$timeout', 'Auth', 'LoginService'];
+    RegisterController.$inject = [<% if (enableTranslation){ %>'$translate',<% } %> '$timeout', 'Auth', 'LoginService','$mdDialog','$mdToast'];
 
-    function RegisterController (<% if (enableTranslation){ %>$translate, <% } %>$timeout, Auth, LoginService) {
+    function RegisterController (<% if (enableTranslation){ %>$translate, <% } %>$timeout, Auth, LoginService, $mdDialog, $mdToast) {
         var vm = this;
 
         vm.doNotMatch = null;
@@ -19,7 +19,14 @@
         vm.registerAccount = {};
         vm.success = null;
 
-        $timeout(function (){angular.element('#login').focus();});
+        vm.openToast = function( message ) {
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent( message )
+                    .position('top right')
+                    .hideDelay(3000)
+                );
+        }
 
         function register () {
             if (vm.registerAccount.password !== vm.confirmPassword) {
@@ -33,8 +40,10 @@
 
                 Auth.createAccount(vm.registerAccount).then(function () {
                     vm.success = 'OK';
+                    $mdDialog.hide();
                 }).catch(function (response) {
                     vm.success = null;
+                    vm.openToast( response.data );
                     if (response.status === 400 && response.data === 'login already in use') {
                         vm.errorUserExists = 'ERROR';
                     } else if (response.status === 400 && response.data === 'e-mail address already in use') {

@@ -12,7 +12,9 @@
             open: open,
             openResetPassword: openResetPassword,
             register: register,
-            openActivate: openActivate
+            openActivate: openActivate,
+            requestResetPassword: requestResetPassword,
+            requestFinishPassword: requestFinishPassword
         };
 
         return service;
@@ -66,6 +68,46 @@
                     parent: angular.element(document.body),
                     targetEvent: ev,
                     controller: 'RegisterController',
+                    controllerAs: 'vm',
+                    clickOutsideToClose: true,
+                    fullscreen: useFullScreen
+                }).then( function() {
+
+                }, function() {
+
+                });
+                      
+        }
+
+        function requestResetPassword(ev) {
+                var useFullScreen = ($mdMedia('sm') || $mdMedia('xs') );
+                var self = this;
+                
+                $mdDialog.show({
+                    templateUrl: 'app/account/reset/request/reset.request.html',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    controller: 'RequestResetController',
+                    controllerAs: 'vm',
+                    clickOutsideToClose: true,
+                    fullscreen: useFullScreen
+                }).then( function() {
+
+                }, function() {
+
+                });
+                      
+        }
+
+        function requestFinishPassword(ev) {
+                var useFullScreen = ($mdMedia('sm') || $mdMedia('xs') );
+                var self = this;
+                
+                $mdDialog.show({
+                    templateUrl: 'app/account/reset/finish/reset.finish.html',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    controller: 'ResetFinishController',
                     controllerAs: 'vm',
                     clickOutsideToClose: true,
                     fullscreen: useFullScreen

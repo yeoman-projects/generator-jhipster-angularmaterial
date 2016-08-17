@@ -37,7 +37,7 @@
         </md-dialog-content>
         
         <md-dialog-actions layout="row">
-            <a class="alert-link" href="" ng-click="vm.register()">Signup here</a>
+            <a class="alert-link" href="" ng-click="vm.register($event)">Signup here</a>
 			<span flex></span> 
             <md-button type="submit" class="md-primary md-raised" ng-disabled="loginForm.$invalid">
                 Sign in
@@ -46,7 +46,7 @@
 
         <div class="md-actions" layout="row">        
             <span flex></span> 
-            <a class="alert-link" href="" ng-click="vm.requestResetPassword()">Forgot your password?</a>
+            <a class="alert-link" href="" ng-click="vm.requestResetPassword($event)">Forgot your password?</a>
         </div>
     </form>
 </md-dialog>

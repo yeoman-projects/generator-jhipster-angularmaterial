@@ -5,7 +5,7 @@
   "testPath": "<%= TEST_SRC_DIR %>spec",
   "dependencies": {
     "angular-resource": "1.5.2",
-    "angular-material": "^1.0.7",
+    "angular-material": "^1.1.0",
     "angular-material-icons": "^0.7.0",
     "angular-material-data-table": "0.10.5",
     "angular-cache-buster": "0.4.3",
