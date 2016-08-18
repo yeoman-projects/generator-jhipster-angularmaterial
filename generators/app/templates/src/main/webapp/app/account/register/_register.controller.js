@@ -18,6 +18,8 @@
         vm.register = register;
         vm.registerAccount = {};
         vm.success = null;
+        vm.validationError = null;
+        vm.cancel = cancel;
 
         vm.openToast = function( message ) {
             $mdToast.show(
@@ -28,7 +30,11 @@
                 );
         }
 
-        function register () {
+        function cancel() {
+            $mdDialog.hide();
+        }
+
+        function register (registrationForm) {
             if (vm.registerAccount.password !== vm.confirmPassword) {
                 vm.doNotMatch = 'ERROR';
             } else {
@@ -43,13 +49,18 @@
                     $mdDialog.hide();
                 }).catch(function (response) {
                     vm.success = null;
+                    vm.validationError = response.data;
+                       
                     vm.openToast( response.data );
                     if (response.status === 400 && response.data === 'login already in use') {
                         vm.errorUserExists = 'ERROR';
+                        registrationForm.login.$setValidity('validationError', false);
                     } else if (response.status === 400 && response.data === 'e-mail address already in use') {
                         vm.errorEmailExists = 'ERROR';
+                        registrationForm.email.$setValidity('validationError', false);
                     } else {
                         vm.error = 'ERROR';
+                        registrationForm.login.$setValidity('validationError', false);
                     }
                 });
             }

@@ -18,7 +18,7 @@
                 </md-input-container>
 
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label>Login</label>
+                    <label>Password</label>
                     <input type="password" ng-model="vm.password" id="password" name="password" required>
                     <div ng-messages="loginForm.password.$error">
                         <div ng-message="required">This is required</div>
@@ -26,12 +26,12 @@
                 </md-input-container>
 
                 <%_ if (authenticationType == 'session' || authenticationType == 'jwt') { _%>
-                <div>
+                <md-input-container class="md-block" flex-gt-sm>
                     <label for="rememberMe">
                         <input type="checkbox" id="rememberMe" ng-model="vm.rememberMe" checked>
                         <span translate="login.form.rememberme">Remember me</span>
                     </label>
-                </div>
+                </md-input-container>
                 <%_ } _%>
 
             </div>

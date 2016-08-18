@@ -1,46 +1,70 @@
-<md-dialog style="min-width:400px">
+<md-dialog style="min-width:500px">
 
-            <form ng-show="!vm.success" name="registrationForm" role="form" novalidate ng-submit="vm.register()" show-validation>
-                 <md-toolbar>
-                    <div class="md-toolbar-tools">
-                        <h1 translate="register.title">Registration</h1>
-                        <span flex></span>
-                    </div>
-                </md-toolbar>
-                <md-dialog-content>
+    <form ng-show="!vm.success" name="registrationForm" role="form" novalidate ng-submit="vm.register(registrationForm)" show-validation>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h1 translate="register.title">Registration</h1>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
 
-                    <md-input-container class="md-block" flex-gt-sm>
-                        <label translate="global.form.username">Username</label>
-                        <input type="text" id="login" name="login" placeholder="{{'global.form.username.placeholder' | translate}}"
-                            ng-model="vm.registerAccount.login" ng-minlength=1 ng-maxlength=50 ng-pattern="/^[_'.@A-Za-z0-9-]*$/" required>
-                        
-                    </md-input-container>
-                    <md-input-container class="md-block" flex-gt-sm>
-                        <label translate="global.form.email">E-mail</label>
-                        <input type="email" id="email" name="email" placeholder="{{'global.form.email.placeholder' | translate}}"
-                            ng-model="vm.registerAccount.email" ng-minlength=5 ng-maxlength=100 required>
-                        
-                    </md-input-container>
-                    <md-input-container class="md-block" flex-gt-sm>
-                        <label translate="global.form.newpassword">New password</label>
-                        <input type="password" id="password" name="password" placeholder="{{'global.form.newpassword.placeholder' | translate}}"
-                            ng-model="vm.registerAccount.password" ng-minlength=4 ng-maxlength=50 required>
-                        
-                       
-                   </md-input-container>
-                    <md-input-container class="md-block" flex-gt-sm>
-                        <label translate="global.form.confirmpassword">New password confirmation</label>
-                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="{{'global.form.confirmpassword.placeholder' | translate}}"
-                            ng-model="vm.confirmPassword" ng-minlength=4 ng-maxlength=50 required>
-                        
-                    </md-input-container>
-                </md-dialog-content>
-                <md-dialog-actions layout="row">
-                    <span flex></span> 
-                    <md-button type="submit" class="md-primary md-raised" ng-disabled="registrationForm.$invalid"  translate="register.form.button">
-                        Register
-                    </md-button>
-                </md-dialog-actions>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label translate="global.form.username">Username</label>
+                <input type="text" id="login" name="login" placeholder="{{'global.form.username.placeholder' | translate}}" ng-model="vm.registerAccount.login"
+                    ng-focus="registrationForm.login.$setValidity('validationError', true);" ng-minlength=1 ng-maxlength=50 ng-pattern="/^[_'.@A-Za-z0-9-]*$/"
+                    required>
+                <div ng-messages="registrationForm.login.$error">
+                    <div ng-message="required">This is required</div>
+                    <div ng-message="md-maxlength">The username has to be less than 50 characters long.</div>
+                    <div ng-message="pattern">Username can only contain letter, number and _'.@-</div>
+                    <div ng-message="validationError">{{vm.validationError}}</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label translate="global.form.email">E-mail</label>
+                <input type="email" id="email" name="email" placeholder="{{'global.form.email.placeholder' | translate}}" ng-model="vm.registerAccount.email"
+                    ng-focus="registrationForm.email.$setValidity('validationError', true);" ng-minlength="5" ng-maxlength="100"
+                    ng-pattern="/^.+@.+\..+$/" required>
+                <div ng-messages="registrationForm.email.$error">
+                    <div ng-message="required">This is required</div>
+                    <div ng-message="md-minlength">The email has to at least 5 characters long.</div>
+                    <div ng-message="md-maxlength">The email has to be less than 100 characters long.</div>
+                    <div ng-message="pattern">This is not a valid email format</div>
+                    <div ng-message="validationError">{{vm.validationError}}</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label translate="global.form.newpassword">New password</label>
+                <input type="password" id="password" name="password" placeholder="{{'global.form.newpassword.placeholder' | translate}}"
+                    ng-model="vm.registerAccount.password" ng-minlength=4 ng-maxlength=50 required>
+                <div ng-messages="registrationForm.password.$error">
+                    <div ng-message="required">This is required</div>
+                    <div ng-message="md-minlength">The password has to at least 4 characters long.</div>
+                    <div ng-message="md-maxlength">The password has to be less than 50 characters long.</div>
+                </div>
 
-            </form>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label translate="global.form.confirmpassword">New password confirmation</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="{{'global.form.confirmpassword.placeholder' | translate}}"
+                    ng-model="vm.confirmPassword" ng-minlength=4 ng-maxlength=50 required>
+                <div ng-messages="registrationForm.confirmPassword.$error">
+                    <div ng-message="required">This is required</div>
+                    <div ng-message="md-minlength">The password has to at least 4 characters long.</div>
+                    <div ng-message="md-maxlength">The password has to be less than 50 characters long.</div>
+                </div>
+            </md-input-container>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="vm.cancel()">
+                Cancel
+            </md-button>
+            <md-button type="submit" class="md-primary md-raised" ng-disabled="registrationForm.$invalid" translate="register.form.button">
+                Register
+            </md-button>
+        </md-dialog-actions>
+
+    </form>
 </md-dialog>

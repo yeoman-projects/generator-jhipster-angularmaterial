@@ -1,6 +1,6 @@
 <md-dialog style="min-width:400px">
 
-            <form ng-show="!vm.success" name="resetForm" role="form" novalidate ng-submit="vm.requestReset()" show-validation>
+            <form ng-show="!vm.success" name="resetForm" role="form" novalidate ng-submit="vm.requestReset(resetForm)" show-validation>
                 <md-toolbar>
                     <div class="md-toolbar-tools">
                         <h1 translate="reset.request.title">Reset your password</h1>
@@ -12,8 +12,14 @@
                     <md-input-container class="md-block" flex-gt-sm>
                         <label translate="global.form.email">E-mail</label>
                         <input type="email" class="form-control" id="email" name="email" placeholder="{{'global.form.email.placeholder' | translate}}"
-                            ng-model="vm.resetAccount.email" ng-minlength=5 ng-maxlength=100 required>
-    
+                            ng-model="vm.resetAccount.email" ng-focus="resetForm.email.$setValidity('validationError', true);" ng-minlength=5 ng-maxlength=100 required>
+                        <div ng-messages="resetForm.email.$error">
+                            <div ng-message="required">This is required</div>
+                            <div ng-message="md-minlength">The email has to at least 5 characters long.</div>
+                            <div ng-message="md-maxlength">The email has to be less than 100 characters long.</div>
+                            <div ng-message="pattern">This is not a valid email format</div>
+                            <div ng-message="validationError">{{vm.validationError}}</div>
+                        </div>
                     </md-input-container>
                 </md-dialog-content>
                 <md-dialog-actions layout="row">

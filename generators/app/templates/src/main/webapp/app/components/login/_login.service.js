@@ -69,7 +69,7 @@
                     targetEvent: ev,
                     controller: 'RegisterController',
                     controllerAs: 'vm',
-                    clickOutsideToClose: true,
+                    clickOutsideToClose: false,
                     fullscreen: useFullScreen
                 }).then( function() {
 
