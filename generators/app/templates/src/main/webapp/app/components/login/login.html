@@ -1,5 +1,5 @@
 <md-dialog style="min-width:400px">
-    <form name="loginForm" ng-submit="vm.login($event)">
+    <form name="loginForm" ng-submit="vm.login(loginForm,$event)">
         <md-toolbar>
             <div class="md-toolbar-tools">
                 <h2>Login</h2>
@@ -8,47 +8,46 @@
         </md-toolbar>
         <md-dialog-content>
             <div layout="column" layout-padding>
-                    <md-input-container class="md-block" flex-gt-sm>
-                            <label>Login</label>
-                            <input ng-model="vm.username" id="username" name="username" required>
-                            <div ng-messages="loginForm.username.$error">
-                                <div ng-message="required">This is required</div>
-                            </div>
-                    </md-input-container>
-                    
-                    <md-input-container class="md-block" flex-gt-sm>
-                            <label>Login</label>
-                            <input type="password" ng-model="vm.password" id="password" name="password" required>
-                            <div ng-messages="loginForm.password.$error">
-                                <div ng-message="required">This is required</div>
-                            </div>
-                    </md-input-container>
-
-                     <%_ if (authenticationType == 'session' || authenticationType == 'jwt') { _%>
-                    <div>
-                        <label for="rememberMe">
-                            <input type="checkbox" id="rememberMe" ng-model="vm.rememberMe" checked>
-                            <span translate="login.form.rememberme">Remember me</span>
-                        </label>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Login</label>
+                    <input ng-model="vm.username" id="username" name="username" required>
+                    <div ng-messages="loginForm.username.$error">
+                        <div ng-message="required">This is required</div>
+                        <div ng-message="validationError">{{vm.validationError}}</div>
                     </div>
-                    <%_ } _%>
-                    
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Login</label>
+                    <input type="password" ng-model="vm.password" id="password" name="password" required>
+                    <div ng-messages="loginForm.password.$error">
+                        <div ng-message="required">This is required</div>
+                    </div>
+                </md-input-container>
+
+                <%_ if (authenticationType == 'session' || authenticationType == 'jwt') { _%>
+                <div>
+                    <label for="rememberMe">
+                        <input type="checkbox" id="rememberMe" ng-model="vm.rememberMe" checked>
+                        <span translate="login.form.rememberme">Remember me</span>
+                    </label>
+                </div>
+                <%_ } _%>
+
             </div>
         </md-dialog-content>
-        
+
         <md-dialog-actions layout="row">
             <a class="alert-link" href="" ng-click="vm.register($event)">Signup here</a>
-			<span flex></span> 
+            <span flex></span>
             <md-button type="submit" class="md-primary md-raised" ng-disabled="loginForm.$invalid">
                 Sign in
             </md-button>
         </md-dialog-actions>
 
-        <div class="md-actions" layout="row">        
-            <span flex></span> 
+        <div class="md-actions" layout="row">
+            <span flex></span>
             <a class="alert-link" href="" ng-click="vm.requestResetPassword($event)">Forgot your password?</a>
         </div>
     </form>
 </md-dialog>
-
-

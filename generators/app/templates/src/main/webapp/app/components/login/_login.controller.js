@@ -19,6 +19,7 @@
         vm.rememberMe = true;
         vm.requestResetPassword = requestResetPassword;
         vm.username = null;
+        vm.validationError = null;
 
         function cancel () {
             vm.credentials = {
@@ -29,7 +30,7 @@
             vm.authenticationError = false;
         }
 
-        function login (event) {
+        function login (loginForm, event) {
             event.preventDefault();
             Auth.login({
                 username: vm.username,
@@ -53,8 +54,9 @@
                     $state.go(previousState.name, previousState.params);
                 }
             }).catch(function (err) {
-                vm.authenticationError = true;
-                $mdDialog.hide();
+                vm.authenticationError = true;                
+                vm.validationError = err.data.error_description;
+                loginForm.username.$setValidity('validationError', false);                
                 vm.openToast( err.data.error_description );
             });
         }
