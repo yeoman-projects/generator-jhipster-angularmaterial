@@ -9,17 +9,17 @@
 
     function LoginService ($mdDialog, $mdMedia) {
         var service = {
-            open: open,
-            openResetPassword: openResetPassword,
-            register: register,
+            openLogin: openLogin,
+            openChangePassword: openChangePassword,
+            openRegister: openRegister,
             openActivate: openActivate,
-            requestResetPassword: requestResetPassword,
-            requestFinishPassword: requestFinishPassword
+            openRequestResetPassword: openRequestResetPassword,
+            openRequestFinishPassword: openRequestFinishPassword
         };
 
         return service;
         
-        function open(ev) {
+        function openLogin(ev) {
                 var useFullScreen = ($mdMedia('sm') || $mdMedia('xs') );
                 var self = this;
                 
@@ -39,7 +39,7 @@
                       
         }
 
-        function openResetPassword(ev) {
+        function openChangePassword(ev) {
                 var useFullScreen = ($mdMedia('sm') || $mdMedia('xs') );
                 var self = this;
                 
@@ -59,7 +59,7 @@
                       
         }
 
-        function register(ev) {
+        function openRegister(ev) {
                 var useFullScreen = ($mdMedia('sm') || $mdMedia('xs') );
                 var self = this;
                 
@@ -79,7 +79,7 @@
                       
         }
 
-        function requestResetPassword(ev) {
+        function openRequestResetPassword(ev) {
                 var useFullScreen = ($mdMedia('sm') || $mdMedia('xs') );
                 var self = this;
                 
@@ -99,7 +99,7 @@
                       
         }
 
-        function requestFinishPassword(ev) {
+        function openRequestFinishPassword(ev) {
                 var useFullScreen = ($mdMedia('sm') || $mdMedia('xs') );
                 var self = this;
                 

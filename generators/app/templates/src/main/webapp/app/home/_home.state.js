@@ -28,6 +28,7 @@
                     $translatePartialLoader.addPart('register');
                     $translatePartialLoader.addPart('password');
                     $translatePartialLoader.addPart('activate');
+                    $translatePartialLoader.addPart('reset');
                     return $translate.refresh();
                 }]
             }

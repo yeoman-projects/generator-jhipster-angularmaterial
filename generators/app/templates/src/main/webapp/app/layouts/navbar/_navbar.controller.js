@@ -20,15 +20,15 @@
         vm.passwordReset = passwordReset;
 
         function login(ev) {
-            LoginService.open(ev);
+            LoginService.openLogin(ev);
         }
 
         function register(ev) {
-            LoginService.register(ev);
+            LoginService.openRegister(ev);
         }
 
         function passwordReset(ev) {
-            LoginService.openResetPassword(ev);
+            LoginService.openChangePassword(ev);
         }
 
         function logout() {

@@ -18,6 +18,6 @@
             vm.error = 'ERROR';
         });
 
-        vm.login = LoginService.open;
+        vm.login = LoginService.openLogin;
     }
 })();

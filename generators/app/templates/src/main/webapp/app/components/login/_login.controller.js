@@ -61,12 +61,12 @@
 
         function register (ev) {
             $mdDialog.hide();
-            LoginService.register(ev);
+            LoginService.openRegister(ev);
         }
 
         function requestResetPassword (ev) {
             $mdDialog.hide();
-            LoginService.requestResetPassword(ev);
+            LoginService.openRequestResetPassword(ev);
         }
 
         vm.openToast = function( message ) {

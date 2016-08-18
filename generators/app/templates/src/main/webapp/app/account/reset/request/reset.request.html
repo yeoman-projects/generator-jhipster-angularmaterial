@@ -9,12 +9,12 @@
                 </md-toolbar>
                 <md-dialog-content>
 
-                <div class="form-group">
-                    <label translate="global.form.email">E-mail</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="{{'global.form.email.placeholder' | translate}}"
-                           ng-model="vm.resetAccount.email" ng-minlength=5 ng-maxlength=100 required>
-  
-                </div>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label translate="global.form.email">E-mail</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="{{'global.form.email.placeholder' | translate}}"
+                            ng-model="vm.resetAccount.email" ng-minlength=5 ng-maxlength=100 required>
+    
+                    </md-input-container>
                 </md-dialog-content>
                 <md-dialog-actions layout="row">
                     <span flex></span> 

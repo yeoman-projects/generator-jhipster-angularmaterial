@@ -19,24 +19,28 @@
     <!-- endbuild -->
 </head>
 <body  layout="row">
-
-     <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" ng-cloak>
-      <md-toolbar class="md-theme-indigo" layout="row">
-        <h2 class="md-toolbar-tools">Menu</h2>
-      </md-toolbar>
-      <md-content layout-padding>
-        <div ui-view="navbar">
-            <!-- Angular views -->
-        </div>    
-      </md-content>
-    </md-sidenav>
-    
         
+    <!-- SideNav -->
+        <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" ng-cloak>
+            <md-toolbar class="md-theme-indigo" layout="row">
+                <h2 class="md-toolbar-tools">Menu</h2>
+            </md-toolbar>
+            <md-content layout-padding>
+                <div ui-view="navbar">
+                    <!-- Angular views -->
+                </div>    
+            </md-content>
+        </md-sidenav>
         
     <div layout="column" flex id="wrapper" ng-cloak>
         <md-toolbar class="md-theme-indigo" layout="row">
+           <md-button class="md-icon-button" aria-label="menu">
+            <ng-md-icon icon="menu"></ng-md-icon>
+           </md-button>
            <h2 class="md-toolbar-tools">Main Toolbar</h2>
         </md-toolbar>
+        
+        <!-- Main -->
         <md-content>
            <div ui-view="content">
             <!-- Angular views -->
