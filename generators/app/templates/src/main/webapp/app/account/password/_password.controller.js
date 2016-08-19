@@ -5,30 +5,22 @@
         .module('<%=angularAppName%>')
         .controller('PasswordController', PasswordController);
 
-    PasswordController.$inject = ['Auth', 'Principal','$mdDialog','$mdToast'];
+    PasswordController.$inject = ['Auth', 'Principal','$mdDialog'];
 
-    function PasswordController (Auth, Principal, $mdDialog, $mdToast) {
+    function PasswordController (Auth, Principal, $mdDialog) {
         var vm = this;
 
         vm.changePassword = changePassword;
         vm.doNotMatch = null;
         vm.error = null;
         vm.success = null;
-
-        vm.openToast = function( message ) {
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent( message )
-                    .position('top right')
-                    .hideDelay(3000)
-                );
-        }
+        vm.validationError = null;
 
         Principal.identity().then(function(account) {
             vm.account = account;
         });
 
-        function changePassword () {
+        function changePassword (form) {
             if (vm.password !== vm.confirmPassword) {
                 vm.error = null;
                 vm.success = null;
@@ -42,8 +34,8 @@
                 }).catch(function (err) {
                     vm.success = null;
                     vm.error = 'ERROR';
-                    $mdDialog.hide();
-                    vm.openToast( err.data );
+                    vm.validationError = err.data;
+                    form.password.$setValidity('validationError', false);
                 });
             }
         }

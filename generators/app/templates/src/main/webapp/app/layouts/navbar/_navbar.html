@@ -29,36 +29,36 @@
     </md-list-item>
     <md-divider></md-divider>
 
-    <md-subheader class="md-no-sticky" ng-show="vm.hasAnyAuthority('ROLE_ADMIN')">Administration</md-subheader>
-    <md-list-item ng-show="vm.hasAnyAuthority('ROLE_ADMIN')" ui-sref="user-management">
+    <md-subheader class="md-no-sticky" ng-show="vm.hasAuthority('ROLE_ADMIN')">Administration</md-subheader>
+    <md-list-item  ui-sref="user-management">
       <ng-md-icon icon="person"></ng-md-icon>
       <p>User management</p>
     </md-list-item>
-    <md-list-item ng-show="vm.hasAnyAuthority('ROLE_ADMIN')" ui-sref="<%=jhiPrefix%>-metrics">
+    <md-list-item  ui-sref="<%=jhiPrefix%>-metrics">
       <ng-md-icon icon="av_timer"></ng-md-icon>
       <p>Metrics</p>
     </md-list-item>
-    <md-list-item ng-show="vm.hasAnyAuthority('ROLE_ADMIN')" ui-sref="<%=jhiPrefix%>-health">
+    <md-list-item  ui-sref="<%=jhiPrefix%>-health">
       <ng-md-icon icon="healing"></ng-md-icon>
       <p>Health</p>
     </md-list-item>
-    <md-list-item ng-show="vm.hasAnyAuthority('ROLE_ADMIN')" ui-sref="<%=jhiPrefix%>-configuration">
+    <md-list-item  ui-sref="<%=jhiPrefix%>-configuration">
       <ng-md-icon icon="settings"></ng-md-icon>
       <p>Configuration</p>
     </md-list-item>
-    <md-list-item ng-show="vm.hasAnyAuthority('ROLE_ADMIN')" ui-sref="audits">
+    <md-list-item  ui-sref="audits">
       <ng-md-icon icon="assignment"></ng-md-icon>
       <p>Audits</p>
     </md-list-item>
-    <md-list-item ng-show="vm.hasAnyAuthority('ROLE_ADMIN')" ui-sref="logs">
+    <md-list-item  ui-sref="logs">
       <ng-md-icon icon="receipt"></ng-md-icon>
       <p>Logs</p>
     </md-list-item>
-    <md-list-item ng-show="vm.hasAnyAuthority('ROLE_ADMIN')" ui-sref="docs">
+    <md-list-item  ui-sref="docs">
       <ng-md-icon icon="my_library_books"></ng-md-icon>
       <p>API</p>
     </md-list-item>
-    <md-list-item ng-show="vm.hasAnyAuthority('ROLE_ADMIN')" href='/h2-console' target="_tab">
+    <md-list-item  href='/h2-console' target="_tab">
       <ng-md-icon icon="my_library_books"></ng-md-icon>
       <p>Database</p>
     </md-list-item>

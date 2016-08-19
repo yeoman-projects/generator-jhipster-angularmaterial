@@ -11,13 +11,15 @@
         var vm = this;
 
         vm.isAuthenticated = Principal.isAuthenticated;
-        vm.hasAuthority = Principal.hasAuthority;
+        
+        vm.hasAnyAuthority = Principal.hasAnyAuthority;
 
         vm.login = login;
         vm.logout = logout;
         vm.$state = $state;
         vm.register = register;
         vm.passwordReset = passwordReset;
+        vm.hasAuthority = hasAuthority;
 
         function login(ev) {
             LoginService.openLogin(ev);
@@ -36,5 +38,18 @@
             $state.go('home');
         }
 
+        function hasAuthority(authority) {
+
+            Principal.hasAuthority(authority)
+                .then(function (result) {
+                    if (result) {
+                        return true;
+                    } else {
+                        return false; 
+                    }
+                });
+
+            return false;
+        }
     }
 })();
