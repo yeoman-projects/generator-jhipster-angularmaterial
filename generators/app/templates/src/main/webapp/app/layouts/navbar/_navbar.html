@@ -29,7 +29,8 @@
     </md-list-item>
     <md-divider></md-divider>
 
-    <md-subheader class="md-no-sticky" ng-show="vm.hasAuthority('ROLE_ADMIN')">Administration</md-subheader>
+    <div ng-show="vm.hasAuthority('ROLE_ADMIN')">
+    <md-subheader class="md-no-sticky" >Administration</md-subheader>
     <md-list-item  ui-sref="user-management">
       <ng-md-icon icon="person"></ng-md-icon>
       <p>User management</p>
@@ -64,6 +65,6 @@
     </md-list-item>
     <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
     <md-divider></md-divider>
-
+    </div>
   </md-list>
 </md-content>

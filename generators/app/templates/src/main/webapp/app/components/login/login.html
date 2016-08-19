@@ -10,7 +10,7 @@
             <div layout="column" layout-padding>
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>Login</label>
-                    <input ng-model="vm.username" id="username" name="username" required>
+                    <input ng-model="vm.username" ng-focus="loginForm.username.$setValidity('validationError', true);" id="username" name="username" required>
                     <div ng-messages="loginForm.username.$error">
                         <div ng-message="required">This is required</div>
                         <div ng-message="validationError">{{vm.validationError}}</div>

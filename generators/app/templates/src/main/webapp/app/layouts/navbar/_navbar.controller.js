@@ -40,16 +40,9 @@
 
         function hasAuthority(authority) {
 
-            Principal.hasAuthority(authority)
-                .then(function (result) {
-                    if (result) {
-                        return true;
-                    } else {
-                        return false; 
-                    }
-                });
+            return Principal.hasAnyAuthority([authority]);
 
-            return false;
+            
         }
     }
 })();
