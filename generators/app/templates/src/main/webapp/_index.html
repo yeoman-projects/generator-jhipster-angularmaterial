@@ -1,13 +1,16 @@
 <!doctype html>
 <html ng-app="<%= angularAppName %>">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title><%= baseName %></title>
+    <title>
+        <%= baseName %>
+    </title>
     <meta name="description" content="">
-   
+
     <meta name="google" value="notranslate">
-   
+
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css content/css/vendor.css -->
@@ -18,36 +21,42 @@
     <link rel="stylesheet" href="content/css/main.css">
     <!-- endbuild -->
 </head>
-<body  layout="row">
-        
-    <!-- SideNav -->
-        <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" ng-cloak>
-            <md-toolbar class="md-theme-indigo" layout="row">
-                <h2 class="md-toolbar-tools">Menu</h2>
-            </md-toolbar>
-            <md-content layout-padding>
-                <div ui-view="navbar">
-                    <!-- Angular views -->
-                </div>    
-            </md-content>
-        </md-sidenav>
-        
+
+<body layout="row">
     <div layout="column" flex id="wrapper" ng-cloak>
         <md-toolbar class="md-theme-indigo" layout="row">
-           <md-button class="md-icon-button" aria-label="menu">
-            <ng-md-icon icon="menu"></ng-md-icon>
-           </md-button>
-           <h2 class="md-toolbar-tools">Main Toolbar</h2>
+            <md-button class="md-icon-button" aria-label="menu">
+                <ng-md-icon icon="menu"></ng-md-icon>
+            </md-button>
+            <h2 class="md-toolbar-tools">Main Toolbar</h2>
         </md-toolbar>
-        
-        <!-- Main -->
-        <md-content>
-           <div ui-view="content">
-            <!-- Angular views -->
-           </div>
-        </md-content>    
-    </div>
 
+        <section layout="row" flex>
+            <!-- SideNav -->
+            <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" ng-cloak>
+                <md-toolbar class="md-theme-indigo" layout="row">
+                    <span flex></span>
+                    <div layout="column" class="md-toolbar-tools-bottom inset">
+                        <user-avatar></user-avatar>
+                        <span></span>
+                        <div>Firstname Lastname</div>
+                        <div>email@domainname.com</div>
+                    </div>
+                </md-toolbar>
+                <md-content layout-padding>
+                    <div ui-view="navbar">
+                        <!-- Angular views -->
+                    </div>
+                </md-content>
+            </md-sidenav>
+            <!-- Main -->
+            <md-content>
+                <div ui-view="content">
+                    <!-- Angular views -->
+                </div>
+            </md-content>
+        </section>
+    </div>
 
     <!-- build:js app/vendor.js -->
     <!-- bower:js -->
@@ -60,4 +69,5 @@
     <!-- endbuild -->
 
 </body>
+
 </html>
