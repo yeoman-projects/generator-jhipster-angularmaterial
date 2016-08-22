@@ -33,4 +33,6 @@
             stateHandler.initialize();<% if (enableTranslation) { %>
             translationHandler.initialize();<% } %>
         }
+
+        
 })();

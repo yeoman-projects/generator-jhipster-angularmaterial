@@ -32,23 +32,11 @@
         </md-toolbar>
 
         <section layout="row" flex>
-            <!-- SideNav -->
-            <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" ng-cloak>
-                <md-toolbar class="md-theme-indigo" layout="row">
-                    <span flex></span>
-                    <div layout="column" class="md-toolbar-tools-bottom inset">
-                        <user-avatar></user-avatar>
-                        <span></span>
-                        <div>Firstname Lastname</div>
-                        <div>email@domainname.com</div>
-                    </div>
-                </md-toolbar>
-                <md-content layout-padding>
-                    <div ui-view="navbar">
-                        <!-- Angular views -->
-                    </div>
-                </md-content>
-            </md-sidenav>
+            <!-- SideNav -->            
+            <div ui-view="navbar">
+                <!-- Angular views -->
+            </div>
+
             <!-- Main -->
             <md-content>
                 <div ui-view="content">
