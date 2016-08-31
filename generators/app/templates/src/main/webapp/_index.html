@@ -23,13 +23,10 @@
 </head>
 
 <body layout="row">
-    <div layout="column" flex id="wrapper" ng-cloak>
-        <md-toolbar class="md-theme-indigo" layout="row">
-            <md-button class="md-icon-button" aria-label="menu">
-                <ng-md-icon icon="menu"></ng-md-icon>
-            </md-button>
-            <h2 class="md-toolbar-tools">Main Toolbar</h2>
-        </md-toolbar>
+    <div layout="column" flex id="wrapper" ng-cloak>        
+        <div ui-view="toolbar">
+                <!-- Angular views -->
+        </div>
 
         <section layout="row" flex>
             <!-- SideNav -->            
@@ -38,7 +35,7 @@
             </div>
 
             <!-- Main -->
-            <md-content>
+            <md-content layout="column" flex>
                 <div ui-view="content">
                     <!-- Angular views -->
                 </div>

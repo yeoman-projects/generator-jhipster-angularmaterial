@@ -32,6 +32,11 @@
                     templateUrl: 'app/layouts/navbar/navbar.html',
                     controller: 'NavbarController',
                     controllerAs: 'vm'
+                },
+                'toolbar@': {
+                    templateUrl: 'app/layouts/toolbar/toolbar.html',
+                    controller: 'ToolbarController',
+                    controllerAs: 'vm'
                 }
             },
             resolve: {

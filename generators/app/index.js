@@ -281,6 +281,8 @@ module.exports = AngularMaterialGenerator.extend({
             //Layouts
 			this.template(ANGULAR_DIR + 'layouts/navbar/_navbar.html', ANGULAR_DIR + 'layouts/navbar/navbar.html', this, {});
             this.template(ANGULAR_DIR + 'layouts/navbar/_navbar.controller.js', ANGULAR_DIR + 'layouts/navbar/navbar.controller.js', this, {});
+            this.template(ANGULAR_DIR + 'layouts/toolbar/_toolbar.html', ANGULAR_DIR + 'layouts/toolbar/toolbar.html', this, {});
+            this.template(ANGULAR_DIR + 'layouts/toolbar/_toolbar.controller.js', ANGULAR_DIR + 'layouts/toolbar/toolbar.controller.js', this, {});
 			this.copyHtml(ANGULAR_DIR + 'layouts/error/error.html', ANGULAR_DIR + 'layouts/error/error.html');
             this.copyHtml(ANGULAR_DIR + 'layouts/error/accessdenied.html', ANGULAR_DIR + 'layouts/error/accessdenied.html');
             this.copyJs(ANGULAR_DIR + 'layouts/error/_error.state.js', ANGULAR_DIR + 'layouts/error/error.state.js', this, {});
